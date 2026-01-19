@@ -1,34 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EduGenius AI</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <h1>EduGenius AI</h1>
-  <p>Smart Learning Platform for Class 5–10 Students</p>
 
-  <h2>Subjects</h2>
-  <ul>
-    <li>Mathematics</li>
-    <li>Science</li>
-    <li>English</li>
-    <li>Social Science</li>
-  </ul>
+  <!-- 🔴 TEST UPDATE -->
+  <h1 style="color:red; font-size:50px; text-align:center;">TEST UPDATE!</h1>
 
-  <h2>Ask a Question</h2>
-  <p>Coming Soon – AI Based Learning</p>
+  <!-- 🔹 HEADER -->
+  <header>
+    <h1 style="text-align:center;">EduGenius AI</h1>
+    <p style="text-align:center;">Smart Learning Platform for Class 5–10 Students</p>
+  </header>
 
-  <!-- 🔐 LOGIN SECTION -->
-  <h2>Login</h2>
-  <input type="email" id="email" placeholder="Email"><br><br>
-  <input type="password" id="password" placeholder="Password"><br><br>
-  <button onclick="login()">Login</button>
+  <!-- 🔹 SUBJECTS -->
+  <section>
+    <h2>Subjects</h2>
+    <ul>
+      <li>Mathematics</li>
+      <li>Science</li>
+      <li>English</li>
+      <li>Social Science</li>
+    </ul>
+  </section>
 
-  <p id="msg"></p>
+  <!-- 🔹 AI LEARNING -->
+  <section>
+    <h2>Ask a Question</h2>
+    <p>Coming Soon – AI Based Learning</p>
+  </section>
+
+  <!-- 🔹 LOGIN SECTION -->
+  <section>
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Email" style="width:90%; max-width:300px;"><br><br>
+    <input type="password" id="password" placeholder="Password" style="width:90%; max-width:300px;"><br><br>
+    <button onclick="login()">Login</button>
+    <p id="msg" style="color:green; font-weight:bold;"></p>
+  </section>
 
   <hr>
-  <p>© 2026 EduGenius AI</p>
+  <footer style="text-align:center;">
+    <p>© 2026 EduGenius AI</p>
+  </footer>
 
   <!-- 🔥 FIREBASE LOGIN SCRIPT -->
   <script type="module">
