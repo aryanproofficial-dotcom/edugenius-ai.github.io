@@ -3,6 +3,7 @@
 <head>
   <title>EduGenius AI</title>
 </head>
+
 <body>
   <h1>EduGenius AI</h1>
   <p>Smart Learning Platform for Class 5–10 Students</p>
@@ -18,6 +19,47 @@
   <h2>Ask a Question</h2>
   <p>Coming Soon – AI Based Learning</p>
 
+  <!-- 🔐 LOGIN SECTION -->
+  <h2>Login</h2>
+  <input type="email" id="email" placeholder="Email"><br><br>
+  <input type="password" id="password" placeholder="Password"><br><br>
+  <button onclick="login()">Login</button>
+
+  <p id="msg"></p>
+
+  <hr>
   <p>© 2026 EduGenius AI</p>
+
+  <!-- 🔥 FIREBASE LOGIN SCRIPT -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBCX7uxYy_3XdjZhUpsh5qZ5fTy-Ai3YqQ",
+      authDomain: "edugenius-ai69.firebaseapp.com",
+      projectId: "edugenius-ai69",
+      storageBucket: "edugenius-ai69.firebasestorage.app",
+      messagingSenderId: "108519318021",
+      appId: "1:108519318021:web:f05342a38336895945f26c"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.login = function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          document.getElementById("msg").innerText = "✅ Login successful!";
+        })
+        .catch((error) => {
+          document.getElementById("msg").innerText = "❌ " + error.message;
+        });
+    };
+  </script>
+
 </body>
 </html>
