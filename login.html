@@ -1,24 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EduGenius AI Login</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="card">
+  <!-- LOGIN CONTAINER -->
+  <div class="login-container">
 
-  <h2>EduGenius AI</h2>
-  <p>Smart Learning. Smarter Future.</p>
+    <!-- Logo -->
+    <img src="logo.png" alt="EduGenius AI Logo" class="login-logo">
 
-  <h3>Choose Login Method</h3>
+    <!-- Login Heading -->
+    <h2>Login</h2>
 
-  <input type="text" placeholder="Mobile Number">
-  <input type="password" placeholder="Password">
+    <!-- Email Input -->
+    <input type="email" id="email" placeholder="Email">
 
-  <button>Login</button>
+    <!-- Password Input -->
+    <input type="password" id="password" placeholder="Password">
 
-</div>
+    <!-- Login Button -->
+    <button onclick="login()">Login</button>
+
+    <!-- Message -->
+    <p id="msg"></p>
+
+    <p style="text-align:center;">© 2026 EduGenius AI</p>
+  </div>
+
+  <!-- FIREBASE LOGIN SCRIPT -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBCX7uxYy_3XdjZhUpsh5qZ5fTy-Ai3YqQ",
+      authDomain: "edugenius-ai69.firebaseapp.com",
+      projectId: "edugenius-ai69",
+      storageBucket: "edugenius-ai69.firebasestorage.app",
+      messagingSenderId: "108519318021",
+      appId: "1:108519318021:web:f05342a38336895945f26c"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.login = function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          document.getElementById("msg").innerText = "✅ Login successful!";
+          // Redirect to index.html after 1.5 seconds
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 1500);
+        })
+        .catch((error) => {
+          document.getElementById("msg").innerText = "❌ " + error.message;
+        });
+    };
+  </script>
 
 </body>
 </html>
