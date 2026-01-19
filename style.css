@@ -1,29 +1,181 @@
+/* ===========================
+   GENERAL STYLES
+=========================== */
 body {
-  background: #f2f5f9;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f4f8; /* light background */
+  color: #333;
+  line-height: 1.6;
 }
 
-.card {
-  width: 300px;
-  background: white;
-  margin: 100px auto;
+/* Links */
+a {
+  color: #00bcd4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Headers */
+h1, h2 {
+  margin: 10px 0;
+  color: #333;
+}
+
+/* Center content for homepage sections */
+header, section, footer {
+  max-width: 900px;
+  margin: auto;
   padding: 20px;
-  border-radius: 15px;
+}
+
+/* ===========================
+   HOMEPAGE STYLES
+=========================== */
+
+/* Logo at top of index.html */
+header h1 {
   text-align: center;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  font-size: 2.2em;
 }
 
-input {
-  width: 90%;
-  padding: 10px;
-  margin: 8px 0;
+header p {
+  text-align: center;
+  font-size: 1.1em;
+  margin-bottom: 20px;
 }
 
+/* Subjects list */
+section ul {
+  list-style-type: square;
+  padding-left: 40px;
+}
+
+section ul li {
+  margin-bottom: 8px;
+  font-size: 1em;
+}
+
+/* Buttons */
 button {
-  width: 95%;
-  padding: 10px;
-  background: blue;
-  color: white;
+  cursor: pointer;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #00bcd4;
+  color: #fff;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0097a7;
+}
+
+/* Inputs */
+input[type="email"],
+input[type="password"] {
+  width: 90%;
+  max-width: 400px;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Message for login */
+#msg {
+  margin-top: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 10px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* ===========================
+   LOGIN PAGE STYLES
+=========================== */
+
+/* Center login container */
+.login-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  margin: 50px auto; /* space from top */
+}
+
+/* Logo inside login page */
+.login-logo {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+/* Login heading */
+.login-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Inputs inside login */
+.login-container input {
+  width: 90%;
+  max-width: 350px;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+/* Login button */
+.login-container button {
+  width: 95%;
+  padding: 12px;
+  background: #00bcd4;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background: #0097a7;
+}
+
+/* Login message */
+.login-container #msg {
+  margin-top: 15px;
+  font-weight: bold;
+  color: green;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 600px) {
+  header, section, footer, .login-container {
+    padding: 15px;
+  }
+
+  input[type="email"], input[type="password"], button {
+    font-size: 15px;
+  }
 }
