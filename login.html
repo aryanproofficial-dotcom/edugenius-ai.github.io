@@ -3,33 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EduGenius AI Login</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Login | EduGenius AI</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1ccad8, #6a11cb);
+      font-family: Arial, sans-serif;
+    }
+
+    .login-container {
+      background: #ffffff;
+      width: 90%;
+      max-width: 360px;
+      padding: 25px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .login-logo {
+      width: 70px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin: 8px 0;
+      color: #222;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      background: #6a11cb;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+
+    #msg {
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 18px;
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
 </head>
+
 <body>
 
-  <!-- LOGIN CONTAINER -->
   <div class="login-container">
 
-    <!-- Logo -->
     <img src="logo.png" alt="EduGenius AI Logo" class="login-logo">
 
-    <!-- Login Heading -->
-    <h2>Login</h2>
+    <h2>EduGenius AI</h2>
+    <p class="tagline">Smart Learning. Smarter Future.</p>
 
-    <!-- Email Input -->
-    <input type="email" id="email" placeholder="Email">
-
-    <!-- Password Input -->
+    <input type="email" id="email" placeholder="Email address">
     <input type="password" id="password" placeholder="Password">
 
-    <!-- Login Button -->
-    <button onclick="login()">Login</button>
+    <button id="loginBtn" onclick="login()">Login</button>
 
-    <!-- Message -->
     <p id="msg"></p>
 
-    <p style="text-align:center;">© 2026 EduGenius AI</p>
+    <div class="footer">© 2026 EduGenius AI</div>
   </div>
 
   <!-- FIREBASE LOGIN SCRIPT -->
@@ -52,17 +120,22 @@
     window.login = function () {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
+      const msg = document.getElementById("msg");
+      const btn = document.getElementById("loginBtn");
+
+      msg.innerText = "Logging in...";
+      btn.disabled = true;
 
       signInWithEmailAndPassword(auth, email, password)
         .then(() => {
-          document.getElementById("msg").innerText = "✅ Login successful!";
-          // Redirect to index.html after 1.5 seconds
+          msg.innerText = "✅ Login successful!";
           setTimeout(() => {
             window.location.href = "index.html";
-          }, 1500);
+          }, 1200);
         })
         .catch((error) => {
-          document.getElementById("msg").innerText = "❌ " + error.message;
+          msg.innerText = "❌ " + error.message;
+          btn.disabled = false;
         });
     };
   </script>
