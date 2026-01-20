@@ -1,148 +1,182 @@
-/* ===========================
-   GENERAL STYLES
-=========================== */
-body {
-  font-family: Arial, sans-serif;
+/* ===== Reset ===== */
+* {
   margin: 0;
   padding: 0;
-  background-color: #ffffff; /* White background */
-  color: #333;
-  line-height: 1.6;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* Headers */
-h1, h2 {
-  margin: 10px 0;
-  color: #333;
-  font-weight: 600;
+/* ===== Body & Page Styling ===== */
+body {
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Center content sections */
-header, section, footer {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
+/* ===== Header ===== */
+.header {
   text-align: center;
+  padding: 2rem 1rem 1rem;
+  color: white;
 }
 
-/* ===========================
-   HEADER LOGO
-=========================== */
-.header-logo {
-  width: 120px; /* Adjust logo size */
-  max-width: 30%;
-  height: auto;
-  display: block;
-  margin: 20px auto;
+.header .logo {
+  width: 80px;
+  margin-bottom: 10px;
 }
 
-/* ===========================
-   LOGIN CONTAINER
-=========================== */
-.login-container {
-  background: #f9f9f9;
-  padding: 35px;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+.header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.3rem;
+}
+
+.header p {
+  font-size: 1rem;
+  color: #e0e0e0;
+}
+
+/* ===== Main Content ===== */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  width: 95%;
-  max-width: 480px;
-  margin: 40px auto;
+  color: white;
+  padding: 2rem;
 }
 
-/* Login Heading */
-.login-container h2 {
-  margin-bottom: 20px;
-  color: #333;
+.main-content h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
-/* Inputs inside login */
-.login-container input {
-  width: 90%;
-  max-width: 400px;
-  padding: 14px;
-  margin: 10px 0;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.main-content p {
+  margin-bottom: 2rem;
 }
 
-/* Buttons */
-.login-container button {
-  width: 95%;
-  padding: 14px;
-  margin-top: 10px;
-  border-radius: 10px;
+.btn-primary {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  color: white;
+  background-color: #ff6b6b;
   border: none;
-  font-size: 16px;
-  color: #fff;
-  background-color: #00bcd4;
+  border-radius: 50px;
   cursor: pointer;
-  transition: 0.3s;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-.login-container button:hover {
-  background-color: #0097a7;
+.btn-primary:hover {
+  background-color: #ff4757;
+  transform: translateY(-2px);
 }
 
-/* Login message */
-.login-container #msg {
-  margin-top: 15px;
-  font-weight: bold;
-  color: green;
-}
-
-/* Footer */
+/* ===== Footer ===== */
 footer {
   text-align: center;
-  padding: 10px;
-  font-size: 0.9em;
-  color: #666;
-  margin-top: 20px;
+  padding: 1rem;
+  background: rgba(0,0,0,0.1);
+  color: white;
+  font-size: 0.9rem;
 }
 
-/* ===========================
-   RESPONSIVE DESIGN
-=========================== */
-@media screen and (max-width: 600px) {
-  header, section, footer, .login-container {
-    padding: 15px;
-  }
-
-  h1 {
-    font-size: 24px;
-  }
-
-  h2 {
-    font-size: 18px;
-  }
-
-  input, button {
-    font-size: 15px;
-    padding: 12px;
-  }
+/* ===== Login Page ===== */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #00c6ff, #0072ff);
 }
 
-/* Desktop bigger layout */
-@media (min-width: 768px) {
-  .login-container {
-    max-width: 500px;
-    padding: 40px;
-  }
-
-  h1 {
-    font-size: 32px;
-  }
-
-  h2 {
-    font-size: 24px;
-  }
-
-  input, button {
-    font-size: 18px;
-    padding: 16px;
-  }
+.login-box {
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
 }
+
+.login-logo {
+  width: 70px;
+  margin-bottom: 1rem;
+}
+
+.login-box h2 {
+  color: #0072ff;
+  margin-bottom: 0.5rem;
+}
+
+.login-box p {
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  color: #555;
+}
+
+.input-group {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #0072ff;
+  box-shadow: 0 0 5px rgba(0, 114, 255, 0.5);
+}
+
+.signup-text {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.signup-text a {
+  color: #0072ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 480px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .main-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .btn-primary {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .login-box {
+    padding: 2rem 1.5rem;
+  }
+   }
