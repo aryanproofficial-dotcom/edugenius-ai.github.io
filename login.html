@@ -8,28 +8,53 @@
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="main-header">
-    <img src="logo.png" alt="EduGenius AI Logo" class="header-logo">
+  <!-- LOGIN CONTAINER -->
+  <div class="login-container">
+
+    <!-- Logo -->
+    <img src="logo.png" alt="EduGenius AI Logo" class="login-logo">
+
+    <!-- App Name -->
     <h1>EduGenius AI</h1>
     <p class="tagline">Smart Learning, Smarter Future</p>
-  </header>
 
-  <!-- LOGIN SECTION -->
-  <section class="login-section">
-    <h2>Login</h2>
-    <input type="email" id="email" placeholder="Email"><br><br>
-    <input type="password" id="password" placeholder="Password"><br><br>
-    <button onclick="login()">Login</button>
+    <!-- Optional Coming Soon -->
+    <p class="coming-soon">Coming Soon – Best AI Based Learning App</p>
+
+    <!-- Choose Login Method -->
+    <h2>Choose Login Method:</h2>
+
+    <!-- LOGIN METHOD BUTTONS -->
+    <div class="login-method-buttons">
+      <button onclick="showEmail()">Email Login</button>
+      <button onclick="showMobile()">Mobile Login</button>
+    </div>
+
+    <!-- Email Login Form -->
+    <div id="emailForm">
+      <input type="email" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="emailLogin()">Login with Email</button>
+    </div>
+
+    <!-- Mobile Login Form -->
+    <div id="mobileForm" style="display:none;">
+      <input type="tel" id="phone" placeholder="Mobile Number (+91)">
+      <button onclick="phoneLogin()">Send OTP</button>
+      <p class="note">OTP login will be enabled soon</p>
+    </div>
+
+    <!-- New Account -->
+    <p class="new-account">
+      New user? <a href="#">Create New Account</a>
+    </p>
+
+    <!-- Message -->
     <p id="msg"></p>
-  </section>
 
-  <hr>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2026 EduGenius AI</p>
-  </footer>
+    <!-- Footer -->
+    <p class="footer-text">© 2026 EduGenius AI</p>
+  </div>
 
   <!-- FIREBASE LOGIN SCRIPT -->
   <script type="module">
@@ -48,7 +73,8 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    window.login = function () {
+    // EMAIL LOGIN
+    window.emailLogin = function () {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
@@ -58,7 +84,7 @@
           msg.innerText = "✅ Login successful!";
           msg.style.color = "green";
           setTimeout(() => {
-            window.location.href = "index.html"; // redirect after login
+            window.location.href = "index.html";
           }, 1500);
         })
         .catch((error) => {
@@ -67,6 +93,24 @@
           msg.style.color = "red";
         });
     };
+
+    // PHONE LOGIN (TEMP)
+    window.phoneLogin = function () {
+      const msg = document.getElementById("msg");
+      msg.innerText = "📱 OTP login will be enabled soon";
+      msg.style.color = "orange";
+    };
+
+    // SWITCH FORMS
+    function showEmail() {
+      document.getElementById("emailForm").style.display = "block";
+      document.getElementById("mobileForm").style.display = "none";
+    }
+
+    function showMobile() {
+      document.getElementById("emailForm").style.display = "none";
+      document.getElementById("mobileForm").style.display = "block";
+    }
   </script>
 
 </body>
