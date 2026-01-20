@@ -8,37 +8,28 @@
 </head>
 <body>
 
-  <!-- LOGIN CONTAINER -->
-  <div class="login-container">
-
-    <!-- Logo -->
-    <img src="logo.png" alt="EduGenius AI Logo" class="login-logo">
-
-    <!-- App Name -->
+  <!-- HEADER -->
+  <header class="main-header">
+    <img src="logo.png" alt="EduGenius AI Logo" class="header-logo">
     <h1>EduGenius AI</h1>
     <p class="tagline">Smart Learning, Smarter Future</p>
+  </header>
 
-    <!-- Optional Coming Soon -->
-    <p class="coming-soon">Coming Soon – Best AI Based Learning App</p>
-
-    <!-- Login Heading -->
+  <!-- LOGIN SECTION -->
+  <section class="login-section">
     <h2>Login</h2>
-
-    <!-- Email Input -->
-    <input type="email" id="email" placeholder="Email">
-
-    <!-- Password Input -->
-    <input type="password" id="password" placeholder="Password">
-
-    <!-- Login Button -->
+    <input type="email" id="email" placeholder="Email"><br><br>
+    <input type="password" id="password" placeholder="Password"><br><br>
     <button onclick="login()">Login</button>
-
-    <!-- Message -->
     <p id="msg"></p>
+  </section>
 
-    <!-- Footer -->
-    <p class="footer-text">© 2026 EduGenius AI</p>
-  </div>
+  <hr>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 EduGenius AI</p>
+  </footer>
 
   <!-- FIREBASE LOGIN SCRIPT -->
   <script type="module">
@@ -65,15 +56,15 @@
         .then(() => {
           const msg = document.getElementById("msg");
           msg.innerText = "✅ Login successful!";
-          msg.className = "success";
+          msg.style.color = "green";
           setTimeout(() => {
-            window.location.href = "index.html";
+            window.location.href = "index.html"; // redirect after login
           }, 1500);
         })
         .catch((error) => {
           const msg = document.getElementById("msg");
           msg.innerText = "❌ " + error.message;
-          msg.className = "error";
+          msg.style.color = "red";
         });
     };
   </script>
