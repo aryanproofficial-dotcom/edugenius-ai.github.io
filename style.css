@@ -1,109 +1,60 @@
-* {
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
+/* ========== MOBILE (default) ========== */
 body {
+  font-family: Arial, sans-serif;
+  background: #ffffff;
   margin: 0;
   padding: 0;
-  background: white;
+  font-size: 16px; /* mobile base */
+}
+
+.login-container {
+  width: 95%;
+  max-width: 360px; /* mobile-friendly */
+  margin: 30px auto;
+  padding: 25px;
   text-align: center;
-}
-
-.container {
-  max-width: 380px;
-  margin: auto;
-  padding: 20px;
-}
-
-.logo {
-  width: 90px;   /* FIXED SIZE */
-  margin: 20px auto 10px;
-  display: block;
+  border-radius: 15px;
+  background: #ffffff;
 }
 
 h1 {
-  margin: 5px 0;
-}
-
-.tagline {
-  color: #555;
-  margin-bottom: 20px;
+  font-size: 24px;
+  margin-bottom: 5px;
 }
 
 h2 {
-  margin: 15px 0;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
-.login-methods {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 15px;
+input, button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 12px;
 }
 
-.login-methods button {
-  padding: 8px 16px;
-  border: 1px solid #6a1b9a;
-  background: white;
-  color: #6a1b9a;
-  cursor: pointer;
-  border-radius: 5px;
-}
+/* ========== DESKTOP ========== */
+@media (min-width: 768px) {
+  body {
+    font-size: 18px;
+  }
 
-.login-methods button:hover {
-  background: #6a1b9a;
-  color: white;
-}
+  .login-container {
+    max-width: 500px; /* bigger card for desktop */
+    padding: 40px;
+  }
 
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+  h1 {
+    font-size: 32px;
+  }
 
-.login-form input {
-  padding: 10px;
-  font-size: 14px;
-}
+  h2 {
+    font-size: 24px;
+  }
 
-.login-form button {
-  padding: 10px;
-  background: #6a1b9a;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.login-form button:hover {
-  background: #4a148c;
-}
-
-.hidden {
-  display: none;
-}
-
-.new-account {
-  margin-top: 15px;
-}
-
-.new-account a {
-  color: #6a1b9a;
-  text-decoration: none;
-}
-
-footer {
-  margin-top: 25px;
-  font-size: 12px;
-  color: gray;
-}
-
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  background: #6a1b9a;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
+  input, button {
+    font-size: 18px;
+    padding: 14px;
+  }
 }
