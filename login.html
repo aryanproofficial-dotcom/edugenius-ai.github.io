@@ -2,114 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EduGenius AI Login</title>
+  <title>Login – EduGenius AI</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- LOGIN CONTAINER -->
-  <div class="login-container">
+  <div class="container">
+    <img src="logo.png" alt="EduGenius AI Logo" class="logo">
 
-    <!-- Logo -->
-    <img src="logo.png" alt="EduGenius AI Logo" class="login-logo">
-
-    <!-- App Name -->
     <h1>EduGenius AI</h1>
     <p class="tagline">Smart Learning, Smarter Future</p>
 
-    <!-- Optional Coming Soon -->
-    <p class="coming-soon">Coming Soon – Best AI Based Learning App</p>
+    <h2>Choose Login Method</h2>
 
-    <!-- Choose Login Method -->
-    <h2>Choose Login Method:</h2>
-
-    <!-- LOGIN METHOD BUTTONS -->
-    <div class="login-method-buttons">
-      <button onclick="showEmail()">Email Login</button>
-      <button onclick="showMobile()">Mobile Login</button>
+    <!-- Login Method Buttons -->
+    <div class="login-methods">
+      <button onclick="showEmail()">Email</button>
+      <button onclick="showMobile()">Mobile</button>
     </div>
 
-    <!-- Email Login Form -->
-    <div id="emailForm">
-      <input type="email" id="email" placeholder="Email">
-      <input type="password" id="password" placeholder="Password">
-      <button onclick="emailLogin()">Login with Email</button>
-    </div>
+    <!-- Email Login -->
+    <form id="emailLogin" class="login-form">
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
 
-    <!-- Mobile Login Form -->
-    <div id="mobileForm" style="display:none;">
-      <input type="tel" id="phone" placeholder="Mobile Number (+91)">
-      <button onclick="phoneLogin()">Send OTP</button>
-      <p class="note">OTP login will be enabled soon</p>
-    </div>
+    <!-- Mobile Login -->
+    <form id="mobileLogin" class="login-form hidden">
+      <input type="tel" placeholder="Mobile Number" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
 
-    <!-- New Account -->
     <p class="new-account">
       New user? <a href="#">Create New Account</a>
     </p>
 
-    <!-- Message -->
-    <p id="msg"></p>
-
-    <!-- Footer -->
-    <p class="footer-text">© 2026 EduGenius AI</p>
+    <footer>© 2026 EduGenius AI</footer>
   </div>
 
-  <!-- FIREBASE LOGIN SCRIPT -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBCX7uxYy_3XdjZhUpsh5qZ5fTy-Ai3YqQ",
-      authDomain: "edugenius-ai69.firebaseapp.com",
-      projectId: "edugenius-ai69",
-      storageBucket: "edugenius-ai69.firebasestorage.app",
-      messagingSenderId: "108519318021",
-      appId: "1:108519318021:web:f05342a38336895945f26c"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // EMAIL LOGIN
-    window.emailLogin = function () {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          const msg = document.getElementById("msg");
-          msg.innerText = "✅ Login successful!";
-          msg.style.color = "green";
-          setTimeout(() => {
-            window.location.href = "index.html";
-          }, 1500);
-        })
-        .catch((error) => {
-          const msg = document.getElementById("msg");
-          msg.innerText = "❌ " + error.message;
-          msg.style.color = "red";
-        });
-    };
-
-    // PHONE LOGIN (TEMP)
-    window.phoneLogin = function () {
-      const msg = document.getElementById("msg");
-      msg.innerText = "📱 OTP login will be enabled soon";
-      msg.style.color = "orange";
-    };
-
-    // SWITCH FORMS
+  <script>
     function showEmail() {
-      document.getElementById("emailForm").style.display = "block";
-      document.getElementById("mobileForm").style.display = "none";
+      document.getElementById("emailLogin").classList.remove("hidden");
+      document.getElementById("mobileLogin").classList.add("hidden");
     }
 
     function showMobile() {
-      document.getElementById("emailForm").style.display = "none";
-      document.getElementById("mobileForm").style.display = "block";
+      document.getElementById("mobileLogin").classList.remove("hidden");
+      document.getElementById("emailLogin").classList.add("hidden");
     }
   </script>
 
