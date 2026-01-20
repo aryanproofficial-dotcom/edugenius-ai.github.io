@@ -21,9 +21,8 @@ body {
 }
 
 .header-logo {
-  width: 130px;
-  max-width: 50%;
-  height: auto;
+  width: 120px;   /* Fixed logo width */
+  height: auto;   /* Maintain aspect ratio */
   margin-bottom: 15px;
 }
 
@@ -39,29 +38,22 @@ body {
 }
 
 /* ===========================
-   COMING SOON SECTION
+   SECTIONS
 =========================== */
-.coming-soon {
-  text-align: center;
-  margin: 20px 0;
-}
-
-.coming-soon h2 {
-  font-size: 18px;
-  color: #444;
-  margin: 0;
-}
-
-/* ===========================
-   LOGIN SECTION
-=========================== */
+.coming-soon,
 .login-section {
   text-align: center;
   margin: 20px 0;
 }
 
+.coming-soon h2,
 .login-section h2 {
-  margin-bottom: 15px;
+  font-size: 18px;
+  color: #444;
+  margin: 0 0 15px 0;
+}
+
+.login-section h2 {
   font-size: 22px;
   color: #333;
 }
@@ -138,7 +130,8 @@ hr {
     font-size: 14px;
   }
 
-  .coming-soon h2 {
+  .coming-soon h2,
+  .login-section h2 {
     font-size: 16px;
   }
 
