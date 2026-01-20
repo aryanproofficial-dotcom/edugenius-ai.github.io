@@ -1,180 +1,151 @@
 /* ===========================
-   RESET & BASE
+   GENERAL STYLES
 =========================== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(135deg, #e0f7fa, #f0f4f8);
-  min-height: 100vh;
-
-  display: flex;
-  flex-direction: column; /* stack top-to-bottom */
-  align-items: center;    /* center horizontally */
-  justify-content: center; /* center vertically */
-  padding: 20px;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff; /* White background */
   color: #333;
-}
-
-/* ===========================
-   LOGIN CONTAINER
-=========================== */
-.login-container {
-  background: #ffffff;
-  width: 95%;
-  max-width: 400px;
-  padding: 45px 30px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
 }
 
 /* ===========================
-   LOGO IMAGE
+   HEADER
 =========================== */
-.login-logo {
-  width: 120px;    /* desktop size */
-  max-width: 40%;  /* smaller on mobile */
+.main-header {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.header-logo {
+  width: 130px;
+  max-width: 50%;
   height: auto;
   margin-bottom: 15px;
-  display: block;
 }
 
-/* ===========================
-   APP NAME & TAGLINE
-=========================== */
-.login-container h1 {
-  font-size: 28px;
+.main-header h1 {
+  font-size: 30px;
   margin-bottom: 5px;
-  color: #222;
 }
 
-.login-container .tagline {
+.tagline {
   font-size: 16px;
-  color: #666;
-  margin-bottom: 15px;
-}
-
-.login-container .coming-soon {
-  font-size: 14px;
   color: #555;
   margin-bottom: 20px;
 }
 
 /* ===========================
-   LOGIN HEADING
+   COMING SOON SECTION
 =========================== */
-.login-container h2 {
-  margin-bottom: 20px;
-  font-size: 22px;
-  color: #222;
+.coming-soon {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.coming-soon h2 {
+  font-size: 18px;
+  color: #444;
+  margin: 0;
 }
 
 /* ===========================
-   INPUT FIELDS
+   LOGIN SECTION
 =========================== */
-.login-container input[type="email"],
-.login-container input[type="password"] {
-  width: 100%;
-  padding: 14px 16px;
+.login-section {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.login-section h2 {
+  margin-bottom: 15px;
+  font-size: 22px;
+  color: #333;
+}
+
+.login-section input[type="email"],
+.login-section input[type="password"] {
+  width: 90%;
+  max-width: 300px;
+  padding: 12px;
+  margin: 8px 0;
   border-radius: 10px;
   border: 1px solid #ccc;
   font-size: 16px;
-  outline: none;
-  transition: border 0.3s;
+  box-sizing: border-box;
 }
 
-.login-container input:focus {
-  border-color: #00bcd4;
-}
-
-/* ===========================
-   LOGIN BUTTON
-=========================== */
-.login-container button {
-  width: 100%;
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 10px;
+.login-section button {
+  width: 90%;
+  max-width: 300px;
+  padding: 12px;
+  margin-top: 10px;
   border: none;
-  cursor: pointer;
-  background: #00bcd4;
+  border-radius: 10px;
+  background-color: #00bcd4;
   color: white;
-  transition: background 0.3s, transform 0.1s;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.login-container button:hover {
-  background: #0097a7;
+.login-section button:hover {
+  background-color: #0097a7;
 }
 
-.login-container button:active {
-  transform: scale(0.98);
-}
-
-/* ===========================
-   MESSAGE TEXT
-=========================== */
 #msg {
   margin-top: 10px;
   font-weight: bold;
   font-size: 14px;
 }
 
-#msg.success {
-  color: green;
-}
-
-#msg.error {
-  color: red;
-}
-
 /* ===========================
    FOOTER
 =========================== */
-.login-container .footer-text {
-  margin-top: 25px;
-  font-size: 13px;
-  color: #777;
+footer {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* ===========================
+   HORIZONTAL LINE
+=========================== */
+hr {
+  width: 80%;
+  border: 0.5px solid #ccc;
+  margin: 30px 0;
 }
 
 /* ===========================
    MOBILE RESPONSIVE
 =========================== */
-@media (max-width: 480px) {
-  .login-container {
-    padding: 35px 20px;
+@media screen and (max-width: 480px) {
+  .header-logo {
+    width: 90px;
+    margin-bottom: 10px;
   }
 
-  .login-container h1 {
+  .main-header h1 {
     font-size: 24px;
   }
 
-  .login-container h2 {
-    font-size: 20px;
-  }
-
-  .login-container .tagline {
+  .tagline {
     font-size: 14px;
-    margin-bottom: 10px;
   }
 
-  .login-container input[type="email"],
-  .login-container input[type="password"],
-  .login-container button {
-    font-size: 15px;
-    padding: 12px 14px;
+  .coming-soon h2 {
+    font-size: 16px;
   }
 
-  .login-logo {
-    width: 90px;
-    margin-bottom: 10px;
+  .login-section input[type="email"],
+  .login-section input[type="password"],
+  .login-section button {
+    font-size: 14px;
+    padding: 10px;
   }
 }
