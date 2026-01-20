@@ -21,8 +21,8 @@ body {
 }
 
 .header-logo {
-  width: 120px;
-  height: auto;
+  width: 120px;   /* Fixed logo width */
+  height: auto;   /* Maintain aspect ratio */
   margin-bottom: 15px;
 }
 
@@ -38,56 +38,43 @@ body {
 }
 
 /* ===========================
-   LOGIN METHODS BUTTONS
+   SECTIONS
 =========================== */
-.login-methods {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 20px;
+.coming-soon,
+.login-section {
+  text-align: center;
+  margin: 20px 0;
 }
 
-.login-methods button {
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: 1px solid #00bcd4;
-  background: white;
-  color: #00bcd4;
-  cursor: pointer;
-  transition: 0.3s;
+.coming-soon h2,
+.login-section h2 {
+  font-size: 18px;
+  color: #444;
+  margin: 0 0 15px 0;
 }
 
-.login-methods button:hover {
-  background: #00bcd4;
-  color: white;
+.login-section h2 {
+  font-size: 22px;
+  color: #333;
 }
 
-/* ===========================
-   LOGIN FORMS
-=========================== */
-.login-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.login-form input[type="email"],
-.login-form input[type="password"],
-.login-form input[type="tel"] {
+.login-section input[type="email"],
+.login-section input[type="password"] {
   width: 90%;
   max-width: 300px;
   padding: 12px;
+  margin: 8px 0;
   border-radius: 10px;
   border: 1px solid #ccc;
   font-size: 16px;
   box-sizing: border-box;
 }
 
-.login-form button {
+.login-section button {
   width: 90%;
   max-width: 300px;
   padding: 12px;
+  margin-top: 10px;
   border: none;
   border-radius: 10px;
   background-color: #00bcd4;
@@ -97,31 +84,10 @@ body {
   transition: 0.3s;
 }
 
-.login-form button:hover {
+.login-section button:hover {
   background-color: #0097a7;
 }
 
-/* HIDE ELEMENT */
-.hidden {
-  display: none;
-}
-
-/* CREATE ACCOUNT */
-.new-account {
-  margin-top: 15px;
-  font-size: 14px;
-}
-
-.new-account a {
-  color: #00bcd4;
-  text-decoration: none;
-}
-
-.new-account a:hover {
-  text-decoration: underline;
-}
-
-/* MESSAGE */
 #msg {
   margin-top: 10px;
   font-weight: bold;
@@ -164,9 +130,14 @@ hr {
     font-size: 14px;
   }
 
-  .login-methods button,
-  .login-form input,
-  .login-form button {
+  .coming-soon h2,
+  .login-section h2 {
+    font-size: 16px;
+  }
+
+  .login-section input[type="email"],
+  .login-section input[type="password"],
+  .login-section button {
     font-size: 14px;
     padding: 10px;
   }
