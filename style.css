@@ -1,144 +1,109 @@
-/* ===========================
-   GENERAL STYLES
-=========================== */
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #ffffff; /* White background */
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* ===========================
-   HEADER
-=========================== */
-.main-header {
+  background: white;
   text-align: center;
-  margin-top: 40px;
 }
 
-.header-logo {
-  width: 120px;   /* Fixed logo width */
-  height: auto;   /* Maintain aspect ratio */
-  margin-bottom: 15px;
+.container {
+  max-width: 380px;
+  margin: auto;
+  padding: 20px;
 }
 
-.main-header h1 {
-  font-size: 30px;
-  margin-bottom: 5px;
+.logo {
+  width: 90px;   /* FIXED SIZE */
+  margin: 20px auto 10px;
+  display: block;
+}
+
+h1 {
+  margin: 5px 0;
 }
 
 .tagline {
-  font-size: 16px;
   color: #555;
   margin-bottom: 20px;
 }
 
-/* ===========================
-   SECTIONS
-=========================== */
-.coming-soon,
-.login-section {
-  text-align: center;
-  margin: 20px 0;
+h2 {
+  margin: 15px 0;
 }
 
-.coming-soon h2,
-.login-section h2 {
-  font-size: 18px;
-  color: #444;
-  margin: 0 0 15px 0;
+.login-methods {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
-.login-section h2 {
-  font-size: 22px;
-  color: #333;
-}
-
-.login-section input[type="email"],
-.login-section input[type="password"] {
-  width: 90%;
-  max-width: 300px;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  box-sizing: border-box;
-}
-
-.login-section button {
-  width: 90%;
-  max-width: 300px;
-  padding: 12px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 10px;
-  background-color: #00bcd4;
-  color: white;
-  font-size: 16px;
+.login-methods button {
+  padding: 8px 16px;
+  border: 1px solid #6a1b9a;
+  background: white;
+  color: #6a1b9a;
   cursor: pointer;
-  transition: 0.3s;
+  border-radius: 5px;
 }
 
-.login-section button:hover {
-  background-color: #0097a7;
+.login-methods button:hover {
+  background: #6a1b9a;
+  color: white;
 }
 
-#msg {
-  margin-top: 10px;
-  font-weight: bold;
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-form input {
+  padding: 10px;
   font-size: 14px;
 }
 
-/* ===========================
-   FOOTER
-=========================== */
+.login-form button {
+  padding: 10px;
+  background: #6a1b9a;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.login-form button:hover {
+  background: #4a148c;
+}
+
+.hidden {
+  display: none;
+}
+
+.new-account {
+  margin-top: 15px;
+}
+
+.new-account a {
+  color: #6a1b9a;
+  text-decoration: none;
+}
+
 footer {
-  text-align: center;
-  margin: 20px 0;
-  font-size: 14px;
-  color: #666;
+  margin-top: 25px;
+  font-size: 12px;
+  color: gray;
 }
 
-/* ===========================
-   HORIZONTAL LINE
-=========================== */
-hr {
-  width: 80%;
-  border: 0.5px solid #ccc;
-  margin: 30px 0;
-}
-
-/* ===========================
-   MOBILE RESPONSIVE
-=========================== */
-@media screen and (max-width: 480px) {
-  .header-logo {
-    width: 90px;
-    margin-bottom: 10px;
-  }
-
-  .main-header h1 {
-    font-size: 24px;
-  }
-
-  .tagline {
-    font-size: 14px;
-  }
-
-  .coming-soon h2,
-  .login-section h2 {
-    font-size: 16px;
-  }
-
-  .login-section input[type="email"],
-  .login-section input[type="password"],
-  .login-section button {
-    font-size: 14px;
-    padding: 10px;
-  }
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #6a1b9a;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
 }
