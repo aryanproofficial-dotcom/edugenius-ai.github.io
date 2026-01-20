@@ -17,8 +17,10 @@ body {
 }
 
 .logo {
-  width: 90px;   /* FIXED SIZE */
-  margin: 20px auto 10px;
+  width: 100px;      /* smaller fixed width */
+  max-width: 100%;   /* never exceed container width */
+  height: auto;      /* maintain aspect ratio */
+  margin: 20px auto; /* center it */
   display: block;
 }
 
