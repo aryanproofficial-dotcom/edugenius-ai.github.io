@@ -10,52 +10,47 @@ body {
   line-height: 1.6;
 }
 
-/* Links */
-a {
-  color: #00bcd4;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
 /* Headers */
 h1, h2 {
   margin: 10px 0;
   color: #333;
+  font-weight: 600;
 }
 
-/* Center content for sections */
+/* Center content sections */
 header, section, footer {
   max-width: 900px;
   margin: auto;
   padding: 20px;
+  text-align: center;
 }
 
 /* ===========================
-   LOGIN PAGE STYLES
+   HEADER LOGO
 =========================== */
+.header-logo {
+  width: 120px; /* Adjust logo size */
+  max-width: 30%;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+}
 
-/* Center login container */
+/* ===========================
+   LOGIN CONTAINER
+=========================== */
 .login-container {
-  background: #fff;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+  background: #f9f9f9;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
   text-align: center;
   width: 95%;
-  max-width: 480px; /* Old bigger size */
-  margin: 50px auto; /* space from top */
+  max-width: 480px;
+  margin: 40px auto;
 }
 
-/* Logo inside login page */
-.login-logo {
-  width: 120px;
-  margin-bottom: 20px;
-}
-
-/* Login heading */
+/* Login Heading */
 .login-container h2 {
   margin-bottom: 20px;
   color: #333;
@@ -65,7 +60,7 @@ header, section, footer {
 .login-container input {
   width: 90%;
   max-width: 400px;
-  padding: 12px 15px;
+  padding: 14px;
   margin: 10px 0;
   border-radius: 10px;
   border: 1px solid #ccc;
@@ -75,21 +70,22 @@ header, section, footer {
   margin-right: auto;
 }
 
-/* Login button */
+/* Buttons */
 .login-container button {
   width: 95%;
-  padding: 12px;
-  background: #00bcd4;
-  color: #fff;
-  border-radius: 10px;
-  font-size: 16px;
+  padding: 14px;
   margin-top: 10px;
+  border-radius: 10px;
   border: none;
+  font-size: 16px;
+  color: #fff;
+  background-color: #00bcd4;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .login-container button:hover {
-  background: #0097a7;
+  background-color: #0097a7;
 }
 
 /* Login message */
@@ -105,15 +101,48 @@ footer {
   padding: 10px;
   font-size: 0.9em;
   color: #666;
+  margin-top: 20px;
 }
 
-/* Responsive adjustments */
+/* ===========================
+   RESPONSIVE DESIGN
+=========================== */
 @media screen and (max-width: 600px) {
   header, section, footer, .login-container {
     padding: 15px;
   }
 
-  input[type="email"], input[type="password"], button {
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  input, button {
     font-size: 15px;
+    padding: 12px;
+  }
+}
+
+/* Desktop bigger layout */
+@media (min-width: 768px) {
+  .login-container {
+    max-width: 500px;
+    padding: 40px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  input, button {
+    font-size: 18px;
+    padding: 16px;
   }
 }
