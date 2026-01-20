@@ -7,20 +7,69 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="header">
-    <img src="logo.png" alt="EduGenius AI Logo" class="logo">
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <img src="logo.png" alt="EduGenius AI Logo" class="header-logo">
     <h1>EduGenius AI</h1>
-    <p>Smart Learning. Smarter Future.</p>
+    <p class="tagline">Smart Learning, Smarter Future</p>
   </header>
 
-  <main class="main-content">
-    <h2>Welcome to EduGenius AI</h2>
-    <p>Choose your login method to start learning.</p>
-    <a href="login.html" class="btn-primary">Login / Sign Up</a>
-  </main>
+  <!-- COMING SOON -->
+  <section class="coming-soon">
+    <h2>Coming Soon – Best AI Based Learning App</h2>
+  </section>
 
+  <!-- LOGIN SECTION (quick login on homepage) -->
+  <section class="login-section">
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Email"><br><br>
+    <input type="password" id="password" placeholder="Password"><br><br>
+    <button onclick="login()">Login</button>
+    <p id="msg"></p>
+  </section>
+
+  <hr>
+
+  <!-- FOOTER -->
   <footer>
     <p>© 2026 EduGenius AI</p>
   </footer>
+
+  <!-- FIREBASE LOGIN SCRIPT -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBCX7uxYy_3XdjZhUpsh5qZ5fTy-Ai3YqQ",
+      authDomain: "edugenius-ai69.firebaseapp.com",
+      projectId: "edugenius-ai69",
+      storageBucket: "edugenius-ai69.firebasestorage.app",
+      messagingSenderId: "108519318021",
+      appId: "1:108519318021:web:f05342a38336895945f26c"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.login = function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          const msg = document.getElementById("msg");
+          msg.innerText = "✅ Login successful!";
+          msg.style.color = "green";
+        })
+        .catch((error) => {
+          const msg = document.getElementById("msg");
+          msg.innerText = "❌ " + error.message;
+          msg.style.color = "red";
+        });
+    };
+  </script>
+
 </body>
 </html>
