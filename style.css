@@ -109,3 +109,9 @@ footer {
   text-decoration: none;
   border-radius: 5px;
 }
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    padding: 16px;
+  }
+}
