@@ -16,8 +16,8 @@ body {
   padding: 20px;
 }
 
-.logo, .login-logo {
-  width: 90px;   /* Keep size same as old design */
+.logo {
+  width: 90px;   /* FIXED SIZE */
   margin: 20px auto 10px;
   display: block;
 }
@@ -35,14 +35,14 @@ h2 {
   margin: 15px 0;
 }
 
-.login-method-buttons {
+.login-methods {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-bottom: 15px;
 }
 
-.login-method-buttons button {
+.login-methods button {
   padding: 8px 16px;
   border: 1px solid #6a1b9a;
   background: white;
@@ -51,44 +51,37 @@ h2 {
   border-radius: 5px;
 }
 
-.login-method-buttons button:hover {
+.login-methods button:hover {
   background: #6a1b9a;
   color: white;
 }
 
-.login-container input {
-  width: 90%;
-  max-width: 350px;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.login-container button {
-  width: 95%;
-  padding: 12px;
+.login-form input {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.login-form button {
+  padding: 10px;
   background: #6a1b9a;
-  color: #fff;
-  border-radius: 10px;
-  font-size: 16px;
-  margin-top: 10px;
+  color: white;
   border: none;
   cursor: pointer;
+  border-radius: 5px;
 }
 
-.login-container button:hover {
+.login-form button:hover {
   background: #4a148c;
 }
 
-.note {
-  font-size: 13px;
-  color: #888;
-  margin-top: 8px;
+.hidden {
+  display: none;
 }
 
 .new-account {
@@ -100,8 +93,17 @@ h2 {
   text-decoration: none;
 }
 
-.footer-text {
+footer {
   margin-top: 25px;
   font-size: 12px;
   color: gray;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #6a1b9a;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
 }
