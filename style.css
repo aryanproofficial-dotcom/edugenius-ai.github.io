@@ -111,7 +111,50 @@ footer {
 }
 @media (max-width: 768px) {
   .container {
-    max-width: 100%;
-    padding: 16px;
+    max-width: 100%;    /* fills the screen */
+    padding: 18px;      /* comfortable inner spacing */
+  }
+
+  .logo {
+    width: 100px;       /* slightly bigger logo */
+    margin: 15px auto;
+  }
+
+  h1 {
+    font-size: 1.8rem;  /* bigger main heading */
+    margin-bottom: 10px;
+  }
+
+  .tagline {
+    font-size: 1rem;    /* readable tagline */
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 1.3rem;  /* subtitle readable */
+    margin-bottom: 15px;
+  }
+
+  .login-methods button {
+    padding: 10px 16px; /* bigger buttons */
+    font-size: 14px;
+  }
+
+  .login-form input {
+    font-size: 16px;    /* bigger input text */
+    padding: 12px;
+  }
+
+  .login-form button {
+    font-size: 16px;    /* bigger button text */
+    padding: 12px;
+  }
+
+  .new-account a {
+    font-size: 14px;
+  }
+
+  footer {
+    font-size: 11px;
   }
 }
