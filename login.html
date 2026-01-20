@@ -2,57 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login – EduGenius AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - EduGenius AI</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="login-container">
+    <div class="login-box">
+      <img src="logo.png" alt="EduGenius Logo" class="login-logo">
+      <h2>EduGenius AI</h2>
+      <p>Smart Learning. Smarter Future.</p>
 
-  <div class="container">
-    <img src="logo.png" alt="EduGenius AI Logo" class="logo">
+      <form id="loginForm">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
 
-    <h1>EduGenius AI</h1>
-    <p class="tagline">Smart Learning, Smarter Future</p>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
 
-    <h2>Choose Login Method</h2>
+        <button type="submit" class="btn-primary">Login</button>
 
-    <!-- Login Method Buttons -->
-    <div class="login-methods">
-      <button onclick="showEmail()">Email</button>
-      <button onclick="showMobile()">Mobile</button>
+        <p class="signup-text">
+          New user? <a href="#">Create New Account</a>
+        </p>
+      </form>
     </div>
-
-    <!-- Email Login -->
-    <form id="emailLogin" class="login-form">
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
-
-    <!-- Mobile Login -->
-    <form id="mobileLogin" class="login-form hidden">
-      <input type="tel" placeholder="Mobile Number" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
-
-    <p class="new-account">
-      New user? <a href="#">Create New Account</a>
-    </p>
-
-    <footer>© 2026 EduGenius AI</footer>
   </div>
-
-  <script>
-    function showEmail() {
-      document.getElementById("emailLogin").classList.remove("hidden");
-      document.getElementById("mobileLogin").classList.add("hidden");
-    }
-
-    function showMobile() {
-      document.getElementById("mobileLogin").classList.remove("hidden");
-      document.getElementById("emailLogin").classList.add("hidden");
-    }
-  </script>
-
 </body>
 </html>
