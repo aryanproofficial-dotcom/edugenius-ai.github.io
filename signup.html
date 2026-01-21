@@ -8,27 +8,30 @@
 </head>
 <body>
 
-  <div class="card">
-    <h2>Create New Account</h2>
-    <p class="subtitle">Join EduGenius AI</p>
+  <div class="container">
+    <!-- Card with inputs -->
+    <div class="card">
+      <h2>Create New Account</h2>
 
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="password" id="password" placeholder="Password" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
 
-    <button onclick="signup()">Create Account</button>
+      <button onclick="signup()">Create Account</button>
 
-    <p class="small-text">
-      Already have an account?
-      <a href="login.html">Login</a>
-    </p>
+      <p class="small-text">
+        Already have an account?
+        <a href="login.html">Login</a>
+      </p>
+    </div>
+
+    <footer>© 2026 EduGenius AI</footer>
   </div>
 
-  <!-- Firebase (COMPAT version for GitHub Pages) -->
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
   <script>
-    // Your Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyBCX7uxYy_3XdjZhUpsh5qZ5fTy-Ai3YqQ",
       authDomain: "edugenius-ai69.firebaseapp.com",
@@ -36,16 +39,14 @@
       appId: "1:108519318021:web:f05342a38336895945f26c"
     };
 
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Signup function
     function signup() {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
-      if (email === "" || password === "") {
+      if (!email || !password) {
         alert("Please fill all fields");
         return;
       }
