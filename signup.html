@@ -9,15 +9,20 @@
 <body>
 
   <div class="container">
-    <!-- Card with inputs -->
     <div class="card">
       <h2>Create New Account</h2>
 
+      <!-- Subtitle line -->
+      <p class="subtitle">Join EduGenius AI</p>
+
+      <!-- Inputs -->
       <input type="email" id="email" placeholder="Email" required>
       <input type="password" id="password" placeholder="Password" required>
 
-      <button onclick="signup()">Create Account</button>
+      <!-- Button -->
+      <button type="button" onclick="signup()">Create Account</button>
 
+      <!-- Bottom link -->
       <p class="small-text">
         Already have an account?
         <a href="login.html">Login</a>
@@ -43,8 +48,8 @@
     const auth = firebase.auth();
 
     function signup() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
 
       if (!email || !password) {
         alert("Please fill all fields");
