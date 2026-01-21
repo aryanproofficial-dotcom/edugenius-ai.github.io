@@ -15,26 +15,11 @@
 
     <h2>Login</h2>
 
-    <!-- Login Method Buttons -->
-    <div class="login-methods">
-      <button onclick="showEmail()">Email</button>
-      <button onclick="showMobile()">Mobile</button>
-    </div>
-
     <!-- Email Login -->
-    <form id="emailLogin" class="login-form" onsubmit="loginWithEmail(event)">
+    <form class="login-form" onsubmit="loginWithEmail(event)">
       <input type="email" id="email" placeholder="Email" required>
       <input type="password" id="password" placeholder="Password" required>
       <button type="submit">Login</button>
-    </form>
-
-    <!-- Mobile Login (Coming Soon) -->
-    <form id="mobileLogin" class="login-form hidden">
-      <input type="tel" placeholder="Mobile Number" disabled>
-      <input type="password" placeholder="Password" disabled>
-      <button type="button" onclick="alert('Mobile login coming soon')">
-        Login
-      </button>
     </form>
 
     <p class="new-account">
@@ -57,24 +42,13 @@
       appId: "1:108519318021:web:f05342a38336895945f26c"
     };
 
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Show email login
-    function showEmail() {
-      document.getElementById("emailLogin").classList.remove("hidden");
-      document.getElementById("mobileLogin").classList.add("hidden");
-    }
-
-    // Show mobile login
-    function showMobile() {
-      document.getElementById("mobileLogin").classList.remove("hidden");
-      document.getElementById("emailLogin").classList.add("hidden");
-    }
-
     // Login function
     function loginWithEmail(event) {
-      event.preventDefault();
+      event.preventDefault(); // stop page refresh
 
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value.trim();
