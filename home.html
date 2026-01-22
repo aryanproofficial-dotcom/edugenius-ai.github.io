@@ -6,7 +6,7 @@
   <title>Home – EduGenius AI</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Overlay pop-up */
+    /* ===== Pop-up Overlay ===== */
     .popup-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -25,7 +25,7 @@
       border-radius: 16px;
       text-align: center;
       box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-      max-width: 320px;
+      max-width: 350px;
       animation: pop 0.4s ease-out;
     }
 
@@ -36,7 +36,7 @@
     }
 
     .popup p {
-      margin-bottom: 20px;
+      margin-bottom: 12px;
       color: #555;
     }
 
@@ -50,12 +50,16 @@
       font-weight: bold;
     }
 
+    .popup button:hover {
+      background: #4a148c;
+    }
+
     @keyframes pop {
       0% { transform: scale(0.5); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
     }
 
-    /* Main container below pop-up */
+    /* ===== Main container ===== */
     .container {
       max-width: 380px;
       margin: 50px auto;
@@ -83,6 +87,10 @@
       margin: 10px 0;
       cursor: pointer;
     }
+
+    .card button:hover {
+      background: #4a148c;
+    }
   </style>
 </head>
 <body>
@@ -92,10 +100,12 @@
     <div class="popup">
       <h2>Welcome to EduGenius AI!</h2>
       <p>Smart Learning, Smarter Future</p>
+      <p>Full App is coming soon</p>
       <button onclick="closePopup()">Let’s Start Learning</button>
     </div>
   </div>
 
+  <!-- Main Content -->
   <div class="container">
     <h1 id="welcomeUser">Welcome!</h1>
 
@@ -111,6 +121,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
   <script>
+    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyBCX7uxYy_3XdjZhUpsh5qZ5fTy-Ai3YqQ",
       authDomain: "edugenius-ai69.firebaseapp.com",
@@ -118,27 +129,36 @@
       appId: "1:108519318021:web:f05342a38336895945f26c"
     };
 
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Show user email
+    // Check login state
     auth.onAuthStateChanged(user => {
       if (user) {
-        document.getElementById('welcomeUser').innerText = `Welcome, ${user.email}!`;
+        // Show user email
+        const name = user.email.split('@')[0];
+        document.getElementById('welcomeUser').innerText = `Welcome, ${name}!`;
         showPopup();
       } else {
         window.location.href = 'login.html';
       }
     });
 
+    // Show popup
     function showPopup() {
-      document.getElementById('popup').style.display = 'flex';
+      const popup = document.getElementById('popup');
+      popup.style.display = 'flex';
+      // Optional: hide automatically after 5 sec
+      // setTimeout(() => { popup.style.display = 'none'; }, 5000);
     }
 
+    // Close popup
     function closePopup() {
       document.getElementById('popup').style.display = 'none';
     }
 
+    // Navigation buttons
     function logout() {
       auth.signOut().then(() => {
         window.location.href = 'login.html';
