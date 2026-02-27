@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile Setup — EduGenius AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="profile-container">
+
+    <h2>Complete Your Profile</h2>
+
+    <!-- Profile Picture -->
+    <label>Upload Profile Picture</label><br>
+    <input type="file" accept="image/*"><br><br>
+
+    <!-- Name -->
+    <label>Name:</label><br>
+    <input type="text" placeholder="Enter your name"><br><br>
+
+    <!-- Class -->
+    <label>Class:</label><br>
+    <select>
+      <option>Select Class</option>
+      <option>Class 5</option>
+      <option>Class 6</option>
+      <option>Class 7</option>
+      <option>Class 8</option>
+      <option>Class 9</option>
+      <option>Class 10</option>
+      <option>Class 11</option>
+      <option>Class 12</option>
+    </select><br><br>
+
+    <!-- Board -->
+    <label>Board:</label><br>
+    <select>
+      <option>Select Board</option>
+      <option>CBSE</option>
+      <option>ICSE</option>
+      <option>State Board</option>
+      <option>Other</option>
+    </select><br><br>
+
+    <!-- School -->
+    <label>School (optional):</label><br>
+    <input type="text" placeholder="School name"><br><br>
+
+    <!-- Goal -->
+    <label>Goal (optional):</label><br>
+    <select>
+      <option>Select Goal</option>
+      <option>Score High Marks</option>
+      <option>JEE Preparation</option>
+      <option>NEET Preparation</option>
+      <option>Olympiad</option>
+      <option>Improve Basics</option>
+      <option>Other</option>
+    </select><br><br>
+
+    <!-- Continue Button -->
+    <button onclick="goHome()">Continue</button>
+
+  </div>
+
+  <script>
+    function goHome() {
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+  </html>
