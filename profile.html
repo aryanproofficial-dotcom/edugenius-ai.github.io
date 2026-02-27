@@ -1,74 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Profile Setup — EduGenius AI</title>
+  <title>Profile Setup – EduGenius AI</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="profile-container">
+<div class="profile-container">
 
-    <h2>Complete Your Profile</h2>
+  <h2>Complete Your Profile</h2>
 
-    <!-- Profile Picture -->
-    <label>Upload Profile Picture</label><br>
-    <input type="file" accept="image/*"><br><br>
+  <input type="text" id="name" placeholder="Full Name">
 
-    <!-- Name -->
-    <label>Name:</label><br>
-    <input type="text" placeholder="Enter your name"><br><br>
+  <select id="class">
+    <option>Select Class</option>
+    <option>Class 6</option>
+    <option>Class 7</option>
+    <option>Class 8</option>
+    <option>Class 9</option>
+    <option>Class 10</option>
+  </select>
 
-    <!-- Class -->
-    <label>Class:</label><br>
-    <select>
-      <option>Select Class</option>
-      <option>Class 5</option>
-      <option>Class 6</option>
-      <option>Class 7</option>
-      <option>Class 8</option>
-      <option>Class 9</option>
-      <option>Class 10</option>
-      <option>Class 11</option>
-      <option>Class 12</option>
-    </select><br><br>
+  <select id="board">
+    <option>Select Board</option>
+    <option>CBSE</option>
+    <option>ICSE</option>
+    <option>State Board</option>
+  </select>
 
-    <!-- Board -->
-    <label>Board:</label><br>
-    <select>
-      <option>Select Board</option>
-      <option>CBSE</option>
-      <option>ICSE</option>
-      <option>State Board</option>
-      <option>Other</option>
-    </select><br><br>
+  <button onclick="saveProfile()">Continue</button>
 
-    <!-- School -->
-    <label>School (optional):</label><br>
-    <input type="text" placeholder="School name"><br><br>
+</div>
 
-    <!-- Goal -->
-    <label>Goal (optional):</label><br>
-    <select>
-      <option>Select Goal</option>
-      <option>Score High Marks</option>
-      <option>JEE Preparation</option>
-      <option>NEET Preparation</option>
-      <option>Olympiad</option>
-      <option>Improve Basics</option>
-      <option>Other</option>
-    </select><br><br>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-    <!-- Continue Button -->
-    <button onclick="goHome()">Continue</button>
+<script>
+const firebaseConfig = {
+  apiKey: "AIza...",
+  authDomain: "edugenius-ai69.firebaseapp.com",
+  projectId: "edugenius-ai69",
+  appId: "1:108519318021:web:f05342a38336895945f26c"
+};
 
-  </div>
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-  <script>
-    function goHome() {
-      window.location.href = "index.html";
-    }
-  </script>
+function saveProfile() {
+
+  const user = auth.currentUser;
+
+  const name = document.getElementById("name").value;
+  const studentClass = document.getElementById("class").value;
+  const board = document.getElementById("board").value;
+
+  if (!name || studentClass === "Select Class") {
+    alert("Please complete profile");
+    return;
+  }
+
+  db.collection("users").doc(user.uid).set({
+    name: name,
+    class: studentClass,
+    board: board
+  }).then(() => {
+    window.location.href = "home.html";
+  });
+
+}
+</script>
 
 </body>
-  </html>
+      </html>
