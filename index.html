@@ -2,71 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login – EduGenius AI</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <!-- Logo -->
-    <img src="logo.png" alt="EduGenius AI Logo" class="logo">
+  <img src="logo.png" class="logo">
+  <h1>EduGenius AI</h1>
+  <p class="tagline">Smart Learning, Smarter Future</p>
 
-    <h1>EduGenius AI</h1>
-    <p class="tagline">Smart Learning, Smarter Future</p>
+  <h2>Login</h2>
 
-    <h2>Login</h2>
+  <form class="login-form" onsubmit="login(event)">
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
 
-    <!-- Login Form -->
-    <form class="login-form" onsubmit="loginWithEmail(event)">
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
+  <p class="new-account">
+    Don't have an account?
+    <a href="signup.html">Create Account</a>
+  </p>
 
-    <p class="new-account">
-      Don't have an account? <a href="signup.html">Create New Account</a>
-    </p>
+</div>
 
-    <footer>© 2026 EduGenius AI</footer>
-  </div>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIza...",
+  authDomain: "edugenius-ai69.firebaseapp.com",
+  projectId: "edugenius-ai69",
+  appId: "1:108519318021:web:f05342a38336895945f26c"
+};
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBCX7uxYy_3XdjZhUpsh5qZ5fTy-Ai3YqQ",
-      authDomain: "edugenius-ai69.firebaseapp.com",
-      projectId: "edugenius-ai69",
-      appId: "1:108519318021:web:f05342a38336895945f26c"
-    };
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+function login(e) {
+  e.preventDefault();
 
-    function loginWithEmail(event) {
-      event.preventDefault();
+  const email = emailInput.value;
+  const password = passwordInput.value;
 
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
-
-      if (!email || !password) {
-        alert("Please fill all fields");
-        return;
-      }
-
-      auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-          window.location.href = "home.html";
-        })
-        .catch((error) => {
-          alert(error.message);
-        });
-    }
-  </script>
+  auth.signInWithEmailAndPassword(email, password)
+    .then(() => {
+      window.location.href = "home.html";
+    })
+    .catch(err => alert(err.message));
+}
+</script>
 
 </body>
 </html>
