@@ -1,64 +1,161 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Home – EduGenius AI</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>Home – EduGenius AI</title>  
+  <link rel="stylesheet" href="style.css">  
+  <style>  
+    /* ===== Pop-up Overlay ===== */  
+    .popup-overlay {  
+      position: fixed;  
+      top: 0; left: 0;  
+      width: 100%; height: 100%;  
+      background: rgba(0,0,0,0.5);  
+      display: flex;  
+      justify-content: center;  
+      align-items: center;  
+      z-index: 10;  
+      display: none; /* hidden by default */  
+    }  .popup {  
+  background: #fff;  
+  padding: 25px 30px;  
+  border-radius: 16px;  
+  text-align: center;  
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);  
+  max-width: 350px;  
+  animation: pop 0.4s ease-out;  
+}  
 
-<div class="container">
+.popup h2 {  
+  margin-bottom: 10px;  
+  font-size: 22px;  
+  color: #333;  
+}  
 
-  <h1 id="welcome">Welcome!</h1>
+.popup p {  
+  margin-bottom: 12px;  
+  color: #555;  
+}  
 
-  <button onclick="logout()">Logout</button>
+.popup button {  
+  padding: 10px 20px;  
+  background: #6a1b9a;  
+  color: white;  
+  border: none;  
+  border-radius: 10px;  
+  cursor: pointer;  
+  font-weight: bold;  
+}  
 
+.popup button:hover {  
+  background: #4a148c;  
+}  
+
+@keyframes pop {  
+  0% { transform: scale(0.5); opacity: 0; }  
+  100% { transform: scale(1); opacity: 1; }  
+}  
+
+/* ===== Main container ===== */  
+.container {  
+  max-width: 380px;  
+  margin: 50px auto;  
+  padding: 20px;  
+  text-align: center;  
+}  
+
+.card {  
+  background: #fff;  
+  padding: 20px;  
+  border-radius: 16px;  
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);  
+  margin-top: 20px;  
+}  
+
+.card button {  
+  width: 100%;  
+  padding: 12px;  
+  border: none;  
+  border-radius: 12px;  
+  background: #6a1b9a;  
+  color: white;  
+  font-size: 16px;  
+  font-weight: bold;  
+  margin: 10px 0;  
+  cursor: pointer;  
+}  
+
+.card button:hover {  
+  background: #4a148c;  
+}
+
+  </style>  
+</head>  
+<body>    <!-- Pop-up greeting -->    <div class="popup-overlay" id="popup">  
+    <div class="popup">  
+      <h2>Welcome to EduGenius AI!</h2>  
+      <p>Smart Learning, Smarter Future</p>  
+      <p>Full App is coming soon</p>  
+      <button onclick="closePopup()">Let’s Start Learning</button>  
+    </div>  
+  </div>    <!-- Main Content -->    <div class="container">  
+    <h1 id="welcomeUser">Welcome!</h1>  <div class="card">  
+  <button onclick="goSubjects()">Subjects</button>  
+  <button onclick="myProfile()">My Profile</button>  
+  <button onclick="logout()">Logout</button>  
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-<script>
-const firebaseConfig = {
-  apiKey: "AIza...",
-  authDomain: "edugenius-ai69.firebaseapp.com",
-  projectId: "edugenius-ai69",
-  appId: "1:108519318021:web:f05342a38336895945f26c"
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-auth.onAuthStateChanged(user => {
-
-  if (!user) {
-    window.location.href = "index.html";
-    return;
-  }
-
-  db.collection("users").doc(user.uid).get()
-    .then(doc => {
-
-      if (!doc.exists) {
-        window.location.href = "profile.html";
-        return;
-      }
-
-      const data = doc.data();
-      document.getElementById("welcome").innerText =
-        `Welcome, ${data.name}!`;
-
-    });
-
-});
-
-function logout() {
-  auth.signOut().then(() => {
-    window.location.href = "index.html";
-  });
-}
-</script>
-
-</body>
+  </div>    <!-- Firebase -->    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>    <script>  
+    // Firebase config  
+    const firebaseConfig = {  
+      apiKey: "AIzaSyBCX7uxYy_3XdjZhUpsh5qZ5fTy-Ai3YqQ",  
+      authDomain: "edugenius-ai69.firebaseapp.com",  
+      projectId: "edugenius-ai69",  
+      appId: "1:108519318021:web:f05342a38336895945f26c"  
+    };  
+  
+    // Initialize Firebase  
+    firebase.initializeApp(firebaseConfig);  
+    const auth = firebase.auth();  
+  
+    // Check login state  
+    auth.onAuthStateChanged(user => {  
+      if (user) {  
+        // Show user email  
+        const name = user.email.split('@')[0];  
+        document.getElementById('welcomeUser').innerText = `Welcome, ${name}!`;  
+        showPopup();  
+      } else {  
+        window.location.href = 'login.html';  
+      }  
+    });  
+  
+    // Show popup  
+    function showPopup() {  
+      const popup = document.getElementById('popup');  
+      popup.style.display = 'flex';  
+      // Optional: hide automatically after 5 sec  
+      // setTimeout(() => { popup.style.display = 'none'; }, 5000);  
+    }  
+  
+    // Close popup  
+    function closePopup() {  
+      document.getElementById('popup').style.display = 'none';  
+    }  
+  
+    // Navigation buttons  
+    function logout() {  
+      auth.signOut().then(() => {  
+        window.location.href = 'login.html';  
+      });  
+    }  
+  
+    function goSubjects() {  
+      alert("Go to Subjects clicked!");  
+    }  
+  
+    function myProfile() {  
+      alert("My Profile clicked!");  
+    }  
+  </script>  </body>  
 </html>
