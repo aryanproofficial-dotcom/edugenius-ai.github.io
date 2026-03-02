@@ -12,6 +12,9 @@
   <div class="container">  
     <div class="card">  
 
+      <!-- ✅ LOGO AT TOP -->
+      <img src="logo.png" alt="EduGenius AI Logo" class="logo">
+
       <h2>Create New Account</h2>
       <p class="subtitle">Join EduGenius AI</p>  
 
@@ -61,7 +64,7 @@
       auth.createUserWithEmailAndPassword(email, password)  
         .then(() => {  
           alert("Account created successfully 🎉");  
-          window.location.href = "profile.html"; // ✅ Correct flow
+          window.location.href = "profile.html";  
         })  
         .catch((error) => {  
           alert(error.message);  
