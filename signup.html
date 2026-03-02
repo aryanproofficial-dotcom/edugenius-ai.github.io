@@ -1,59 +1,73 @@
-<!DOCTYPE html>  <html lang="en">  
-<head>  
-  <meta charset="UTF-8">  
-  <title>Create Account – EduGenius AI</title>  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-  <link rel="stylesheet" href="style.css">  
-</head>  
-<body>    <div class="container">  
-    <div class="card">  
-      <h2>Create New Account</h2>  <!-- Subtitle line -->  
-  <p class="subtitle">Join EduGenius AI</p>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account – EduGenius AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-  <!-- Inputs -->  
-  <input type="email" id="email" placeholder="Email" required>  
-  <input type="password" id="password" placeholder="Password" required>  
+<body>
 
-  <!-- Button -->  
-  <button type="button" onclick="signup()">Create Account</button>  
+  <div class="container">
 
-  <!-- Bottom link -->  
-  <p class="small-text">  
-    Already have an account?  
-    <a href="login.html">Login</a>  
-  </p>  
-</div>  
+    <!-- Logo -->
+    <img src="logo.png" alt="EduGenius AI Logo" class="logo">
 
-<footer>© 2026 EduGenius AI</footer>
+    <h2>Create New Account</h2>
+    <p class="subtitle">Join EduGenius AI</p>
 
-  </div>    <!-- Firebase -->    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>    <script>  
-    const firebaseConfig = {  
-      apiKey: "AIzaSyBCX7uxYy_3XdjZhUpsh5qZ5fTy-Ai3YqQ",  
-      authDomain: "edugenius-ai69.firebaseapp.com",  
-      projectId: "edugenius-ai69",  
-      appId: "1:108519318021:web:f05342a38336895945f26c"  
-    };  
-  
-    firebase.initializeApp(firebaseConfig);  
-    const auth = firebase.auth();  
-  
-    function signup() {  
-      const email = document.getElementById("email").value.trim();  
-      const password = document.getElementById("password").value.trim();  
-  
-      if (!email || !password) {  
-        alert("Please fill all fields");  
-        return;  
-      }  
-  
-      auth.createUserWithEmailAndPassword(email, password)  
-        .then(() => {  
-          alert("Account created successfully 🎉");  
-          window.location.href = "profile.html";  
-        })  
-        .catch((error) => {  
-          alert(error.message);  
-        });  
-    }  
-  </script>  </body>  
+    <!-- Inputs -->
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+
+    <!-- Button -->
+    <button type="button" onclick="signup()">Create Account</button>
+
+    <!-- Bottom link -->
+    <p class="small-text">
+      Already have an account?
+      <a href="login.html">Login</a>
+    </p>
+
+  </div>
+
+  <footer>© 2026 EduGenius AI</footer>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBCX7uxYy_3XdjZhUpsh5qZ5fTy-Ai3YqQ",
+      authDomain: "edugenius-ai69.firebaseapp.com",
+      projectId: "edugenius-ai69",
+      appId: "1:108519318021:web:f05342a38336895945f26c"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function signup() {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!email || !password) {
+        alert("Please fill all fields");
+        return;
+      }
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          alert("Account created successfully 🎉");
+          window.location.href = "profile.html";
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    }
+  </script>
+
+</body>
 </html>
