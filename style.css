@@ -1,265 +1,273 @@
-{
-box-sizing: border-box;
-font-family: Arial, sans-serif;
+/* Apply to all elements */
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-
 body {
-margin: 0;
-padding: 0;
-background: white;
-text-align: center;
+  margin: 0;
+  padding: 0;
+  background: white;
+  text-align: center;
 }
 
 .container {
-max-width: 380px;
-margin: auto;
-padding: 20px;
+  max-width: 380px;
+  margin: auto;
+  padding: 20px;
 }
 
 .logo {
-width: 100px;      /* smaller fixed width /
-max-width: 100%;   / never exceed container width /
-height: auto;      / maintain aspect ratio /
-margin: 20px auto; / center it */
-display: block;
+  width: 100px;      /* smaller fixed width */
+  max-width: 100%;   /* never exceed container width */
+  height: auto;      /* maintain aspect ratio */
+  margin: 20px auto; /* center it */
+  display: block;
 }
 
 h1 {
-margin: 5px 0;
+  margin: 5px 0;
 }
 
 .tagline {
-color: #555;
-margin-bottom: 20px;
+  color: #555;
+  margin-bottom: 20px;
 }
 
 h2 {
-margin: 15px 0;
+  margin: 15px 0;
 }
 
+/* ===== Login Methods ===== */
+
 .login-methods {
-display: flex;
-justify-content: center;
-gap: 10px;
-margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
 .login-methods button {
-padding: 8px 16px;
-border: 1px solid #6a1b9a;
-background: white;
-color: #6a1b9a;
-cursor: pointer;
-border-radius: 5px;
+  padding: 8px 16px;
+  border: 1px solid #6a1b9a;
+  background: white;
+  color: #6a1b9a;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .login-methods button:hover {
-background: #6a1b9a;
-color: white;
+  background: #6a1b9a;
+  color: white;
 }
 
+/* ===== Login Form ===== */
+
 .login-form {
-display: flex;
-flex-direction: column;
-gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .login-form input {
-padding: 10px;
-font-size: 14px;
+  padding: 10px;
+  font-size: 14px;
 }
 
 .login-form button {
-padding: 10px;
-background: #6a1b9a;
-color: white;
-border: none;
-cursor: pointer;
-border-radius: 5px;
+  padding: 10px;
+  background: #6a1b9a;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .login-form button:hover {
-background: #4a148c;
+  background: #4a148c;
 }
 
 .hidden {
-display: none;
+  display: none;
 }
 
 .new-account {
-margin-top: 15px;
+  margin-top: 15px;
 }
 
 .new-account a {
-color: #6a1b9a;
-text-decoration: none;
+  color: #6a1b9a;
+  text-decoration: none;
 }
 
 footer {
-margin-top: 25px;
-font-size: 12px;
-color: gray;
+  margin-top: 25px;
+  font-size: 12px;
+  color: gray;
 }
 
 .btn {
-display: inline-block;
-padding: 10px 20px;
-background: #6a1b9a;
-color: white;
-text-decoration: none;
-border-radius: 5px;
+  display: inline-block;
+  padding: 10px 20px;
+  background: #6a1b9a;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
 }
+
+/* ===== Mobile Responsive ===== */
+
 @media (max-width: 768px) {
-.container {
-max-width: 100%;    /* fills the screen /
-padding: 18px;      / comfortable inner spacing */
+  .container {
+    max-width: 100%;
+    padding: 18px;
+  }
+
+  .logo {
+    width: 100px;
+    margin: 15px auto;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .tagline {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+
+  .login-methods button {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .login-form input {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .login-form button {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .new-account a {
+    font-size: 14px;
+  }
+
+  footer {
+    font-size: 11px;
+  }
 }
 
-.logo {
-width: 100px;       /* slightly bigger logo */
-margin: 15px auto;
-}
+/* ===== Signup Card ===== */
 
-h1 {
-font-size: 1.8rem;  /* bigger main heading */
-margin-bottom: 10px;
-}
-
-.tagline {
-font-size: 1rem;    /* readable tagline */
-margin-bottom: 15px;
-}
-
-h2 {
-font-size: 1.3rem;  /* subtitle readable */
-margin-bottom: 15px;
-}
-
-.login-methods button {
-padding: 10px 16px; /* bigger buttons */
-font-size: 14px;
-}
-
-.login-form input {
-font-size: 16px;    /* bigger input text */
-padding: 12px;
-}
-
-.login-form button {
-font-size: 16px;    /* bigger button text */
-padding: 12px;
-}
-
-.new-account a {
-font-size: 14px;
-}
-
-footer {
-font-size: 11px;
-}
-}
-/* ===== Signup / Card Styles ===== */
 .card {
-background: #fff;
-padding: 25px;
-border-radius: 16px;
-box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-text-align: center;
-margin-top: 20px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  text-align: center;
+  margin-top: 20px;
 }
 
 .card h2 {
-margin-bottom: 10px;
-font-size: 24px;
-color: #333;
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: #333;
 }
 
 .card .subtitle {
-color: #555;
-margin-bottom: 20px;
-font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+  font-size: 16px;
 }
 
 .card input {
-width: 100%;
-padding: 12px;
-margin-bottom: 14px;
-border-radius: 10px;
-border: 1px solid #ddd;
-font-size: 15px;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 15px;
 }
 
 .card button {
-width: 100%;
-padding: 12px;
-border: none;
-border-radius: 12px;
-background: #6a1b9a; /* matches login button */
-color: white;
-font-size: 16px;
-font-weight: bold;
-cursor: pointer;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #6a1b9a;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .card button:hover {
-background: #4a148c;
+  background: #4a148c;
 }
 
 .card .small-text {
-margin-top: 15px;
-font-size: 14px;
+  margin-top: 15px;
+  font-size: 14px;
 }
 
 .card .small-text a {
-color: #6a1b9a;
-text-decoration: none;
-font-weight: bold;
+  color: #6a1b9a;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .card .small-text a:hover {
-text-decoration: underline;
+  text-decoration: underline;
 }
-/* ===========================
-PROFILE SETUP PAGE
-=========================== */
+
+/* ===== Profile Setup Page ===== */
 
 .profile-container {
-background: #fff;
-max-width: 400px;
-margin: 40px auto;
-padding: 25px;
-border-radius: 15px;
-box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-text-align: left;
+  background: #fff;
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: left;
 }
 
 .profile-container h2 {
-text-align: center;
-margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .profile-container input,
 .profile-container select {
-width: 100%;
-padding: 10px;
-margin-top: 5px;
-border-radius: 8px;
-border: 1px solid #ccc;
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
 .profile-container button {
-width: 100%;
-padding: 12px;
-margin-top: 20px;
-background: #00bcd4;
-color: white;
-border: none;
-border-radius: 10px;
-font-size: 16px;
-cursor: pointer;
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background: #00bcd4;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .profile-container button:hover {
-background: #0097a7;
+  background: #0097a7;
 }
