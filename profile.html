@@ -1,102 +1,123 @@
-<!DOCTYPE html>  <html lang="en">  
-<head>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile Setup — EduGenius AI</title>  
-  <link rel="stylesheet" href="style.css">  
-</head>  
-<body>    <div class="profile-container"> 
-  <img src="logo.png" alt="EduGenius AI Logo" class="logo">
-  <h2>Complete Your Profile</h2>  
+  <title>Profile Setup — EduGenius AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-<!-- Profile Picture -->  
-<label>Upload Profile Picture</label><br>  
-<input type="file" accept="image/*"><br><br>  
+<body>
 
-<!-- Name -->  
-<label>Name:</label><br>  
-<input type="text" placeholder="Enter your name"><br><br>  
+  <div class="profile-container">
 
-<!-- Class -->  
-<label>Class:</label><br>  
-<select>  
-  <option>Select Class</option>  
-  <option>Class 5</option>  
-  <option>Class 6</option>  
-  <option>Class 7</option>  
-  <option>Class 8</option>  
-  <option>Class 9</option>  
-  <option>Class 10</option>  
-  <option>Class 11</option>  
-  <option>Class 12</option>  
-</select><br><br>  
+    <img src="logo.png" alt="EduGenius AI Logo" class="logo">
+    <h2>Complete Your Profile</h2>
 
-<!-- Board -->  
-<label>Board:</label><br>  
-<select>  
-  <option>Select Board</option>  
-  <option>CBSE</option>  
-  <option>ICSE</option>  
-  <option>State Board</option>  
-  <option>Other</option>  
-</select><br><br>  
+    <!-- Profile Picture -->
+    <label>Upload Profile Picture</label><br>
+    <input type="file" accept="image/*"><br><br>
 
-<!-- School -->  
-<label>School (optional):</label><br>  
-<input type="text" placeholder="School name"><br><br>  
+    <!-- Name -->
+    <label>Name:</label><br>
+    <input type="text" id="name" placeholder="Enter your name"><br><br>
 
-<!-- Goal -->  
-<label>Goal (optional):</label><br>  
-<select>  
-  <option>Select Goal</option>  
-  <option>Score High Marks</option>  
-  <option>JEE Preparation</option>  
-  <option>NEET Preparation</option>  
-  <option>Olympiad</option>  
-  <option>Improve Basics</option>  
-  <option>Other</option>  
-</select><br><br>  
+    <!-- Class -->
+    <label>Class:</label><br>
+    <select id="class">
+      <option>Select Class</option>
+      <option>Class 5</option>
+      <option>Class 6</option>
+      <option>Class 7</option>
+      <option>Class 8</option>
+      <option>Class 9</option>
+      <option>Class 10</option>
+      <option>Class 11</option>
+      <option>Class 12</option>
+    </select><br><br>
 
-<!-- Continue Button -->  
-<button onclick="goHome()">Continue</button>
+    <!-- Board -->
+    <label>Board:</label><br>
+    <select id="board">
+      <option>Select Board</option>
+      <option>CBSE</option>
+      <option>ICSE</option>
+      <option>State Board</option>
+      <option>Other</option>
+    </select><br><br>
 
-  </div>    <!-- Firebase Scripts -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <!-- School -->
+    <label>School (optional):</label><br>
+    <input type="text" id="school" placeholder="School name"><br><br>
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBCX7uxYy_3XdjZhUpsh5qZ5fTy-Ai3YqQ",
-    authDomain: "edugenius-ai69.firebaseapp.com",
-    projectId: "edugenius-ai69",
-    appId: "1:108519318021:web:f05342a38336895945f26c"
-  };
+    <!-- Goal -->
+    <label>Goal (optional):</label><br>
+    <select id="goal">
+      <option>Select Goal</option>
+      <option>Score High Marks</option>
+      <option>JEE Preparation</option>
+      <option>NEET Preparation</option>
+      <option>Olympiad</option>
+      <option>Improve Basics</option>
+      <option>Other</option>
+    </select><br><br>
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
+    <!-- Continue Button -->
+    <button onclick="goHome()">Continue</button>
 
-  function goHome() {
-    const user = auth.currentUser;
+  </div>
 
-    const name = document.querySelector("input[type='text']").value;
-    const studentClass = document.querySelectorAll("select")[0].value;
-    const board = document.querySelectorAll("select")[1].value;
 
-    if (!name || studentClass === "Select Class") {
-      alert("Please fill required fields");
-      return;
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBCX7uxYy_3XdjZhUpsh5qZ5fTy-Ai3YqQ",
+      authDomain: "edugenius-ai69.firebaseapp.com",
+      projectId: "edugenius-ai69",
+      appId: "1:108519318021:web:f05342a38336895945f26c"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    function goHome() {
+
+      const user = auth.currentUser;
+
+      if (!user) {
+        alert("Please login again");
+        window.location.href = "login.html";
+        return;
+      }
+
+      const name = document.getElementById("name").value.trim();
+      const studentClass = document.getElementById("class").value;
+      const board = document.getElementById("board").value;
+
+      if (!name || studentClass === "Select Class") {
+        alert("Please fill required fields");
+        return;
+      }
+
+      db.collection("users").doc(user.uid).set({
+        name: name,
+        class: studentClass,
+        board: board
+      })
+      .then(() => {
+        alert("Profile saved ✅");
+        window.location.href = "home.html";
+      })
+      .catch(error => {
+        alert("Error saving profile: " + error.message);
+      });
     }
+  </script>
 
-    db.collection("users").doc(user.uid).set({
-      name: name,
-      class: studentClass,
-      board: board
-    }).then(() => {
-      alert("Profile saved ✅");
-      window.location.href = "home.html";
-    });
-  }
-</script>    </body>  
-  </html>
+</body>
+</html>
