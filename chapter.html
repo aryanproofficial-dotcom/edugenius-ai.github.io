@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chapter – EduGenius</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2 id="chapterTitle">Chapter</h2>
+
+  <div id="formulaBox">
+    <p>Loading formulas...</p>
+  </div>
+
+  <br>
+  <button onclick="goBack()">⬅ Back</button>
+
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const chapter = params.get("chapter");
+
+document.getElementById("chapterTitle").innerText = chapter;
+
+// ✅ FORMULAS DATA
+let formulas = [];
+
+if (chapter === "Algebra") {
+  formulas = [
+    "a² - b² = (a - b)(a + b)",
+    "(a + b)² = a² + 2ab + b²",
+    "(a - b)² = a² - 2ab + b²"
+  ];
+}
+
+else if (chapter === "Linear Equations") {
+  formulas = [
+    "ax + b = 0 → x = -b/a"
+  ];
+}
+
+else if (chapter === "Mensuration") {
+  formulas = [
+    "Area of rectangle = l × b",
+    "Area of square = a²"
+  ];
+}
+
+// SHOW FORMULAS
+let html = "";
+
+formulas.forEach(f => {
+  html += `<p>${f}</p>`;
+});
+
+document.getElementById("formulaBox").innerHTML = html;
+
+function goBack() {
+  window.history.back();
+}
+</script>
+
+</body>
+</html>
