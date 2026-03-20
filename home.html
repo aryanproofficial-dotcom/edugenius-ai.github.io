@@ -20,11 +20,14 @@
 
   <!-- HEADER -->
   <div class="header">
-    <img src="logo.png" class="header-logo">
+    <div class="header-left">
+      <img src="logo.png" class="header-logo">
+      <span class="app-name">EduGenius</span>
+    </div>
 
     <div class="header-right">
-      🔔
-      <img id="profilePic" class="avatar-img" src="default.png">
+      <span onclick="openNotifications()">🔔</span>
+      <img id="profilePic" class="avatar-img" src="default.png" onclick="myProfile()">
     </div>
   </div>
 
@@ -37,24 +40,25 @@
   <!-- MAIN CARDS -->
   <div class="grid">
 
-    <div class="card blue" onclick="goSubjects()">
-      <h3>Formulas</h3>
+    <div class="card blue" onclick="goFormulas()">
+      <h3>📘 Formulas</h3>
       <p>Check All Formulas</p>
     </div>
 
-    <div class="card green">
-      <h3>Practice Questions</h3>
+    <div class="card green" onclick="goPractice()">
+      <h3>📝 Practice</h3>
       <p>Sharpen Your Skills</p>
     </div>
 
-    <div class="card orange">
-      <h3>Mock Tests</h3>
+    <div class="card orange" onclick="goTests()">
+      <h3>📊 Mock Tests</h3>
       <p>Take Exam Simulations</p>
     </div>
 
-    <div class="card purple">
-      <h3>Subjects</h3>
-      <p>Explore Topics</p>
+    <!-- ✅ Ask AI -->
+    <div class="card purple" onclick="askAI()">
+      <h3>🤖 Ask AI</h3>
+      <p>Solve Doubts Instantly</p>
     </div>
 
   </div>
@@ -63,9 +67,9 @@
   <div class="section">
     <h3>Quick Actions</h3>
     <div class="actions">
-      <div>🧮 Solve Math</div>
-      <div>📖 Revise</div>
-      <div>⏱ Continue</div>
+      <div onclick="goSolver()">🧮 Solve Math</div>
+      <div onclick="goRevision()">📖 Revise</div>
+      <div onclick="continueStudy()">⏱ Continue</div>
     </div>
   </div>
 
@@ -87,11 +91,15 @@
     </div>
   </div>
 
-  <!-- BOTTOM NAV -->
+  <!-- 🔥 BOTTOM NAV -->
   <div class="bottom-nav">
-    <div>🏠 Home</div>
-    <div>💬</div>
-    <div>📋</div>
+    <div onclick="goHome()">🏠</div>
+    <div onclick="goFormulas()">📘</div>
+
+    <!-- CENTER AI -->
+    <div class="center-btn" onclick="askAI()">🤖</div>
+
+    <div onclick="goTests()">📊</div>
     <div onclick="myProfile()">👤</div>
   </div>
 
@@ -128,12 +136,10 @@
             document.getElementById('welcomeUser')
               .innerText = `Welcome back, ${data.name} 👋`;
 
-            // ✅ PROFILE PIC
             if (data.photo) {
               document.getElementById("profilePic").src = data.photo;
             }
 
-            // ✅ LEADERBOARD (same class + highest XP)
             const userClass = data.class;
 
             db.collection("users")
@@ -169,20 +175,19 @@
       document.getElementById('popup').style.display = 'none';
     }
 
-    function logout() {
-      auth.signOut().then(() => {
-        window.location.href = 'login.html';
-      });
-    }
+    // ✅ BUTTON FUNCTIONS
+    function goHome() {}
+    function goFormulas() { alert("Formulas page"); }
+    function goPractice() { alert("Practice page"); }
+    function goTests() { alert("Tests page"); }
+    function askAI() { alert("AI coming soon 🤖"); }
+    function goSolver() { alert("Math Solver"); }
+    function goRevision() { alert("Revision"); }
+    function continueStudy() { alert("Continue"); }
+    function myProfile() { alert("Profile page"); }
+    function openNotifications() { alert("No notifications 🔔"); }
 
-    function goSubjects() {
-      alert("Subjects clicked!");
-    }
-
-    function myProfile() {
-      alert("Profile clicked!");
-    }
   </script>
 
 </body>
-                                            </html>
+</html>
