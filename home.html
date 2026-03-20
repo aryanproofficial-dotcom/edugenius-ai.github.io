@@ -55,7 +55,6 @@
       <p>Take Exam Simulations</p>
     </div>
 
-    <!-- ✅ Ask AI -->
     <div class="card purple" onclick="askAI()">
       <h3>🤖 Ask AI</h3>
       <p>Solve Doubts Instantly</p>
@@ -84,21 +83,16 @@
   <!-- PROGRESS -->
   <div class="section">
     <h3>📊 Your Progress</h3>
-    <div class="progress">
-      <p>Study Time: 45 mins</p>
-      <p>Questions: 18</p>
-      <p>Accuracy: 90%</p>
+    <div class="progress" id="progressBox">
+      <p>Loading...</p>
     </div>
   </div>
 
-  <!-- 🔥 BOTTOM NAV -->
+  <!-- BOTTOM NAV -->
   <div class="bottom-nav">
     <div onclick="goHome()">🏠</div>
     <div onclick="goFormulas()">📘</div>
-
-    <!-- CENTER AI -->
     <div class="center-btn" onclick="askAI()">🤖</div>
-
     <div onclick="goTests()">📊</div>
     <div onclick="myProfile()">👤</div>
   </div>
@@ -133,13 +127,16 @@
 
             const data = doc.data();
 
+            // ✅ Welcome name
             document.getElementById('welcomeUser')
               .innerText = `Welcome back, ${data.name} 👋`;
 
+            // ✅ Profile pic
             if (data.photo) {
               document.getElementById("profilePic").src = data.photo;
             }
 
+            // ✅ Leaderboard
             const userClass = data.class;
 
             db.collection("users")
@@ -159,6 +156,19 @@
                 document.getElementById("leaderboard").innerHTML = html;
               });
 
+            // ✅ Dynamic Progress
+            const studyTime = data.studyTime || 0;
+            const questions = data.questionsSolved || 0;
+            const correct = data.correctAnswers || 0;
+
+            const accuracy = questions > 0 ? Math.round((correct / questions) * 100) : 0;
+
+            document.getElementById("progressBox").innerHTML = `
+              <p>Study Time: ${studyTime} mins</p>
+              <p>Questions: ${questions}</p>
+              <p>Accuracy: ${accuracy}%</p>
+            `;
+
             showPopup();
           });
 
@@ -175,17 +185,44 @@
       document.getElementById('popup').style.display = 'none';
     }
 
-    // ✅ BUTTON FUNCTIONS
+    // ✅ REAL NAVIGATION
     function goHome() {}
-    function goFormulas() { alert("Formulas page"); }
-    function goPractice() { alert("Practice page"); }
-    function goTests() { alert("Tests page"); }
-    function askAI() { alert("AI coming soon 🤖"); }
-    function goSolver() { alert("Math Solver"); }
-    function goRevision() { alert("Revision"); }
-    function continueStudy() { alert("Continue"); }
-    function myProfile() { alert("Profile page"); }
-    function openNotifications() { alert("No notifications 🔔"); }
+
+    function goFormulas() {
+      window.location.href = "formulas.html";
+    }
+
+    function goPractice() {
+      window.location.href = "practice.html";
+    }
+
+    function goTests() {
+      window.location.href = "tests.html";
+    }
+
+    function askAI() {
+      window.location.href = "ai.html";
+    }
+
+    function myProfile() {
+      window.location.href = "profile.html";
+    }
+
+    function goSolver() {
+      alert("Math Solver coming soon");
+    }
+
+    function goRevision() {
+      alert("Revision coming soon");
+    }
+
+    function continueStudy() {
+      alert("Continue study");
+    }
+
+    function openNotifications() {
+      alert("No notifications yet 🔔");
+    }
 
   </script>
 
