@@ -2,22 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chapter – EduGenius</title>
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6fa;
+    }
+
+    .chapter-container {
+      padding: 20px;
+    }
+
+    .chapter-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .formula-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .formula-card {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      background: #6a1b9a;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .back-btn:active {
+      transform: scale(0.96);
+    }
+
+    .empty {
+      text-align: center;
+      color: gray;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="chapter-container">
 
-  <h2 id="chapterTitle">Chapter</h2>
+  <!-- TITLE -->
+  <div class="chapter-title" id="chapterTitle">📘 Chapter</div>
 
-  <div id="formulaBox">
-    <p>Loading formulas...</p>
+  <!-- FORMULAS -->
+  <div id="formulaBox" class="formula-list">
+    <p class="empty">Loading formulas...</p>
   </div>
 
-  <br>
-  <button onclick="goBack()">⬅ Back</button>
+  <!-- BACK -->
+  <button class="back-btn" onclick="goBack()">⬅ Back</button>
 
 </div>
 
@@ -25,7 +83,8 @@
 const params = new URLSearchParams(window.location.search);
 const chapter = params.get("chapter");
 
-document.getElementById("chapterTitle").innerText = chapter;
+// SET TITLE
+document.getElementById("chapterTitle").innerText = "📘 " + chapter;
 
 // ✅ FORMULAS DATA
 let formulas = [];
@@ -51,15 +110,44 @@ else if (chapter === "Mensuration") {
   ];
 }
 
+else if (chapter === "Number System") {
+  formulas = [
+    "Rational Number = p/q (q ≠ 0)",
+    "LCM × HCF = Product of numbers",
+    "Terminating or repeating decimals"
+  ];
+}
+
+else if (chapter === "Polynomials") {
+  formulas = [
+    "Degree = highest power",
+    "f(a) = remainder (Remainder theorem)",
+    "Zero of polynomial → f(x)=0"
+  ];
+}
+
+else if (chapter === "Triangles") {
+  formulas = [
+    "Sum of angles = 180°",
+    "Pythagoras: a² + b² = c²",
+    "Area = 1/2 × base × height"
+  ];
+}
+
 // SHOW FORMULAS
 let html = "";
 
-formulas.forEach(f => {
-  html += `<p>${f}</p>`;
-});
+if (formulas.length === 0) {
+  html = `<p class="empty">No formulas added yet 😅</p>`;
+} else {
+  formulas.forEach(f => {
+    html += `<div class="formula-card">${f}</div>`;
+  });
+}
 
 document.getElementById("formulaBox").innerHTML = html;
 
+// BACK
 function goBack() {
   window.history.back();
 }
