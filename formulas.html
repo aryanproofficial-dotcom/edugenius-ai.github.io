@@ -2,18 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulas – EduGenius</title>
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6fa;
+    }
+
+    .chapter-container {
+      padding: 20px;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .chapter-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chapter-card {
+      background: linear-gradient(135deg, #6a1b9a, #8e24aa);
+      color: white;
+      padding: 16px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 500;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .chapter-card:active {
+      transform: scale(0.96);
+    }
+
+    .loading {
+      color: gray;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="chapter-container">
 
-  <h2>📘 Select Chapter</h2>
+  <div class="title">📘 Select Chapter</div>
 
-  <div id="chapterList">
-    <p>Loading...</p>
+  <div id="chapterList" class="chapter-list">
+    <p class="loading">Loading chapters...</p>
   </div>
 
 </div>
@@ -41,6 +94,11 @@ auth.onAuthStateChanged(user => {
     db.collection("users").doc(user.uid).get()
       .then(doc => {
 
+        if (!doc.exists) {
+          window.location.href = "profile.html";
+          return;
+        }
+
         const data = doc.data();
         const userClass = data.class;
 
@@ -49,24 +107,34 @@ auth.onAuthStateChanged(user => {
         // ✅ CLASS WISE CHAPTERS
         if (userClass === "Class 8") {
           chapters = ["Algebra", "Linear Equations", "Mensuration"];
-        } else if (userClass === "Class 9") {
+        } 
+        else if (userClass === "Class 9") {
           chapters = ["Number System", "Polynomials", "Triangles"];
-        } else if (userClass === "Class 10") {
+        } 
+        else if (userClass === "Class 10") {
           chapters = ["Real Numbers", "Trigonometry", "Statistics"];
         }
 
         let html = "";
 
-        chapters.forEach(ch => {
-          html += `
-            <div class="card" onclick="openChapter('${ch}')">
-              <h3>${ch}</h3>
-            </div>
-          `;
-        });
+        if (chapters.length === 0) {
+          html = `<p class="error">No chapters found 😅</p>`;
+        } else {
+          chapters.forEach(ch => {
+            html += `
+              <div class="chapter-card" onclick="openChapter('${ch}')">
+                📖 ${ch}
+              </div>
+            `;
+          });
+        }
 
         document.getElementById("chapterList").innerHTML = html;
 
+      })
+      .catch(error => {
+        document.getElementById("chapterList").innerHTML =
+          `<p class="error">Error loading chapters</p>`;
       });
 
   } else {
@@ -74,8 +142,9 @@ auth.onAuthStateChanged(user => {
   }
 });
 
+// OPEN CHAPTER
 function openChapter(chapter) {
-  window.location.href = "chapter.html?chapter=" + chapter;
+  window.location.href = "chapter.html?chapter=" + encodeURIComponent(chapter);
 }
 </script>
 
