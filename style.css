@@ -394,3 +394,94 @@ footer {
   padding: 12px;
   border-top: 1px solid #ccc;
 }
+/* ===== HEADER ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #3f51b5;
+  color: white;
+  padding: 10px 15px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-logo {
+  width: 40px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 20px;
+}
+
+.avatar-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+/* ===== GRID ===== */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  padding: 15px;
+}
+
+.card {
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
+  cursor: pointer;
+  text-align: left;
+}
+
+.blue { background: #3b82f6; }
+.green { background: #22c55e; }
+.orange { background: #f97316; }
+.purple { background: #a855f7; }
+
+/* ===== SECTIONS ===== */
+.section {
+  padding: 15px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.actions div {
+  background: #eee;
+  padding: 10px;
+  border-radius: 10px;
+  width: 30%;
+  text-align: center;
+}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.center-btn {
+  background: #6a1b9a;
+  color: white;
+  padding: 12px;
+  border-radius: 50%;
+  margin-top: -20px;
+}
