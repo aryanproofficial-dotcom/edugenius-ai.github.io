@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulas – EduGenius</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2>📘 Select Chapter</h2>
+
+  <div id="chapterList">
+    <p>Loading...</p>
+  </div>
+
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBCX7uxYy_3XdjZhUpsh5qZ5fTy-Ai3YqQ",
+  authDomain: "edugenius-ai69.firebaseapp.com",
+  projectId: "edugenius-ai69",
+  appId: "1:108519318021:web:f05342a38336895945f26c"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+
+    db.collection("users").doc(user.uid).get()
+      .then(doc => {
+
+        const data = doc.data();
+        const userClass = data.class;
+
+        let chapters = [];
+
+        // ✅ CLASS WISE CHAPTERS
+        if (userClass === "Class 8") {
+          chapters = ["Algebra", "Linear Equations", "Mensuration"];
+        } else if (userClass === "Class 9") {
+          chapters = ["Number System", "Polynomials", "Triangles"];
+        } else if (userClass === "Class 10") {
+          chapters = ["Real Numbers", "Trigonometry", "Statistics"];
+        }
+
+        let html = "";
+
+        chapters.forEach(ch => {
+          html += `
+            <div class="card" onclick="openChapter('${ch}')">
+              <h3>${ch}</h3>
+            </div>
+          `;
+        });
+
+        document.getElementById("chapterList").innerHTML = html;
+
+      });
+
+  } else {
+    window.location.href = "login.html";
+  }
+});
+
+function openChapter(chapter) {
+  window.location.href = "chapter.html?chapter=" + chapter;
+}
+</script>
+
+</body>
+</html>
