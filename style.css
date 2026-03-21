@@ -30,8 +30,6 @@ h2 {
 /* ================= LOGO ================= */
 .logo {
   width: 100px;
-  max-width: 100%;
-  height: auto;
   margin: 20px auto;
   display: block;
 }
@@ -56,6 +54,7 @@ h2 {
   color: #6a1b9a;
   border-radius: 5px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .login-methods button:hover {
@@ -93,10 +92,9 @@ h2 {
 /* ================= CARD ================= */
 .card {
   background: #fff;
-  padding: 20px;
+  padding: 18px;
   border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   margin-top: 20px;
 }
 
@@ -141,9 +139,9 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #3f51b5;
+  background: linear-gradient(to right, #1a237e, #3949ab);
   color: white;
-  padding: 10px 15px;
+  padding: 12px 15px;
 }
 
 .header-left {
@@ -156,16 +154,25 @@ h2 {
   width: 40px;
 }
 
+.app-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
 .header-right {
   display: flex;
   align-items: center;
   gap: 15px;
+  font-size: 20px;
 }
 
 .avatar-img {
   width: 35px;
   height: 35px;
   border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+  cursor: pointer;
 }
 
 /* POPUP */
@@ -197,7 +204,7 @@ h2 {
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  gap: 12px;
   padding: 15px;
 }
 
@@ -205,6 +212,11 @@ h2 {
   color: white;
   cursor: pointer;
   text-align: left;
+  transition: 0.2s;
+}
+
+.grid .card:active {
+  transform: scale(0.95);
 }
 
 /* COLORS */
@@ -220,14 +232,21 @@ h2 {
 
 .actions {
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
 }
 
 .actions div {
-  background: #eee;
-  padding: 10px;
+  background: white;
+  padding: 12px;
   border-radius: 10px;
-  width: 30%;
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.actions div:active {
+  transform: scale(0.95);
 }
 
 /* LEADERBOARD */
@@ -241,7 +260,7 @@ h2 {
 /* PROGRESS */
 .progress {
   background: white;
-  padding: 10px;
+  padding: 12px;
   border-radius: 10px;
 }
 
@@ -257,6 +276,12 @@ h2 {
   border-top: 1px solid #ccc;
 }
 
+.bottom-nav div {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* CENTER BUTTON */
 .center-btn {
   background: #6a1b9a;
   color: white;
@@ -278,6 +303,7 @@ h2 {
   padding: 16px;
   border-radius: 14px;
   cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 #chapterList .card:active {
@@ -286,14 +312,16 @@ h2 {
 
 /* FORMULA BOX */
 #formulaBox {
-  background: #fff;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  margin-top: 10px;
 }
 
-#formulaBox p {
-  margin: 10px 0;
+/* FORMULA CARD (NEW UI) */
+.formula-card {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 /* BUTTON */
