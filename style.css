@@ -1,317 +1,641 @@
-/* ================= GLOBAL ================= */
-* {
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+/* Apply to all elements */
+
+{
+box-sizing: border-box;
+font-family: Arial, sans-serif;
 }
+
 
 body {
-  margin: 0;
-  padding: 0;
-  background: #f5f6fa;
-  text-align: center;
+margin: 0;
+padding: 0;
+background: white;
+text-align: center;
 }
 
-/* ================= CONTAINER ================= */
 .container {
-  max-width: 380px;
-  margin: auto;
-  padding: 20px;
+max-width: 380px;
+margin: auto;
+padding: 20px;
 }
 
-/* ================= HEADINGS ================= */
+.logo {
+width: 100px;      /* smaller fixed width /
+max-width: 100%;   / never exceed container width /
+height: auto;      / maintain aspect ratio /
+margin: 20px auto; / center it */
+display: block;
+}
+
 h1 {
-  margin: 5px 0;
+margin: 5px 0;
+}
+
+.tagline {
+color: #555;
+margin-bottom: 20px;
 }
 
 h2 {
-  margin: 15px 0;
+margin: 15px 0;
 }
 
-/* ================= LOGO ================= */
-.logo {
-  width: 100px;
-  max-width: 100%;
-  height: auto;
-  margin: 20px auto;
-  display: block;
-}
-
-/* ================= LOGIN ================= */
-.tagline {
-  color: #555;
-  margin-bottom: 20px;
-}
+/* ===== Login Methods ===== */
 
 .login-methods {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 15px;
+display: flex;
+justify-content: center;
+gap: 10px;
+margin-bottom: 15px;
 }
 
 .login-methods button {
-  padding: 8px 16px;
-  border: 1px solid #6a1b9a;
-  background: white;
-  color: #6a1b9a;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.2s;
+padding: 8px 16px;
+border: 1px solid #6a1b9a;
+background: white;
+color: #6a1b9a;
+cursor: pointer;
+border-radius: 5px;
 }
 
 .login-methods button:hover {
-  background: #6a1b9a;
-  color: white;
+background: #6a1b9a;
+color: white;
 }
 
+/* ===== Login Form ===== */
+
 .login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+display: flex;
+flex-direction: column;
+gap: 10px;
 }
 
 .login-form input {
-  padding: 10px;
-  font-size: 14px;
+padding: 10px;
+font-size: 14px;
 }
 
 .login-form button {
-  padding: 10px;
-  background: #6a1b9a;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+padding: 10px;
+background: #6a1b9a;
+color: white;
+border: none;
+cursor: pointer;
+border-radius: 5px;
 }
 
 .login-form button:hover {
-  background: #4a148c;
+background: #4a148c;
 }
 
 .hidden {
-  display: none;
+display: none;
 }
 
 .new-account {
-  margin-top: 15px;
+margin-top: 15px;
 }
 
 .new-account a {
-  color: #6a1b9a;
-  text-decoration: none;
+color: #6a1b9a;
+text-decoration: none;
 }
 
-/* ================= CARD ================= */
+footer {
+margin-top: 25px;
+font-size: 12px;
+color: gray;
+}
+
+.btn {
+display: inline-block;
+padding: 10px 20px;
+background: #6a1b9a;
+color: white;
+text-decoration: none;
+border-radius: 5px;
+}
+
+/* ===== Mobile Responsive ===== */
+
+@media (max-width: 768px) {
+.container {
+max-width: 100%;
+padding: 18px;
+}
+
+.logo {
+width: 100px;
+margin: 15px auto;
+}
+
+h1 {
+font-size: 1.8rem;
+margin-bottom: 10px;
+}
+
+.tagline {
+font-size: 1rem;
+margin-bottom: 15px;
+}
+
+h2 {
+font-size: 1.3rem;
+margin-bottom: 15px;
+}
+
+.login-methods button {
+padding: 10px 16px;
+font-size: 14px;
+}
+
+.login-form input {
+font-size: 16px;
+padding: 12px;
+}
+
+.login-form button {
+font-size: 16px;
+padding: 12px;
+}
+
+.new-account a {
+font-size: 14px;
+}
+
+footer {
+font-size: 11px;
+}
+}
+
+/* ===== Signup Card ===== */
+
 .card {
-  background: #fff;
-  padding: 25px;
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-  margin-top: 20px;
+background: #fff;
+padding: 25px;
+border-radius: 16px;
+box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+text-align: center;
+margin-top: 20px;
 }
 
-/* ================= PROFILE ================= */
+.card h2 {
+margin-bottom: 10px;
+font-size: 24px;
+color: #333;
+}
+
+.card .subtitle {
+color: #555;
+margin-bottom: 20px;
+font-size: 16px;
+}
+
+.card input {
+width: 100%;
+padding: 12px;
+margin-bottom: 14px;
+border-radius: 10px;
+border: 1px solid #ddd;
+font-size: 15px;
+}
+
+.card button {
+width: 100%;
+padding: 12px;
+border: none;
+border-radius: 12px;
+background: #6a1b9a;
+color: white;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+}
+
+.card button:hover {
+background: #4a148c;
+}
+
+.card .small-text {
+margin-top: 15px;
+font-size: 14px;
+}
+
+.card .small-text a {
+color: #6a1b9a;
+text-decoration: none;
+font-weight: bold;
+}
+
+.card .small-text a:hover {
+text-decoration: underline;
+}
+
+/* ===== Profile Setup Page ===== */
+
 .profile-container {
-  background: #fff;
-  max-width: 400px;
-  margin: 40px auto;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  text-align: left;
+background: #fff;
+max-width: 400px;
+margin: 40px auto;
+padding: 25px;
+border-radius: 15px;
+box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+text-align: left;
+}
+
+.profile-container h2 {
+text-align: center;
+margin-bottom: 20px;
 }
 
 .profile-container input,
 .profile-container select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+width: 100%;
+padding: 10px;
+margin-top: 5px;
+border-radius: 8px;
+border: 1px solid #ccc;
 }
 
 .profile-container button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 20px;
-  background: #00bcd4;
-  color: white;
-  border: none;
-  border-radius: 10px;
+width: 100%;
+padding: 12px;
+margin-top: 20px;
+background: #00bcd4;
+color: white;
+border: none;
+border-radius: 10px;
+font-size: 16px;
+cursor: pointer;
 }
 
-/* ================= HOME ================= */
+.profile-container button:hover {
+background: #0097a7;
+}
+/* ===== HOME UI ===== */
+
 .home-body {
-  background: #f5f7fb;
-  text-align: left;
-}
-
-/* HEADER */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(to right, #1a237e, #3949ab);
-  color: white;
-  padding: 12px 15px;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.header-logo {
-  width: 40px;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.avatar-img {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  border: 2px solid white;
-  object-fit: cover;
+background: #f5f7fb;
+text-align: left;
 }
 
 /* POPUP */
 .popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: none;
-  justify-content: center;
-  align-items: center;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.5);
+display: none;
+justify-content: center;
+align-items: center;
 }
 
 .popup {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
+background: white;
+padding: 20px;
+border-radius: 15px;
+text-align: center;
+}
+
+/* HEADER */
+.header {
+display: flex;
+justify-content: space-between;
+padding: 15px;
+background: linear-gradient(to right, #1a237e, #3949ab);
+color: white;
+}
+
+.header-logo {
+width: 40px;
+}
+
+.header-right {
+display: flex;
+gap: 10px;
+align-items: center;
+}
+
+.avatar-img {
+width: 35px;
+height: 35px;
+border-radius: 50%;
+object-fit: cover;
+border: 2px solid white;
+}
+
+/* WELCOME */
+.welcome {
+padding: 15px;
 }
 
 /* GRID */
 .grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  padding: 15px;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 15px;
+padding: 15px;
 }
 
 .grid .card {
-  color: white;
-  cursor: pointer;
+padding: 20px;
+border-radius: 15px;
+color: white;
 }
 
-/* COLORS */
+.blue { background: #2979ff; }
+.green { background: #43a047; }
+.orange { background: #fb8c00; }
+.purple { background: #8e24aa; }
+
+/* SECTIONS */
+.section {
+padding: 15px;
+}
+
+.actions {
+display: flex;
+justify-content: space-between;
+}
+
+.actions div {
+background: white;
+padding: 10px;
+border-radius: 10px;
+flex: 1;
+margin: 5px;
+text-align: center;
+}
+
+/* LEADERBOARD */
+.leaderboard div {
+background: white;
+margin: 5px 0;
+padding: 10px;
+border-radius: 10px;
+}
+
+/* PROGRESS */
+.progress {
+background: white;
+padding: 10px;
+border-radius: 10px;
+}
+
+/* NAV /
+.bottom-nav {
+position: fixed;
+bottom: 0;
+width: 100%;
+background: white;
+display: flex;
+justify-content: space-around;
+padding: 12px;
+border-top: 1px solid #ccc;
+}
+/ ===== HEADER ===== */
+.header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background: #3f51b5;
+color: white;
+padding: 10px 15px;
+}
+
+.header-left {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.header-logo {
+width: 40px;
+}
+
+.header-right {
+display: flex;
+align-items: center;
+gap: 15px;
+font-size: 20px;
+}
+
+.avatar-img {
+width: 35px;
+height: 35px;
+border-radius: 50%;
+}
+
+/* ===== GRID ===== */
+.grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 15px;
+padding: 15px;
+}
+
+.card {
+padding: 20px;
+border-radius: 15px;
+color: white;
+cursor: pointer;
+text-align: left;
+}
+
 .blue { background: #3b82f6; }
 .green { background: #22c55e; }
 .orange { background: #f97316; }
 .purple { background: #a855f7; }
 
-/* SECTIONS */
+/* ===== SECTIONS ===== */
 .section {
-  padding: 15px;
+padding: 15px;
 }
 
 .actions {
-  display: flex;
-  gap: 10px;
+display: flex;
+justify-content: space-between;
 }
 
 .actions div {
-  background: white;
-  padding: 10px;
-  border-radius: 10px;
-  flex: 1;
+background: #eee;
+padding: 10px;
+border-radius: 10px;
+width: 30%;
+text-align: center;
 }
 
-/* ================= BOTTOM NAV ================= */
+/* ===== BOTTOM NAV ===== */
 .bottom-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: white;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-  border-top: 1px solid #ccc;
+position: fixed;
+bottom: 0;
+width: 100%;
+background: white;
+display: flex;
+justify-content: space-around;
+padding: 10px;
+border-top: 1px solid #ccc;
 }
 
 .center-btn {
-  background: #6a1b9a;
-  color: white;
-  padding: 12px;
-  border-radius: 50%;
-  margin-top: -20px;
+background: #6a1b9a;
+color: white;
+padding: 12px;
+border-radius: 50%;
+margin-top: -20px;
+}
+#chapterList .card {
+padding: 15px;
+margin: 10px 0;
+background: #f3e5f5;
+border-radius: 12px;
+cursor: pointer;
+transition: 0.3s;
 }
 
-/* ================= FORMULAS ================= */
+#chapterList .card:hover {
+background: #ce93d8;
+}
+
+#formulaBox {
+background: #fff;
+padding: 15px;
+border-radius: 12px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+#formulaBox p {
+margin: 10px 0;
+font-size: 16px;
+}
+#chapterList .card {
+padding: 15px;
+margin: 10px 0;
+background: #f3e5f5;
+border-radius: 12px;
+cursor: pointer;
+transition: 0.3s;
+}
+
+#chapterList .card:hover {
+background: #ce93d8;
+}
+
+#formulaBox {
+background: #fff;
+padding: 15px;
+border-radius: 12px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+#formulaBox p {
+margin: 10px 0;
+font-size: 16px;
+}
+/* ===== GLOBAL ===== */
+
+{
+box-sizing: border-box;
+font-family: Arial, sans-serif;
+}
+
+
+body {
+margin: 0;
+padding: 0;
+background: #f5f6fa;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+padding: 20px;
+}
+
+/* ===== HEADINGS ===== */
+h2 {
+margin-bottom: 15px;
+}
+
+/* ===== CHAPTER LIST (FORMULAS PAGE) ===== */
 #chapterList {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+display: flex;
+flex-direction: column;
+gap: 12px;
+}
+
+/* 🔥 NEW PREMIUM CARDS */
+#chapterList .card {
+padding: 16px;
+background: linear-gradient(135deg, #6a1b9a, #8e24aa);
+color: white;
+border-radius: 14px;
+font-size: 16px;
+font-weight: 500;
+cursor: pointer;
+box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+transition: 0.2s;
+}
+
+/* CLICK EFFECT */
+#chapterList .card:active {
+transform: scale(0.96);
+}
+
+/* ===== FORMULA BOX (OLD SUPPORT) ===== */
+#formulaBox {
+margin-top: 10px;
+}
+
+/* ===== FORMULA CARDS (NEW UI) ===== */
+.formula-card {
+background: #ffffff;
+padding: 15px;
+border-radius: 12px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+font-size: 16px;
+font-weight: 500;
+margin-bottom: 12px;
+}
+
+/* ===== EMPTY / TEXT ===== */
+.empty {
+text-align: center;
+color: gray;
+margin-top: 20px;
+}
+
+/* ===== BUTTON ===== */
+button {
+padding: 12px;
+width: 100%;
+border: none;
+border-radius: 10px;
+background: #6a1b9a;
+color: white;
+font-size: 16px;
+cursor: pointer;
+margin-top: 15px;
+}
+
+/* BUTTON CLICK EFFECT */
+button:active {
+transform: scale(0.96);
+}
+
+/* ===== MOBILE OPTIMIZATION ===== */
+@media (max-width: 768px) {
+h2 {
+font-size: 20px;
+}
+
+.formula-card {
+font-size: 15px;
 }
 
 #chapterList .card {
-  padding: 16px;
-  background: linear-gradient(135deg, #6a1b9a, #8e24aa);
-  color: white;
-  border-radius: 14px;
-  cursor: pointer;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  transition: 0.2s;
+font-size: 15px;
 }
-
-#chapterList .card:active {
-  transform: scale(0.96);
-}
-
-/* FORMULA CARD */
-.formula-card {
-  background: #ffffff;
-  padding: 15px;
-  border-radius: 12px;
-  margin-bottom: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* BUTTON */
-button {
-  padding: 12px;
-  width: 100%;
-  border: none;
-  border-radius: 10px;
-  background: #6a1b9a;
-  color: white;
-  cursor: pointer;
-}
-
-button:active {
-  transform: scale(0.96);
-}
-
-/* ================= MOBILE ================= */
-@media (max-width: 768px) {
-  h2 {
-    font-size: 20px;
-  }
-
-  .formula-card {
-    font-size: 15px;
-  }
-
-  #chapterList .card {
-    font-size: 15px;
-  }
 }
