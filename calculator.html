@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EduGenius Calculator</title>
+<title>EduGenius Calculator V3</title>
 
 <style>
 * { box-sizing: border-box; }
@@ -18,36 +18,37 @@ body {
   min-height: 100vh;
 }
 
-.calc-container {
-  width: 100%;
-  max-width: 340px;
+.calc {
+  width: 95%;
+  max-width: 360px;
   background: white;
-  padding: 15px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  padding: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 h2 {
   text-align: center;
   color: #6a1b9a;
+  margin-bottom: 10px;
 }
 
 #display {
   width: 100%;
-  padding: 14px;
+  padding: 15px;
   font-size: 22px;
-  font-weight: bold;
   border: none;
-  background: #f3f3f3;
+  background: #f1f1f1;
   border-radius: 12px;
   text-align: right;
-  margin-bottom: 10px;
+  outline: none;
 }
 
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
+  margin-top: 10px;
 }
 
 button {
@@ -65,20 +66,21 @@ button:active {
   transform: scale(0.92);
 }
 
-.special { background: #ff9800; }
-.ai { background: #00bcd4; grid-column: span 2; }
+.op { background: #ff9800; }
+.eq { background: #00bcd4; }
+.zero { grid-column: span 2; }
 
 #history {
   margin-top: 10px;
-  max-height: 110px;
-  overflow-y: auto;
   background: #f3e5f5;
   padding: 8px;
   border-radius: 10px;
+  max-height: 120px;
+  overflow-y: auto;
   font-size: 13px;
 }
 
-#explainBox {
+#explain {
   margin-top: 10px;
   background: #e3f2fd;
   padding: 10px;
@@ -91,144 +93,138 @@ button:active {
 
 <body>
 
-<div class="calc-container">
+<div class="calc">
 
-<h2>🧮 EduGenius Calculator</h2>
+<h2>🧮 EduGenius V3</h2>
 
-<input type="text" id="display" disabled>
+<input id="display" disabled>
 
 <div class="buttons">
 
 <button onclick="press('7')">7</button>
 <button onclick="press('8')">8</button>
 <button onclick="press('9')">9</button>
-<button onclick="press('/')" class="special">÷</button>
+<button class="op" onclick="press('/')">÷</button>
 
 <button onclick="press('4')">4</button>
 <button onclick="press('5')">5</button>
 <button onclick="press('6')">6</button>
-<button onclick="press('*')" class="special">×</button>
+<button class="op" onclick="press('*')">×</button>
 
 <button onclick="press('1')">1</button>
 <button onclick="press('2')">2</button>
 <button onclick="press('3')">3</button>
-<button onclick="press('-')" class="special">−</button>
+<button class="op" onclick="press('-')">−</button>
 
 <button onclick="press('0')">0</button>
 <button onclick="press('.')">.</button>
 <button onclick="press('00')">00</button>
-<button onclick="press('+')" class="special">+</button>
+<button class="op" onclick="press('+')">+</button>
 
-<button onclick="clearDisplay()">C</button>
-<button onclick="backspace()">⌫</button>
-<button onclick="calculate()" class="special">=</button>
-<button onclick="explain()" class="ai">🤖 Explain</button>
+<button onclick="clearAll()">C</button>
+<button onclick="back()">⌫</button>
+<button class="eq" onclick="calc()">=</button>
+<button class="eq" onclick="explain()">🤖 Explain</button>
 
 </div>
 
 <div id="history"></div>
-<div id="explainBox"></div>
+<div id="explain"></div>
 
 </div>
 
 <script>
 
-const display = document.getElementById("display");
-const historyBox = document.getElementById("history");
-const explainBox = document.getElementById("explainBox");
+let display = document.getElementById("display");
+let history = document.getElementById("history");
+let explainBox = document.getElementById("explain");
 
-/* ================= INPUT ================= */
-function press(val) {
-  const last = display.value.slice(-1);
-  if ("+-*/".includes(val) && "+-*/".includes(last)) return;
+/* ================= SAFE INPUT ================= */
+function press(v) {
+  let last = display.value.slice(-1);
 
-  display.value += val;
-  live();
+  if ("+-*/".includes(v) && "+-*/".includes(last)) return;
+
+  display.value += v;
 }
 
-/* ================= LIVE RESULT ================= */
-function live() {
-  try {
-    let r = Function('"use strict";return (' + display.value + ')')();
-    explainBox.innerHTML = "Live Result: " + r;
-  } catch {
-    explainBox.innerHTML = "";
-  }
-}
-
-/* ================= BASIC ACTIONS ================= */
-function clearDisplay() {
+/* ================= CLEAR ================= */
+function clearAll() {
   display.value = "";
   explainBox.innerHTML = "";
 }
 
-function backspace() {
+function back() {
   display.value = display.value.slice(0, -1);
-}
-
-/* ================= CALCULATE ================= */
-function calculate() {
-  try {
-    let result = Function('"use strict";return (' + display.value + ')')();
-
-    display.value = Number(result.toFixed(6));
-
-    let item = document.createElement("p");
-    item.innerText = display.value + " = " + result;
-
-    historyBox.appendChild(item);
-
-  } catch {
-    alert("Invalid Expression");
-  }
 }
 
 /* ================= TOKENIZER ================= */
 function tokenize(exp) {
-  return exp.match(/(\d+\.?\d*|[+\-*/])/g);
+  return exp.match(/\d+\.?\d*|[+\-*/]/g);
 }
 
-/* ================= FIXED BODMAS ENGINE ================= */
-function solveBODMAS(tokens) {
+/* ================= TRUE BODMAS ENGINE ================= */
+function solve(exp) {
 
+  let tokens = tokenize(exp);
   let log = [];
 
-  function process(op) {
+  function apply(op) {
     while (tokens.includes(op)) {
       for (let i = 0; i < tokens.length; i++) {
         if (tokens[i] === op) {
 
           let a = parseFloat(tokens[i - 1]);
           let b = parseFloat(tokens[i + 1]);
-          let res = 0;
+          let r = 0;
 
-          if (op === "/") res = a / b;
-          if (op === "*") res = a * b;
-          if (op === "+") res = a + b;
-          if (op === "-") res = a - b;
+          if (op === "/") r = a / b;
+          if (op === "*") r = a * b;
+          if (op === "+") r = a + b;
+          if (op === "-") r = a - b;
 
-          log.push(`${a} ${op} ${b} = ${res}`);
+          log.push(`${a} ${op} ${b} = ${r}`);
 
-          tokens.splice(i - 1, 3, res.toString());
+          tokens.splice(i - 1, 3, r.toString());
           break;
         }
       }
     }
   }
 
-  log.push("Step 1: Division (÷)");
-  process("/");
+  log.push("Step 1: Division");
+  apply("/");
 
-  log.push("Step 2: Multiplication (×)");
-  process("*");
+  log.push("Step 2: Multiplication");
+  apply("*");
 
-  log.push("Step 3: Addition (+)");
-  process("+");
+  log.push("Step 3: Addition");
+  apply("+");
 
-  log.push("Step 4: Subtraction (−)");
-  process("-");
+  log.push("Step 4: Subtraction");
+  apply("-");
 
-  return { result: tokens[0], log };
+  return {
+    result: tokens[0],
+    log: log
+  };
+}
+
+/* ================= CALCULATE ================= */
+function calc() {
+  try {
+    let exp = display.value;
+    let { result } = solve(exp);
+
+    display.value = Number(result);
+
+    let p = document.createElement("p");
+    p.innerText = exp + " = " + result;
+    history.appendChild(p);
+
+  } catch {
+    alert("Invalid Expression");
+  }
 }
 
 /* ================= EXPLAIN ================= */
@@ -237,24 +233,25 @@ function explain() {
   let exp = display.value;
   if (!exp) return;
 
-  let tokens = tokenize(exp);
-  let { result, log } = solveBODMAS(tokens);
+  let { result, log } = solve(exp);
 
-  let output = "🤖 Step-by-step (Correct BODMAS Order):<br><br>";
+  let out = "🤖 Step-by-step (BODMAS):<br><br>";
 
-  log.forEach(step => output += step + "<br>");
+  log.forEach(s => {
+    out += "• " + s + "<br>";
+  });
 
-  output += "<br><b>Final Answer = " + result + "</b>";
+  out += "<br><b>Final Answer = " + result + "</b>";
 
-  explainBox.innerHTML = output;
+  explainBox.innerHTML = out;
 }
 
 /* ================= KEYBOARD ================= */
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", e => {
   if ("0123456789+-*/.".includes(e.key)) press(e.key);
-  else if (e.key === "Enter") calculate();
-  else if (e.key === "Backspace") backspace();
-  else if (e.key === "Escape") clearDisplay();
+  else if (e.key === "Enter") calc();
+  else if (e.key === "Backspace") back();
+  else if (e.key === "Escape") clearAll();
 });
 
 </script>
