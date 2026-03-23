@@ -652,3 +652,17 @@ button:active {
 .card .small-text a:hover {
   text-decoration: underline;
 }
+/* ===== FIX: Center bottom text ===== */
+.card .small-text {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+  text-align: center;   /* 🔥 centers the text */
+}
+
+.card .small-text a {
+  display: inline-block;
+  margin-top: 5px;      /* 🔥 moves Login below */
+  color: #6a1b9a;
+  font-weight: bold;
+}
