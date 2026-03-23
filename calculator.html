@@ -6,22 +6,25 @@
 <title>EduGenius Calculator</title>
 
 <style>
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: Arial;
-  background: #1e1e2f;
+  background: linear-gradient(135deg, #6a1b9a, #3f51b5);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
 
-.container {
-  width: 340px;
+.calc-container {
+  width: 100%;
+  max-width: 340px;
   background: white;
   padding: 15px;
-  border-radius: 18px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 h2 {
@@ -31,8 +34,12 @@ h2 {
 
 #display {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   font-size: 22px;
+  font-weight: bold;
+  border: none;
+  background: #f3f3f3;
+  border-radius: 12px;
   text-align: right;
   margin-bottom: 10px;
 }
@@ -40,137 +47,212 @@ h2 {
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  gap: 8px;
 }
 
 button {
-  padding: 12px;
+  padding: 14px;
+  font-size: 16px;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   background: #6a1b9a;
   color: white;
-  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-button:active { transform: scale(0.95); }
+button:active {
+  transform: scale(0.92);
+}
 
 .special { background: #ff9800; }
+.ai { background: #00bcd4; grid-column: span 2; }
 
-#history, #explain {
+#history {
   margin-top: 10px;
-  padding: 10px;
-  background: #f1f1f1;
+  max-height: 110px;
+  overflow-y: auto;
+  background: #f3e5f5;
+  padding: 8px;
   border-radius: 10px;
   font-size: 13px;
-  max-height: 120px;
-  overflow-y: auto;
+}
+
+#explainBox {
+  margin-top: 10px;
+  background: #e3f2fd;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  min-height: 40px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="calc-container">
 
 <h2>🧮 EduGenius Calculator</h2>
 
-<input id="display" disabled>
+<input type="text" id="display" disabled>
 
 <div class="buttons">
+
+<button onclick="square()">x²</button>
+<button onclick="sqrt()">√</button>
+<button onclick="percent()">%</button>
+<button onclick="backspace()">⌫</button>
+
 <button onclick="press('7')">7</button>
 <button onclick="press('8')">8</button>
 <button onclick="press('9')">9</button>
-<button onclick="press('/')">÷</button>
+<button onclick="press('/')" class="special">÷</button>
 
 <button onclick="press('4')">4</button>
 <button onclick="press('5')">5</button>
 <button onclick="press('6')">6</button>
-<button onclick="press('*')">×</button>
+<button onclick="press('*')" class="special">×</button>
 
 <button onclick="press('1')">1</button>
 <button onclick="press('2')">2</button>
 <button onclick="press('3')">3</button>
-<button onclick="press('-')">−</button>
+<button onclick="press('-')" class="special">−</button>
 
 <button onclick="press('0')">0</button>
-<button onclick="clearAll()">C</button>
-<button onclick="calculate()">=</button>
-<button onclick="press('+')">+</button>
+<button onclick="clearDisplay()">C</button>
+<button onclick="calculate()" class="special">=</button>
+<button onclick="press('+')" class="special">+</button>
 
-<button onclick="explain()" class="special">Explain</button>
+<button onclick="explain()" class="ai">🤖 Explain</button>
+<button onclick="clearHistory()">🧹</button>
+
 </div>
 
 <div id="history"></div>
-<div id="explain"></div>
+<div id="explainBox"></div>
 
 </div>
 
 <script>
 
-let display = document.getElementById("display");
-let history = document.getElementById("history");
-let explainBox = document.getElementById("explain");
+const display = document.getElementById("display");
+const historyBox = document.getElementById("history");
+const explainBox = document.getElementById("explainBox");
+
+/* ================= INPUT ================= */
 
 function press(val) {
+  const last = display.value.slice(-1);
+  if ("+-*/".includes(val) && "+-*/".includes(last)) return;
+
   display.value += val;
+  live();
 }
 
-function clearAll() {
-  display.value = "";
-  explainBox.innerHTML = "";
+/* ================= LIVE RESULT ================= */
+
+function live() {
+  try {
+    let r = Function('"use strict";return (' + display.value + ')')();
+    explainBox.innerHTML = "Live Result: " + r;
+  } catch {
+    explainBox.innerHTML = "";
+  }
 }
 
-// SAFE CALCULATION
+/* ================= CALCULATE ================= */
+
 function calculate() {
   try {
     let exp = display.value;
     let result = Function('"use strict";return (' + exp + ')')();
 
-    display.value = result;
+    display.value = Number(result.toFixed(6));
 
-    history.innerHTML += `<div>${exp} = ${result}</div>`;
+    let item = document.createElement("p");
+    item.innerText = exp + " = " + result;
+    item.onclick = () => display.value = exp;
+
+    historyBox.appendChild(item);
+
+    if (historyBox.children.length > 10) {
+      historyBox.removeChild(historyBox.firstChild);
+    }
+
   } catch {
     alert("Invalid Expression");
   }
 }
 
+/* ================= CLEAR ================= */
+
+function clearDisplay() {
+  display.value = "";
+  explainBox.innerHTML = "";
+}
+
+function backspace() {
+  display.value = display.value.slice(0, -1);
+}
+
+function clearHistory() {
+  historyBox.innerHTML = "";
+}
+
+/* ================= EXTRA OPS ================= */
+
+function square() {
+  display.value = display.value * display.value;
+}
+
+function sqrt() {
+  display.value = Math.sqrt(display.value);
+}
+
+function percent() {
+  display.value = display.value / 100;
+}
+
+/* ================= BODMAS ENGINE ================= */
+
 function explain() {
   let exp = display.value;
   if (!exp) return;
 
-  let steps = "🤖 BODMAS Step-by-step:<br><br>";
-
   let tokens = tokenize(exp);
-
   let { result, log } = solveBODMAS(tokens);
 
-  log.forEach(l => steps += l + "<br>");
+  let steps = "🤖 Step-by-step (BODMAS):<br><br>";
+
+  log.forEach(step => {
+    steps += step + "<br>";
+  });
 
   steps += "<br><b>Final Answer = " + result + "</b>";
 
   explainBox.innerHTML = steps;
 }
 
-/* ---------------- CORE ENGINE ---------------- */
-
-// Convert string → tokens
+/* TOKENIZER */
 function tokenize(exp) {
   return exp.match(/(\d+\.?\d*|[+\-*/()])/g);
 }
 
-// Solve using real BODMAS order
+/* REAL BODMAS ENGINE */
 function solveBODMAS(tokens) {
 
   let log = [];
 
-  function solve(tokens, opSet, symbol) {
-    while (tokens.some(t => opSet.includes(t))) {
+  function solveOps(tokens, ops) {
+    while (tokens.some(t => ops.includes(t))) {
       for (let i = 0; i < tokens.length; i++) {
-        if (opSet.includes(tokens[i])) {
+
+        if (ops.includes(tokens[i])) {
 
           let a = parseFloat(tokens[i - 1]);
           let b = parseFloat(tokens[i + 1]);
-          let res;
+          let res = 0;
 
           if (tokens[i] === "*") res = a * b;
           if (tokens[i] === "/") res = a / b;
@@ -186,7 +268,7 @@ function solveBODMAS(tokens) {
     }
   }
 
-  // STEP 1: Brackets (basic support)
+  /* BRACKETS */
   while (tokens.includes("(")) {
     let start = tokens.lastIndexOf("(");
     let end = tokens.indexOf(")", start);
@@ -197,12 +279,27 @@ function solveBODMAS(tokens) {
     tokens.splice(start, end - start + 1, subResult.toString());
   }
 
-  // STEP 2: BODMAS ORDER
-  solve(tokens, ["*","/"], "MD");
-  solve(tokens, ["+","-"], "AS");
+  /* BODMAS ORDER */
+  solveOps(tokens, ["*","/"]);
+  solveOps(tokens, ["+","-"]);
 
-  return { result: tokens[0], log };
+  return {
+    result: tokens[0],
+    log: log
+  };
 }
+
+/* ================= KEYBOARD ================= */
+
+document.addEventListener("keydown", (e) => {
+  if ("0123456789+-*/.".includes(e.key)) press(e.key);
+  else if (e.key === "Enter") calculate();
+  else if (e.key === "Backspace") backspace();
+  else if (e.key === "Escape") clearDisplay();
+});
+
+/* DOUBLE TAP CLEAR */
+document.getElementById("display").addEventListener("dblclick", clearDisplay);
 
 </script>
 
