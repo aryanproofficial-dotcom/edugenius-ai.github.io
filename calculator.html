@@ -99,11 +99,6 @@ button:active {
 
 <div class="buttons">
 
-<button onclick="square()">x²</button>
-<button onclick="sqrt()">√</button>
-<button onclick="percent()">%</button>
-<button onclick="backspace()">⌫</button>
-
 <button onclick="press('7')">7</button>
 <button onclick="press('8')">8</button>
 <button onclick="press('9')">9</button>
@@ -120,12 +115,14 @@ button:active {
 <button onclick="press('-')" class="special">−</button>
 
 <button onclick="press('0')">0</button>
-<button onclick="clearDisplay()">C</button>
-<button onclick="calculate()" class="special">=</button>
+<button onclick="press('.')">.</button>
+<button onclick="press('00')">00</button>
 <button onclick="press('+')" class="special">+</button>
 
+<button onclick="clearDisplay()">C</button>
+<button onclick="backspace()">⌫</button>
+<button onclick="calculate()" class="special">=</button>
 <button onclick="explain()" class="ai">🤖 Explain</button>
-<button onclick="clearHistory()">🧹</button>
 
 </div>
 
@@ -159,30 +156,7 @@ function live() {
   }
 }
 
-/* ================= CALCULATE ================= */
-function calculate() {
-  try {
-    let exp = display.value;
-    let result = Function('"use strict";return (' + exp + ')')();
-
-    display.value = Number(result.toFixed(6));
-
-    let item = document.createElement("p");
-    item.innerText = exp + " = " + result;
-    item.onclick = () => display.value = exp;
-
-    historyBox.appendChild(item);
-
-    if (historyBox.children.length > 10) {
-      historyBox.removeChild(historyBox.firstChild);
-    }
-
-  } catch {
-    alert("Invalid Expression");
-  }
-}
-
-/* ================= CLEAR ================= */
+/* ================= BASIC ACTIONS ================= */
 function clearDisplay() {
   display.value = "";
   explainBox.innerHTML = "";
@@ -192,21 +166,21 @@ function backspace() {
   display.value = display.value.slice(0, -1);
 }
 
-function clearHistory() {
-  historyBox.innerHTML = "";
-}
+/* ================= CALCULATE ================= */
+function calculate() {
+  try {
+    let result = Function('"use strict";return (' + display.value + ')')();
 
-/* ================= EXTRA OPS ================= */
-function square() {
-  display.value = display.value * display.value;
-}
+    display.value = Number(result.toFixed(6));
 
-function sqrt() {
-  display.value = Math.sqrt(display.value);
-}
+    let item = document.createElement("p");
+    item.innerText = display.value + " = " + result;
 
-function percent() {
-  display.value = display.value / 100;
+    historyBox.appendChild(item);
+
+  } catch {
+    alert("Invalid Expression");
+  }
 }
 
 /* ================= TOKENIZER ================= */
@@ -242,7 +216,6 @@ function solveBODMAS(tokens) {
     }
   }
 
-  // STRICT ORDER (FIXED)
   log.push("Step 1: Division (÷)");
   process("/");
 
@@ -255,13 +228,10 @@ function solveBODMAS(tokens) {
   log.push("Step 4: Subtraction (−)");
   process("-");
 
-  return {
-    result: tokens[0],
-    log: log
-  };
+  return { result: tokens[0], log };
 }
 
-/* ================= EXPLAIN (FIXED) ================= */
+/* ================= EXPLAIN ================= */
 function explain() {
 
   let exp = display.value;
@@ -272,9 +242,7 @@ function explain() {
 
   let output = "🤖 Step-by-step (Correct BODMAS Order):<br><br>";
 
-  log.forEach(step => {
-    output += step + "<br>";
-  });
+  log.forEach(step => output += step + "<br>");
 
   output += "<br><b>Final Answer = " + result + "</b>";
 
