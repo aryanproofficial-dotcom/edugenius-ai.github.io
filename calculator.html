@@ -43,7 +43,6 @@
       background: #4a148c;
     }
 
-    /* 🔥 NEW: History Box */
     #history {
       margin-top: 20px;
       text-align: left;
@@ -69,6 +68,14 @@
     <input type="text" id="display" disabled>
 
     <div class="buttons">
+
+      <!-- 🔥 Scientific Row -->
+      <button onclick="square()">x²</button>
+      <button onclick="sqrt()">√</button>
+      <button onclick="percent()">%</button>
+      <button onclick="backspace()">⌫</button>
+
+      <!-- Normal -->
       <button onclick="press('7')">7</button>
       <button onclick="press('8')">8</button>
       <button onclick="press('9')">9</button>
@@ -89,12 +96,10 @@
       <button onclick="calculate()">=</button>
       <button onclick="press('+')">+</button>
 
-      <!-- 🔥 NEW ROW -->
-      <button onclick="backspace()">⌫</button>
-      <button onclick="clearHistory()">🧹</button>
+      <button onclick="clearHistory()">🧹 Clear</button>
+
     </div>
 
-    <!-- 🔥 HISTORY -->
     <div id="history"></div>
 
   </div>
@@ -110,15 +115,11 @@
     function calculate() {
       try {
         let expression = display.value;
-        let result = eval(expression);
+        let result = Function('"use strict";return (' + expression + ')')();
 
-        // Show result
         display.value = result;
 
-        // Add to history
         historyBox.innerHTML += `<p>${expression} = ${result}</p>`;
-
-        // Auto scroll
         historyBox.scrollTop = historyBox.scrollHeight;
 
       } catch {
@@ -130,14 +131,34 @@
       display.value = "";
     }
 
-    // 🔥 BACKSPACE
     function backspace() {
       display.value = display.value.slice(0, -1);
     }
 
-    // 🔥 CLEAR HISTORY
     function clearHistory() {
       historyBox.innerHTML = "";
+    }
+
+    // 🔥 SCIENTIFIC FUNCTIONS
+    function square() {
+      if (display.value) {
+        let val = Number(display.value);
+        display.value = val * val;
+      }
+    }
+
+    function sqrt() {
+      if (display.value) {
+        let val = Number(display.value);
+        display.value = Math.sqrt(val);
+      }
+    }
+
+    function percent() {
+      if (display.value) {
+        let val = Number(display.value);
+        display.value = val / 100;
+      }
     }
 
     // 🔥 KEYBOARD SUPPORT
