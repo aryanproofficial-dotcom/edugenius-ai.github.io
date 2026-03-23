@@ -20,6 +20,7 @@
       margin-bottom: 10px;
       border-radius: 10px;
       border: 1px solid #ccc;
+      text-align: right;
     }
 
     .buttons {
@@ -40,6 +41,22 @@
 
     .buttons button:hover {
       background: #4a148c;
+    }
+
+    /* 🔥 NEW: History Box */
+    #history {
+      margin-top: 20px;
+      text-align: left;
+      max-height: 120px;
+      overflow-y: auto;
+      font-size: 14px;
+      background: #f3e5f5;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    #history p {
+      margin: 5px 0;
     }
   </style>
 </head>
@@ -71,27 +88,73 @@
       <button onclick="clearDisplay()">C</button>
       <button onclick="calculate()">=</button>
       <button onclick="press('+')">+</button>
+
+      <!-- 🔥 NEW ROW -->
+      <button onclick="backspace()">⌫</button>
+      <button onclick="clearHistory()">🧹</button>
     </div>
+
+    <!-- 🔥 HISTORY -->
+    <div id="history"></div>
+
   </div>
 
   <script>
+    const display = document.getElementById("display");
+    const historyBox = document.getElementById("history");
+
     function press(val) {
-      document.getElementById("display").value += val;
+      display.value += val;
     }
 
     function calculate() {
       try {
-        let result = eval(document.getElementById("display").value);
-        document.getElementById("display").value = result;
+        let expression = display.value;
+        let result = eval(expression);
+
+        // Show result
+        display.value = result;
+
+        // Add to history
+        historyBox.innerHTML += `<p>${expression} = ${result}</p>`;
+
+        // Auto scroll
+        historyBox.scrollTop = historyBox.scrollHeight;
+
       } catch {
         alert("Invalid calculation");
       }
     }
 
     function clearDisplay() {
-      document.getElementById("display").value = "";
+      display.value = "";
     }
+
+    // 🔥 BACKSPACE
+    function backspace() {
+      display.value = display.value.slice(0, -1);
+    }
+
+    // 🔥 CLEAR HISTORY
+    function clearHistory() {
+      historyBox.innerHTML = "";
+    }
+
+    // 🔥 KEYBOARD SUPPORT
+    document.addEventListener("keydown", function(e) {
+      const key = e.key;
+
+      if ("0123456789+-*/.".includes(key)) {
+        press(key);
+      } else if (key === "Enter") {
+        calculate();
+      } else if (key === "Backspace") {
+        backspace();
+      } else if (key === "Escape") {
+        clearDisplay();
+      }
+    });
   </script>
 
 </body>
-  </html>
+</html>
