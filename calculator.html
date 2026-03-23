@@ -4,23 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculator – EduGenius AI</title>
-  <link rel="stylesheet" href="style.css">
 
   <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6a1b9a, #3f51b5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
     .calc-container {
-      max-width: 350px;
-      margin: 50px auto;
+      width: 340px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      color: #6a1b9a;
     }
 
     #display {
       width: 100%;
       padding: 15px;
-      font-size: 20px;
-      margin-bottom: 10px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
+      font-size: 22px;
+      border-radius: 12px;
+      border: none;
+      background: #f3f3f3;
       text-align: right;
+      margin-bottom: 10px;
     }
 
     .buttons {
@@ -33,29 +51,48 @@
       padding: 15px;
       font-size: 18px;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       background: #6a1b9a;
       color: white;
       cursor: pointer;
+      transition: 0.2s;
     }
 
     .buttons button:hover {
       background: #4a148c;
+      transform: scale(1.05);
     }
 
+    .special {
+      background: #ff9800 !important;
+    }
+
+    .ai-btn {
+      background: #00bcd4 !important;
+      grid-column: span 2;
+    }
+
+    /* 🔥 HISTORY */
     #history {
-      margin-top: 20px;
-      text-align: left;
-      max-height: 120px;
+      margin-top: 15px;
+      max-height: 150px;
       overflow-y: auto;
-      font-size: 14px;
       background: #f3e5f5;
-      padding: 10px;
       border-radius: 10px;
+      padding: 10px;
+      font-size: 13px;
+      text-align: left;
     }
 
     #history p {
       margin: 5px 0;
+      cursor: pointer;
+    }
+
+    #history p:hover {
+      background: #e1bee7;
+      border-radius: 5px;
+      padding: 3px;
     }
   </style>
 </head>
@@ -63,40 +100,42 @@
 <body>
 
   <div class="calc-container">
-    <h2>🧮 Calculator</h2>
+    <h2>🧮 EduGenius Calculator</h2>
 
     <input type="text" id="display" disabled>
 
     <div class="buttons">
 
-      <!-- 🔥 Scientific Row -->
+      <!-- Scientific -->
       <button onclick="square()">x²</button>
       <button onclick="sqrt()">√</button>
       <button onclick="percent()">%</button>
       <button onclick="backspace()">⌫</button>
 
-      <!-- Normal -->
+      <!-- Numbers -->
       <button onclick="press('7')">7</button>
       <button onclick="press('8')">8</button>
       <button onclick="press('9')">9</button>
-      <button onclick="press('/')">÷</button>
+      <button onclick="press('/')" class="special">÷</button>
 
       <button onclick="press('4')">4</button>
       <button onclick="press('5')">5</button>
       <button onclick="press('6')">6</button>
-      <button onclick="press('*')">×</button>
+      <button onclick="press('*')" class="special">×</button>
 
       <button onclick="press('1')">1</button>
       <button onclick="press('2')">2</button>
       <button onclick="press('3')">3</button>
-      <button onclick="press('-')">−</button>
+      <button onclick="press('-')" class="special">−</button>
 
       <button onclick="press('0')">0</button>
       <button onclick="clearDisplay()">C</button>
-      <button onclick="calculate()">=</button>
-      <button onclick="press('+')">+</button>
+      <button onclick="calculate()" class="special">=</button>
+      <button onclick="press('+')" class="special">+</button>
 
-      <button onclick="clearHistory()">🧹 Clear</button>
+      <!-- AI + Clear -->
+      <button onclick="sendToAI()" class="ai-btn">🤖 Explain</button>
+      <button onclick="clearHistory()">🧹</button>
 
     </div>
 
@@ -114,12 +153,27 @@
 
     function calculate() {
       try {
-        let expression = display.value;
-        let result = Function('"use strict";return (' + expression + ')')();
+        let exp = display.value;
+        let result = Function('"use strict";return (' + exp + ')')();
 
         display.value = result;
 
-        historyBox.innerHTML += `<p>${expression} = ${result}</p>`;
+        // 🔥 Add to history
+        let item = document.createElement("p");
+        item.innerText = `${exp} = ${result}`;
+
+        // 🔥 Click to reuse
+        item.onclick = () => {
+          display.value = exp;
+        };
+
+        historyBox.appendChild(item);
+
+        // 🔥 Keep only last 10
+        if (historyBox.children.length > 10) {
+          historyBox.removeChild(historyBox.firstChild);
+        }
+
         historyBox.scrollTop = historyBox.scrollHeight;
 
       } catch {
@@ -139,29 +193,41 @@
       historyBox.innerHTML = "";
     }
 
-    // 🔥 SCIENTIFIC FUNCTIONS
+    // Scientific
     function square() {
       if (display.value) {
-        let val = Number(display.value);
-        display.value = val * val;
+        let v = Number(display.value);
+        display.value = v * v;
       }
     }
 
     function sqrt() {
       if (display.value) {
-        let val = Number(display.value);
-        display.value = Math.sqrt(val);
+        let v = Number(display.value);
+        display.value = Math.sqrt(v);
       }
     }
 
     function percent() {
       if (display.value) {
-        let val = Number(display.value);
-        display.value = val / 100;
+        let v = Number(display.value);
+        display.value = v / 100;
       }
     }
 
-    // 🔥 KEYBOARD SUPPORT
+    // 🤖 AI
+    function sendToAI() {
+      let expression = display.value;
+
+      if (!expression) {
+        alert("Enter something first");
+        return;
+      }
+
+      window.location.href = "ai.html?question=" + encodeURIComponent(expression);
+    }
+
+    // Keyboard
     document.addEventListener("keydown", function(e) {
       const key = e.key;
 
