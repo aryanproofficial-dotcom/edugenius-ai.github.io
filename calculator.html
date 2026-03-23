@@ -2,258 +2,224 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>EduGenius Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EduGenius Calculator V3</title>
 
 <style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
+body{
+  margin:0;
   font-family: Arial;
-  background: linear-gradient(135deg, #6a1b9a, #3f51b5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  background:#0f172a;
+  color:white;
 }
 
-.calc {
-  width: 95%;
-  max-width: 360px;
-  background: white;
-  border-radius: 20px;
-  padding: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+.container{
+  max-width:420px;
+  margin:auto;
+  padding:10px;
 }
 
-h2 {
-  text-align: center;
-  color: #6a1b9a;
-  margin-bottom: 10px;
+.screen{
+  background:#111827;
+  padding:15px;
+  border-radius:10px;
+  font-size:22px;
+  min-height:60px;
+  word-wrap:break-word;
 }
 
-#display {
-  width: 100%;
-  padding: 15px;
-  font-size: 22px;
-  border: none;
-  background: #f1f1f1;
-  border-radius: 12px;
-  text-align: right;
-  outline: none;
+.result{
+  font-size:18px;
+  color:#22c55e;
+  margin-top:5px;
 }
 
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-top: 10px;
+.buttons{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin-top:10px;
 }
 
-button {
-  padding: 14px;
-  font-size: 16px;
-  border: none;
-  border-radius: 12px;
-  background: #6a1b9a;
-  color: white;
-  cursor: pointer;
-  transition: 0.2s;
+button{
+  padding:15px;
+  font-size:16px;
+  border:none;
+  border-radius:8px;
+  background:#1f2937;
+  color:white;
 }
 
-button:active {
-  transform: scale(0.92);
+button:active{
+  background:#374151;
 }
 
-.op { background: #ff9800; }
-.eq { background: #00bcd4; }
-.zero { grid-column: span 2; }
-
-#history {
-  margin-top: 10px;
-  background: #f3e5f5;
-  padding: 8px;
-  border-radius: 10px;
-  max-height: 120px;
-  overflow-y: auto;
-  font-size: 13px;
+.science{
+  grid-column: span 4;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
 }
 
-#explain {
-  margin-top: 10px;
-  background: #e3f2fd;
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 13px;
-  min-height: 40px;
+.history{
+  margin-top:10px;
+  background:#111827;
+  padding:10px;
+  border-radius:10px;
+  max-height:150px;
+  overflow:auto;
+}
+
+.history-item{
+  font-size:14px;
+  border-bottom:1px solid #222;
+  padding:5px 0;
+}
+
+.ai-box{
+  margin-top:10px;
+  padding:10px;
+  background:#1e293b;
+  border-radius:10px;
+  font-size:13px;
 }
 </style>
 </head>
 
 <body>
+<div class="container">
 
-<div class="calc">
+<div class="screen" id="display">0</div>
+<div class="result" id="result"></div>
 
-<h2>🧮 EduGenius V3</h2>
+<!-- SCIENTIFIC -->
+<div class="science">
+<button onclick="add('sin(')">sin</button>
+<button onclick="add('cos(')">cos</button>
+<button onclick="add('tan(')">tan</button>
+<button onclick="add('log(')">log</button>
 
-<input id="display" disabled>
+<button onclick="add('ln(')">ln</button>
+<button onclick="add('sqrt(')">√</button>
+<button onclick="add('^2')">x²</button>
+<button onclick="clearAll()">C</button>
+</div>
 
+<!-- MAIN KEYS -->
 <div class="buttons">
 
-<button onclick="press('7')">7</button>
-<button onclick="press('8')">8</button>
-<button onclick="press('9')">9</button>
-<button class="op" onclick="press('/')">÷</button>
+<button onclick="add('7')">7</button>
+<button onclick="add('8')">8</button>
+<button onclick="add('9')">9</button>
+<button onclick="add('/')">÷</button>
 
-<button onclick="press('4')">4</button>
-<button onclick="press('5')">5</button>
-<button onclick="press('6')">6</button>
-<button class="op" onclick="press('*')">×</button>
+<button onclick="add('4')">4</button>
+<button onclick="add('5')">5</button>
+<button onclick="add('6')">×</button>
+<button onclick="add('*')">*</button>
 
-<button onclick="press('1')">1</button>
-<button onclick="press('2')">2</button>
-<button onclick="press('3')">3</button>
-<button class="op" onclick="press('-')">−</button>
+<button onclick="add('1')">1</button>
+<button onclick="add('2')">2</button>
+<button onclick="add('3')">3</button>
+<button onclick="add('-')">-</button>
 
-<button onclick="press('0')">0</button>
-<button onclick="press('.')">.</button>
-<button onclick="press('00')">00</button>
-<button class="op" onclick="press('+')">+</button>
+<button onclick="add('0')">0</button>
+<button onclick="add('00')">00</button>
+<button onclick="add('000')">000</button>
+<button onclick="add('+')">+</button>
 
-<button onclick="clearAll()">C</button>
+<button onclick="calculate()">=</button>
 <button onclick="back()">⌫</button>
-<button class="eq" onclick="calc()">=</button>
-<button class="eq" onclick="explain()">🤖 Explain</button>
+<button onclick="add('.')">.</button>
+<button onclick="add('(')">(</button>
+<button onclick="add(')')">)</button>
 
 </div>
 
-<div id="history"></div>
-<div id="explain"></div>
+<!-- HISTORY -->
+<div class="history" id="history"></div>
+
+<!-- AI EXPLANATION -->
+<div class="ai-box" id="aiBox">AI Explanation will appear here...</div>
 
 </div>
 
 <script>
+let expr = "";
 
-let display = document.getElementById("display");
-let history = document.getElementById("history");
-let explainBox = document.getElementById("explain");
-
-/* ================= SAFE INPUT ================= */
-function press(v) {
-  let last = display.value.slice(-1);
-
-  if ("+-*/".includes(v) && "+-*/".includes(last)) return;
-
-  display.value += v;
+function add(val){
+  expr += val;
+  document.getElementById("display").innerText = expr;
+  liveResult();
 }
 
-/* ================= CLEAR ================= */
-function clearAll() {
-  display.value = "";
-  explainBox.innerHTML = "";
+function back(){
+  expr = expr.slice(0,-1);
+  document.getElementById("display").innerText = expr || "0";
+  liveResult();
 }
 
-function back() {
-  display.value = display.value.slice(0, -1);
+function clearAll(){
+  expr = "";
+  document.getElementById("display").innerText = "0";
+  document.getElementById("result").innerText = "";
 }
 
-/* ================= TOKENIZER ================= */
-function tokenize(exp) {
-  return exp.match(/\d+\.?\d*|[+\-*/]/g);
-}
-
-/* ================= TRUE BODMAS ENGINE ================= */
-function solve(exp) {
-
-  let tokens = tokenize(exp);
-  let log = [];
-
-  function apply(op) {
-    while (tokens.includes(op)) {
-      for (let i = 0; i < tokens.length; i++) {
-        if (tokens[i] === op) {
-
-          let a = parseFloat(tokens[i - 1]);
-          let b = parseFloat(tokens[i + 1]);
-          let r = 0;
-
-          if (op === "/") r = a / b;
-          if (op === "*") r = a * b;
-          if (op === "+") r = a + b;
-          if (op === "-") r = a - b;
-
-          log.push(`${a} ${op} ${b} = ${r}`);
-
-          tokens.splice(i - 1, 3, r.toString());
-          break;
-        }
-      }
+function liveResult(){
+  try{
+    let r = safeEval(expr);
+    if(r !== undefined){
+      document.getElementById("result").innerText = "= " + r;
     }
-  }
-
-  log.push("Step 1: Division");
-  apply("/");
-
-  log.push("Step 2: Multiplication");
-  apply("*");
-
-  log.push("Step 3: Addition");
-  apply("+");
-
-  log.push("Step 4: Subtraction");
-  apply("-");
-
-  return {
-    result: tokens[0],
-    log: log
-  };
+  }catch(e){}
 }
 
-/* ================= CALCULATE ================= */
-function calc() {
-  try {
-    let exp = display.value;
-    let { result } = solve(exp);
+/* SAFE PARSER (NO eval) */
+function safeEval(str){
+  str = str.replace(/sin/g,"Math.sin")
+           .replace(/cos/g,"Math.cos")
+           .replace(/tan/g,"Math.tan")
+           .replace(/log/g,"Math.log10")
+           .replace(/ln/g,"Math.log")
+           .replace(/sqrt/g,"Math.sqrt")
+           .replace(/\^2/g,"**2");
 
-    display.value = Number(result);
+  // Only allow safe chars
+  if(/[^0-9+\-*/(). Mathsincoalgqrt]*$/.test(str)) return;
 
-    let p = document.createElement("p");
-    p.innerText = exp + " = " + result;
-    history.appendChild(p);
+  return Function('"use strict"; return ('+str+')')();
+}
 
-  } catch {
-    alert("Invalid Expression");
+function calculate(){
+  try{
+    let result = safeEval(expr);
+    document.getElementById("result").innerText = "= " + result;
+
+    addHistory(expr + " = " + result);
+    aiExplain(expr, result);
+
+    expr = result.toString();
+    document.getElementById("display").innerText = expr;
+
+  }catch(e){
+    document.getElementById("result").innerText = "Error";
   }
 }
 
-/* ================= EXPLAIN ================= */
-function explain() {
-
-  let exp = display.value;
-  if (!exp) return;
-
-  let { result, log } = solve(exp);
-
-  let out = "🤖 Step-by-step (BODMAS):<br><br>";
-
-  log.forEach(s => {
-    out += "• " + s + "<br>";
-  });
-
-  out += "<br><b>Final Answer = " + result + "</b>";
-
-  explainBox.innerHTML = out;
+/* HISTORY SYSTEM */
+function addHistory(text){
+  let div = document.createElement("div");
+  div.className = "history-item";
+  div.innerText = text;
+  document.getElementById("history").prepend(div);
 }
 
-/* ================= KEYBOARD ================= */
-document.addEventListener("keydown", e => {
-  if ("0123456789+-*/.".includes(e.key)) press(e.key);
-  else if (e.key === "Enter") calc();
-  else if (e.key === "Backspace") back();
-  else if (e.key === "Escape") clearAll();
-});
-
+/* AI EXPLANATION (basic logic) */
+function aiExplain(expression, result){
+  document.getElementById("aiBox").innerText =
+  "AI: The expression '" + expression +
+  "' is solved using BODMAS rules → final answer = " + result;
+}
 </script>
 
 </body>
