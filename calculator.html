@@ -1,294 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculator – EduGenius AI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator – EduGenius AI</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #6a1b9a, #3f51b5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #6a1b9a, #3f51b5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
-    .calc-container {
-      width: 100%;
-      max-width: 340px;
-      background: #ffffff;
-      padding: 15px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      text-align: center;
-    }
+.calc-container {
+  width: 100%;
+  max-width: 340px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  text-align: center;
+}
 
-    h2 {
-      margin-bottom: 10px;
-      color: #6a1b9a;
-    }
+h2 {
+  color: #6a1b9a;
+}
 
-    #display {
-      width: 100%;
-      padding: 12px;
-      font-size: 18px;
-      border-radius: 12px;
-      border: none;
-      background: #f3f3f3;
-      text-align: right;
-      overflow-x: auto;
-      margin-bottom: 10px;
-    }
+#display {
+  width: 100%;
+  padding: 14px;
+  font-size: 22px;
+  font-weight: bold;
+  border-radius: 12px;
+  border: none;
+  background: #f3f3f3;
+  text-align: right;
+  margin-bottom: 10px;
+}
 
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
 
-    .buttons button {
-      padding: 14px;
-      font-size: 16px;
-      border: none;
-      border-radius: 12px;
-      background: #6a1b9a;
-      color: white;
-      cursor: pointer;
-      transition: 0.2s;
-    }
+.buttons button {
+  padding: 14px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  background: #6a1b9a;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
 
-    .buttons button:hover {
-      background: #4a148c;
-      transform: scale(1.05);
-    }
+.buttons button:active {
+  transform: scale(0.9);
+}
 
-    .special {
-      background: #ff9800 !important;
-    }
+.special { background: #ff9800 !important; }
+.ai-btn { background: #00bcd4 !important; grid-column: span 2; }
 
-    .ai-btn {
-      background: #00bcd4 !important;
-      grid-column: span 2;
-    }
+#history {
+  margin-top: 10px;
+  max-height: 120px;
+  overflow-y: auto;
+  background: #f3e5f5;
+  border-radius: 10px;
+  padding: 8px;
+  font-size: 13px;
+  text-align: left;
+}
 
-    #history {
-      margin-top: 15px;
-      max-height: 150px;
-      overflow-y: auto;
-      background: #f3e5f5;
-      border-radius: 10px;
-      padding: 10px;
-      font-size: 13px;
-      text-align: left;
-    }
+#history p { margin: 4px 0; cursor: pointer; }
 
-    #history p {
-      margin: 5px 0;
-      cursor: pointer;
-    }
-
-    #history p:hover {
-      background: #e1bee7;
-      border-radius: 5px;
-      padding: 3px;
-    }
-  </style>
+#explanation {
+  margin-top: 10px;
+  background: #e3f2fd;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  text-align: left;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="calc-container">
-    <h2>🧮 EduGenius Calculator</h2>
+<div class="calc-container">
+<h2>🧮 EduGenius Calculator</h2>
 
-    <input type="text" id="display" disabled>
+<input type="text" id="display" disabled>
 
-    <div class="buttons">
+<div class="buttons">
 
-      <!-- Scientific -->
-      <button onclick="square()">x²</button>
-      <button onclick="sqrt()">√</button>
-      <button onclick="percent()">%</button>
-      <button onclick="backspace()">⌫</button>
+<button onclick="square()">x²</button>
+<button onclick="sqrt()">√</button>
+<button onclick="percent()">%</button>
+<button onclick="backspace()">⌫</button>
 
-      <!-- Numbers -->
-      <button onclick="press('7')">7</button>
-      <button onclick="press('8')">8</button>
-      <button onclick="press('9')">9</button>
-      <button onclick="press('/')" class="special">÷</button>
+<button onclick="press('7')">7</button>
+<button onclick="press('8')">8</button>
+<button onclick="press('9')">9</button>
+<button onclick="press('/')" class="special">÷</button>
 
-      <button onclick="press('4')">4</button>
-      <button onclick="press('5')">5</button>
-      <button onclick="press('6')">6</button>
-      <button onclick="press('*')" class="special">×</button>
+<button onclick="press('4')">4</button>
+<button onclick="press('5')">5</button>
+<button onclick="press('6')">6</button>
+<button onclick="press('*')" class="special">×</button>
 
-      <button onclick="press('1')">1</button>
-      <button onclick="press('2')">2</button>
-      <button onclick="press('3')">3</button>
-      <button onclick="press('-')" class="special">−</button>
+<button onclick="press('1')">1</button>
+<button onclick="press('2')">2</button>
+<button onclick="press('3')">3</button>
+<button onclick="press('-')" class="special">−</button>
 
-      <button onclick="press('0')">0</button>
-      <button onclick="clearDisplay()">C</button>
-      <button onclick="calculate()" class="special">=</button>
-      <button onclick="press('+')" class="special">+</button>
+<button onclick="press('0')">0</button>
+<button onclick="clearDisplay()">C</button>
+<button onclick="calculate()" class="special">=</button>
+<button onclick="press('+')" class="special">+</button>
 
-      <!-- AI + Clear -->
-      <button onclick="explain()" class="ai-btn">🤖 Explain</button>
-      <button onclick="clearHistory()">🧹</button>
+<button onclick="explain()" class="ai-btn">🤖 Explain</button>
+<button onclick="clearHistory()">🧹</button>
 
-    </div>
+</div>
 
-    <div id="history"></div>
-  </div>
+<div id="history"></div>
+<div id="explanation"></div>
 
-  <script>
-    const display = document.getElementById("display");
-    const historyBox = document.getElementById("history");
+</div>
 
-    function press(val) {
-      display.value += val;
+<script>
+const display = document.getElementById("display");
+const historyBox = document.getElementById("history");
+const explanationBox = document.getElementById("explanation");
+
+// ✅ SMART INPUT
+function press(val) {
+  const last = display.value.slice(-1);
+
+  if ("+-*/".includes(val) && "+-*/".includes(last)) return;
+
+  display.value += val;
+  liveResult();
+}
+
+// ✅ LIVE RESULT
+function liveResult() {
+  try {
+    let result = Function('"use strict";return (' + display.value + ')')();
+    explanationBox.innerHTML = "Live Result: " + result;
+  } catch {
+    explanationBox.innerHTML = "";
+  }
+}
+
+// ✅ CALCULATE
+function calculate() {
+  try {
+    let exp = display.value;
+    let result = Function('"use strict";return (' + exp + ')')();
+
+    display.value = Number(result.toFixed(6));
+
+    let item = document.createElement("p");
+    item.innerText = `${exp} = ${result}`;
+    item.onclick = () => display.value = exp;
+
+    historyBox.appendChild(item);
+
+    if (historyBox.children.length > 10) {
+      historyBox.removeChild(historyBox.firstChild);
     }
 
-    function calculate() {
-      try {
-        let exp = display.value;
-        let result = Function('"use strict";return (' + exp + ')')();
+  } catch {
+    alert("Invalid calculation");
+  }
+}
 
-        let finalResult = Number(result.toFixed(6));
-        display.value = finalResult;
+// ✅ CLEAR
+function clearDisplay() { display.value = ""; explanationBox.innerHTML=""; }
+function backspace() { display.value = display.value.slice(0, -1); }
+function clearHistory() { historyBox.innerHTML = ""; }
 
-        let item = document.createElement("p");
-        item.innerText = `${exp} = ${finalResult}`;
+// ✅ SCIENTIFIC
+function square() { display.value = display.value * display.value; }
+function sqrt() { display.value = Math.sqrt(display.value); }
+function percent() { display.value = display.value / 100; }
 
-        item.onclick = () => {
-          display.value = exp;
-        };
+// 🔥 BODMAS EXPLAIN
+function explain() {
+  let exp = display.value;
 
-        historyBox.appendChild(item);
+  if (!exp) return;
 
-        if (historyBox.children.length > 10) {
-          historyBox.removeChild(historyBox.firstChild);
-        }
+  let steps = "Step 1: " + exp + "<br><br>";
+  let current = exp;
 
-        historyBox.scrollTop = historyBox.scrollHeight;
+  try {
+    // Multiply & Divide first
+    let md = /(\d+\.?\d*)([\*\/])(\d+\.?\d*)/;
 
-      } catch {
-        alert("Invalid calculation");
-      }
+    while (md.test(current)) {
+      current = current.replace(md, (m, a, op, b) => {
+        let r = op === "*" ? a * b : a / b;
+        steps += `${a} ${op==="*"?"×":"÷"} ${b} = ${r}<br>`;
+        return r;
+      });
     }
 
-    function clearDisplay() {
-      display.value = "";
+    // Add & Subtract
+    let as = /(\d+\.?\d*)([\+\-])(\d+\.?\d*)/;
+
+    while (as.test(current)) {
+      current = current.replace(as, (m, a, op, b) => {
+        let r = op === "+" ? Number(a)+Number(b) : a-b;
+        steps += `${a} ${op} ${b} = ${r}<br>`;
+        return r;
+      });
     }
 
-    function backspace() {
-      display.value = display.value.slice(0, -1);
-    }
+    steps += "<br>Final Answer = <b>" + current + "</b>";
 
-    function clearHistory() {
-      historyBox.innerHTML = "";
-    }
+    explanationBox.innerHTML = steps;
 
-    function square() {
-      if (display.value) {
-        let v = Number(display.value);
-        display.value = v * v;
-      }
-    }
+  } catch {
+    explanationBox.innerHTML = "❌ Cannot explain";
+  }
+}
 
-    function sqrt() {
-      if (display.value) {
-        let v = Number(display.value);
-        display.value = Math.sqrt(v);
-      }
-    }
+// ⌨️ KEYBOARD
+document.addEventListener("keydown", function(e) {
+  const key = e.key;
 
-    function percent() {
-      if (display.value) {
-        let v = Number(display.value);
-        display.value = v / 100;
-      }
-    }
+  if ("0123456789+-*/.".includes(key)) press(key);
+  else if (key === "Enter") calculate();
+  else if (key === "Backspace") backspace();
+  else if (key === "Escape") clearDisplay();
+});
 
-    // 🔥 BEST EXPLAIN FEATURE
-    function explain() {
-      let exp = display.value;
-
-      if (!exp) {
-        alert("Enter something first");
-        return;
-      }
-
-      let steps = "🤖 Step-by-step Explanation:\n\n";
-
-      try {
-        if (exp.includes("+")) {
-          let parts = exp.split("+");
-          let result = parts.reduce((a, b) => Number(a) + Number(b));
-
-          steps += "➤ Addition\n";
-          steps += `➤ ${parts.join(" + ")}\n`;
-          steps += `➤ Result = ${result}`;
-
-        } else if (exp.includes("-")) {
-          let parts = exp.split("-");
-          let result = parts.reduce((a, b) => Number(a) - Number(b));
-
-          steps += "➤ Subtraction\n";
-          steps += `➤ ${parts.join(" - ")}\n`;
-          steps += `➤ Result = ${result}`;
-
-        } else if (exp.includes("*")) {
-          let parts = exp.split("*");
-          let result = parts.reduce((a, b) => Number(a) * Number(b));
-
-          steps += "➤ Multiplication\n";
-          steps += `➤ ${parts.join(" × ")}\n`;
-          steps += `➤ Result = ${result}`;
-
-        } else if (exp.includes("/")) {
-          let parts = exp.split("/");
-          let result = parts.reduce((a, b) => Number(a) / Number(b));
-
-          steps += "➤ Division\n";
-          steps += `➤ ${parts.join(" ÷ ")}\n`;
-          steps += `➤ Result = ${result}`;
-
-        } else {
-          steps += "➤ Basic calculation\n";
-        }
-
-        let final = Function('"use strict";return (' + exp + ')')();
-        steps += `\n\n✅ Final Answer = ${final}`;
-
-        alert(steps);
-
-      } catch {
-        alert("Cannot explain this");
-      }
-    }
-
-    // Keyboard support
-    document.addEventListener("keydown", function(e) {
-      const key = e.key;
-
-      if ("0123456789+-*/.".includes(key)) {
-        press(key);
-      } else if (key === "Enter") {
-        calculate();
-      } else if (key === "Backspace") {
-        backspace();
-      } else if (key === "Escape") {
-        clearDisplay();
-      }
-    });
-  </script>
+// 🔥 DOUBLE CLICK CLEAR
+display.addEventListener("dblclick", clearDisplay);
+</script>
 
 </body>
 </html>
