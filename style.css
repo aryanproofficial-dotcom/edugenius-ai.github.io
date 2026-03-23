@@ -1,4 +1,4 @@
-/* Apply to all elements */
+/* ===== GLOBAL RESET ===== */
 * {
   box-sizing: border-box;
   font-family: Arial, sans-serif;
@@ -7,39 +7,36 @@
 body {
   margin: 0;
   padding: 0;
-  background: white;
+  background: #f5f7fb;
   text-align: center;
 }
 
+/* ===== CONTAINER ===== */
 .container {
   max-width: 380px;
   margin: auto;
   padding: 20px;
 }
 
+/* ===== LOGO ===== */
 .logo {
-  width: 100px;      /* smaller fixed width */
-  max-width: 100%;   /* never exceed container width */
-  height: auto;      /* maintain aspect ratio */
-  margin: 20px auto; /* center it */
+  width: 100px;
+  max-width: 100%;
+  height: auto;
+  margin: 20px auto;
   display: block;
 }
 
-h1 {
-  margin: 5px 0;
-}
+/* ===== HEADINGS ===== */
+h1 { margin: 5px 0; }
+h2 { margin: 15px 0; }
 
 .tagline {
   color: #555;
   margin-bottom: 20px;
 }
 
-h2 {
-  margin: 15px 0;
-}
-
-/* ===== Login Methods ===== */
-
+/* ===== LOGIN METHODS ===== */
 .login-methods {
   display: flex;
   justify-content: center;
@@ -52,8 +49,8 @@ h2 {
   border: 1px solid #6a1b9a;
   background: white;
   color: #6a1b9a;
-  cursor: pointer;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .login-methods button:hover {
@@ -61,8 +58,7 @@ h2 {
   color: white;
 }
 
-/* ===== Login Form ===== */
-
+/* ===== LOGIN FORM ===== */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -79,8 +75,8 @@ h2 {
   background: #6a1b9a;
   color: white;
   border: none;
-  cursor: pointer;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .login-form button:hover {
@@ -100,12 +96,14 @@ h2 {
   text-decoration: none;
 }
 
+/* ===== FOOTER ===== */
 footer {
   margin-top: 25px;
   font-size: 12px;
   color: gray;
 }
 
+/* ===== BUTTON ===== */
 .btn {
   display: inline-block;
   padding: 10px 20px;
@@ -115,60 +113,7 @@ footer {
   border-radius: 5px;
 }
 
-/* ===== Mobile Responsive ===== */
-
-@media (max-width: 768px) {
-  .container {
-    max-width: 100%;
-    padding: 18px;
-  }
-
-  .logo {
-    width: 100px;
-    margin: 15px auto;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-  }
-
-  .tagline {
-    font-size: 1rem;
-    margin-bottom: 15px;
-  }
-
-  h2 {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-  }
-
-  .login-methods button {
-    padding: 10px 16px;
-    font-size: 14px;
-  }
-
-  .login-form input {
-    font-size: 16px;
-    padding: 12px;
-  }
-
-  .login-form button {
-    font-size: 16px;
-    padding: 12px;
-  }
-
-  .new-account a {
-    font-size: 14px;
-  }
-
-  footer {
-    font-size: 11px;
-  }
-}
-
-/* ===== Signup Card ===== */
-
+/* ===== SIGNUP CARD ===== */
 .card {
   background: #fff;
   padding: 25px;
@@ -179,7 +124,6 @@ footer {
 }
 
 .card h2 {
-  margin-bottom: 10px;
   font-size: 24px;
   color: #333;
 }
@@ -187,7 +131,6 @@ footer {
 .card .subtitle {
   color: #555;
   margin-bottom: 20px;
-  font-size: 16px;
 }
 
 .card input {
@@ -196,17 +139,14 @@ footer {
   margin-bottom: 14px;
   border-radius: 10px;
   border: 1px solid #ddd;
-  font-size: 15px;
 }
 
 .card button {
   width: 100%;
   padding: 12px;
-  border: none;
   border-radius: 12px;
   background: #6a1b9a;
   color: white;
-  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -215,23 +155,27 @@ footer {
   background: #4a148c;
 }
 
+/* ===== FINAL FIX: SMALL TEXT ===== */
 .card .small-text {
   margin-top: 15px;
   font-size: 14px;
+  color: #555;
+  text-align: center;
 }
 
 .card .small-text a {
+  display: block;
+  margin-top: 5px;
   color: #6a1b9a;
-  text-decoration: none;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .card .small-text a:hover {
   text-decoration: underline;
 }
 
-/* ===== Profile Setup Page ===== */
-
+/* ===== PROFILE ===== */
 .profile-container {
   background: #fff;
   max-width: 400px;
@@ -244,7 +188,6 @@ footer {
 
 .profile-container h2 {
   text-align: center;
-  margin-bottom: 20px;
 }
 
 .profile-container input,
@@ -262,49 +205,34 @@ footer {
   margin-top: 20px;
   background: #00bcd4;
   color: white;
-  border: none;
   border-radius: 10px;
-  font-size: 16px;
   cursor: pointer;
 }
 
 .profile-container button:hover {
   background: #0097a7;
 }
-/* ===== HOME UI ===== */
 
+/* ===== HOME ===== */
 .home-body {
   background: #f5f7fb;
   text-align: left;
-}
-
-/* POPUP */
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
-
-.popup {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
 }
 
 /* HEADER */
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 15px;
-  background: linear-gradient(to right, #1a237e, #3949ab);
+  align-items: center;
+  background: #3f51b5;
   color: white;
+  padding: 10px 15px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .header-logo {
@@ -313,21 +241,14 @@ footer {
 
 .header-right {
   display: flex;
-  gap: 10px;
   align-items: center;
+  gap: 15px;
 }
 
 .avatar-img {
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid white;
-}
-
-/* WELCOME */
-.welcome {
-  padding: 15px;
 }
 
 /* GRID */
@@ -339,15 +260,16 @@ footer {
 }
 
 .grid .card {
+  color: white;
   padding: 20px;
   border-radius: 15px;
-  color: white;
 }
 
-.blue { background: #2979ff; }
-.green { background: #43a047; }
-.orange { background: #fb8c00; }
-.purple { background: #8e24aa; }
+/* COLORS */
+.blue { background: #3b82f6; }
+.green { background: #22c55e; }
+.orange { background: #f97316; }
+.purple { background: #a855f7; }
 
 /* SECTIONS */
 .section {
@@ -360,11 +282,10 @@ footer {
 }
 
 .actions div {
-  background: white;
+  background: #eee;
   padding: 10px;
   border-radius: 10px;
-  flex: 1;
-  margin: 5px;
+  width: 30%;
   text-align: center;
 }
 
@@ -391,89 +312,6 @@ footer {
   background: white;
   display: flex;
   justify-content: space-around;
-  padding: 12px;
-  border-top: 1px solid #ccc;
-}
-/* ===== HEADER ===== */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #3f51b5;
-  color: white;
-  padding: 10px 15px;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.header-logo {
-  width: 40px;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  font-size: 20px;
-}
-
-.avatar-img {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-}
-
-/* ===== GRID ===== */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  padding: 15px;
-}
-
-.card {
-  padding: 20px;
-  border-radius: 15px;
-  color: white;
-  cursor: pointer;
-  text-align: left;
-}
-
-.blue { background: #3b82f6; }
-.green { background: #22c55e; }
-.orange { background: #f97316; }
-.purple { background: #a855f7; }
-
-/* ===== SECTIONS ===== */
-.section {
-  padding: 15px;
-}
-
-.actions {
-  display: flex;
-  justify-content: space-between;
-}
-
-.actions div {
-  background: #eee;
-  padding: 10px;
-  border-radius: 10px;
-  width: 30%;
-  text-align: center;
-}
-
-/* ===== BOTTOM NAV ===== */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: white;
-  display: flex;
-  justify-content: space-around;
   padding: 10px;
   border-top: 1px solid #ccc;
 }
@@ -485,184 +323,52 @@ footer {
   border-radius: 50%;
   margin-top: -20px;
 }
-#chapterList .card {
-  padding: 15px;
-  margin: 10px 0;
-  background: #f3e5f5;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: 0.3s;
-}
 
-#chapterList .card:hover {
-  background: #ce93d8;
-}
-
-#formulaBox {
-  background: #fff;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-#formulaBox p {
-  margin: 10px 0;
-  font-size: 16px;
-  }
-#chapterList .card {
-  padding: 15px;
-  margin: 10px 0;
-  background: #f3e5f5;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#chapterList .card:hover {
-  background: #ce93d8;
-}
-
-#formulaBox {
-  background: #fff;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-#formulaBox p {
-  margin: 10px 0;
-  font-size: 16px;
-}
-/* ===== GLOBAL ===== */
-* {
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  background: #f5f6fa;
-}
-
-/* ===== CONTAINER ===== */
-.container {
-  padding: 20px;
-}
-
-/* ===== HEADINGS ===== */
-h2 {
-  margin-bottom: 15px;
-}
-
-/* ===== CHAPTER LIST (FORMULAS PAGE) ===== */
+/* ===== FORMULA PAGE ===== */
 #chapterList {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-/* 🔥 NEW PREMIUM CARDS */
 #chapterList .card {
   padding: 16px;
   background: linear-gradient(135deg, #6a1b9a, #8e24aa);
   color: white;
   border-radius: 14px;
-  font-size: 16px;
-  font-weight: 500;
   cursor: pointer;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  transition: 0.2s;
 }
 
-/* CLICK EFFECT */
-#chapterList .card:active {
-  transform: scale(0.96);
-}
-
-/* ===== FORMULA BOX (OLD SUPPORT) ===== */
-#formulaBox {
-  margin-top: 10px;
-}
-
-/* ===== FORMULA CARDS (NEW UI) ===== */
 .formula-card {
-  background: #ffffff;
+  background: white;
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  font-size: 16px;
-  font-weight: 500;
   margin-bottom: 12px;
 }
 
-/* ===== EMPTY / TEXT ===== */
 .empty {
   text-align: center;
   color: gray;
-  margin-top: 20px;
 }
 
-/* ===== BUTTON ===== */
-button {
-  padding: 12px;
-  width: 100%;
-  border: none;
-  border-radius: 10px;
-  background: #6a1b9a;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 15px;
-}
-
-/* BUTTON CLICK EFFECT */
-button:active {
-  transform: scale(0.96);
-}
-
-/* ===== MOBILE OPTIMIZATION ===== */
+/* ===== MOBILE ===== */
 @media (max-width: 768px) {
-  h2 {
-    font-size: 20px;
+  .container {
+    max-width: 100%;
+    padding: 18px;
   }
 
-  .formula-card {
-    font-size: 15px;
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.3rem; }
+
+  .login-form input,
+  .login-form button {
+    font-size: 16px;
+    padding: 12px;
   }
 
-  #chapterList .card {
-    font-size: 15px;
+  footer {
+    font-size: 11px;
   }
-}  
-/* ===== FIX: Create Account small text not visible ===== */
-.card .small-text {
-  margin-top: 15px;
-  font-size: 14px;
-  color: #555;        /* ensures text is visible */
-  display: block;
-}
-
-.card .small-text a {
-  color: #6a1b9a;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.card .small-text a:hover {
-  text-decoration: underline;
-}
-/* ===== FIX: Center bottom text ===== */
-.card .small-text {
-  margin-top: 15px;
-  font-size: 14px;
-  color: #555;
-  text-align: center;   /* 🔥 centers the text */
-}
-
-.card .small-text a {
-  display: inline-block;
-  margin-top: 5px;      /* 🔥 moves Login below */
-  color: #6a1b9a;
-  font-weight: bold;
 }
