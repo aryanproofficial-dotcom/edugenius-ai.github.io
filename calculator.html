@@ -7,7 +7,7 @@
 
   <style>
     * {
-      box-sizing: border-box; /* 🔥 FIX OVERFLOW */
+      box-sizing: border-box;
     }
 
     body {
@@ -22,8 +22,7 @@
 
     .calc-container {
       width: 100%;
-      max-width: 340px; /* 🔥 RESPONSIVE FIX */
-      margin: auto;
+      max-width: 340px;
       background: #ffffff;
       padding: 15px;
       border-radius: 20px;
@@ -44,14 +43,14 @@
       border: none;
       background: #f3f3f3;
       text-align: right;
-      overflow-x: auto; /* 🔥 FIX LONG NUMBERS */
+      overflow-x: auto;
       margin-bottom: 10px;
     }
 
     .buttons {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px; /* 🔥 PREVENT OVERFLOW */
+      gap: 8px;
     }
 
     .buttons button {
@@ -79,7 +78,6 @@
       grid-column: span 2;
     }
 
-    /* HISTORY */
     #history {
       margin-top: 15px;
       max-height: 150px;
@@ -141,13 +139,12 @@
       <button onclick="press('+')" class="special">+</button>
 
       <!-- AI + Clear -->
-      <button onclick="sendToAI()" class="ai-btn">🤖 Explain</button>
+      <button onclick="explain()" class="ai-btn">🤖 Explain</button>
       <button onclick="clearHistory()">🧹</button>
 
     </div>
 
     <div id="history"></div>
-
   </div>
 
   <script>
@@ -163,12 +160,9 @@
         let exp = display.value;
         let result = Function('"use strict";return (' + exp + ')')();
 
-        // 🔥 FIX SCIENTIFIC NUMBER
         let finalResult = Number(result.toFixed(6));
-
         display.value = finalResult;
 
-        // Add to history
         let item = document.createElement("p");
         item.innerText = `${exp} = ${finalResult}`;
 
@@ -178,7 +172,6 @@
 
         historyBox.appendChild(item);
 
-        // Keep last 10 only
         if (historyBox.children.length > 10) {
           historyBox.removeChild(historyBox.firstChild);
         }
@@ -202,7 +195,6 @@
       historyBox.innerHTML = "";
     }
 
-    // Scientific
     function square() {
       if (display.value) {
         let v = Number(display.value);
@@ -224,17 +216,62 @@
       }
     }
 
-    // 🤖 FIXED AI BUTTON (NO ERROR)
-    function sendToAI() {
-      let expression = display.value;
+    // 🔥 BEST EXPLAIN FEATURE
+    function explain() {
+      let exp = display.value;
 
-      if (!expression) {
+      if (!exp) {
         alert("Enter something first");
         return;
       }
 
-      // 🔥 redirect to index instead of ai.html
-      window.location.href = "index.html?question=" + encodeURIComponent(expression);
+      let steps = "🤖 Step-by-step Explanation:\n\n";
+
+      try {
+        if (exp.includes("+")) {
+          let parts = exp.split("+");
+          let result = parts.reduce((a, b) => Number(a) + Number(b));
+
+          steps += "➤ Addition\n";
+          steps += `➤ ${parts.join(" + ")}\n`;
+          steps += `➤ Result = ${result}`;
+
+        } else if (exp.includes("-")) {
+          let parts = exp.split("-");
+          let result = parts.reduce((a, b) => Number(a) - Number(b));
+
+          steps += "➤ Subtraction\n";
+          steps += `➤ ${parts.join(" - ")}\n`;
+          steps += `➤ Result = ${result}`;
+
+        } else if (exp.includes("*")) {
+          let parts = exp.split("*");
+          let result = parts.reduce((a, b) => Number(a) * Number(b));
+
+          steps += "➤ Multiplication\n";
+          steps += `➤ ${parts.join(" × ")}\n`;
+          steps += `➤ Result = ${result}`;
+
+        } else if (exp.includes("/")) {
+          let parts = exp.split("/");
+          let result = parts.reduce((a, b) => Number(a) / Number(b));
+
+          steps += "➤ Division\n";
+          steps += `➤ ${parts.join(" ÷ ")}\n`;
+          steps += `➤ Result = ${result}`;
+
+        } else {
+          steps += "➤ Basic calculation\n";
+        }
+
+        let final = Function('"use strict";return (' + exp + ')')();
+        steps += `\n\n✅ Final Answer = ${final}`;
+
+        alert(steps);
+
+      } catch {
+        alert("Cannot explain this");
+      }
     }
 
     // Keyboard support
