@@ -6,6 +6,10 @@
   <title>Calculator – EduGenius AI</title>
 
   <style>
+    * {
+      box-sizing: border-box; /* 🔥 FIX OVERFLOW */
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -13,13 +17,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
     }
 
     .calc-container {
-      width: 340px;
+      width: 100%;
+      max-width: 340px; /* 🔥 RESPONSIVE FIX */
+      margin: auto;
       background: #ffffff;
-      padding: 20px;
+      padding: 15px;
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       text-align: center;
@@ -32,24 +38,25 @@
 
     #display {
       width: 100%;
-      padding: 15px;
-      font-size: 22px;
+      padding: 12px;
+      font-size: 18px;
       border-radius: 12px;
       border: none;
       background: #f3f3f3;
       text-align: right;
+      overflow-x: auto; /* 🔥 FIX LONG NUMBERS */
       margin-bottom: 10px;
     }
 
     .buttons {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 8px; /* 🔥 PREVENT OVERFLOW */
     }
 
     .buttons button {
-      padding: 15px;
-      font-size: 18px;
+      padding: 14px;
+      font-size: 16px;
       border: none;
       border-radius: 12px;
       background: #6a1b9a;
@@ -72,7 +79,7 @@
       grid-column: span 2;
     }
 
-    /* 🔥 HISTORY */
+    /* HISTORY */
     #history {
       margin-top: 15px;
       max-height: 150px;
@@ -156,20 +163,22 @@
         let exp = display.value;
         let result = Function('"use strict";return (' + exp + ')')();
 
-        display.value = result;
+        // 🔥 FIX SCIENTIFIC NUMBER
+        let finalResult = Number(result.toFixed(6));
 
-        // 🔥 Add to history
+        display.value = finalResult;
+
+        // Add to history
         let item = document.createElement("p");
-        item.innerText = `${exp} = ${result}`;
+        item.innerText = `${exp} = ${finalResult}`;
 
-        // 🔥 Click to reuse
         item.onclick = () => {
           display.value = exp;
         };
 
         historyBox.appendChild(item);
 
-        // 🔥 Keep only last 10
+        // Keep last 10 only
         if (historyBox.children.length > 10) {
           historyBox.removeChild(historyBox.firstChild);
         }
@@ -215,7 +224,7 @@
       }
     }
 
-    // 🤖 AI
+    // 🤖 FIXED AI BUTTON (NO ERROR)
     function sendToAI() {
       let expression = display.value;
 
@@ -224,10 +233,11 @@
         return;
       }
 
-      window.location.href = "ai.html?question=" + encodeURIComponent(expression);
+      // 🔥 redirect to index instead of ai.html
+      window.location.href = "index.html?question=" + encodeURIComponent(expression);
     }
 
-    // Keyboard
+    // Keyboard support
     document.addEventListener("keydown", function(e) {
       const key = e.key;
 
