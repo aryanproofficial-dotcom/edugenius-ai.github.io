@@ -635,3 +635,20 @@ button:active {
     font-size: 15px;
   }
 }  
+/* ===== FIX: Create Account small text not visible ===== */
+.card .small-text {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;        /* ensures text is visible */
+  display: block;
+}
+
+.card .small-text a {
+  color: #6a1b9a;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.card .small-text a:hover {
+  text-decoration: underline;
+}
