@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EduGenius Calculator Pro</title>
+<title>EduGenius Calculator Ultimate</title>
 
 <style>
 body{
@@ -12,17 +12,17 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,#0f172a,#1e293b);
-  font-family:Arial;
+  font-family:-apple-system, BlinkMacSystemFont, sans-serif;
+  background:linear-gradient(135deg,#070a2b,#1c2250,#070a2b);
 }
 
 .calc{
-  width:390px;
-  background:rgba(255,255,255,0.07);
-  backdrop-filter:blur(20px);
-  border-radius:28px;
-  padding:16px;
-  box-shadow:0 25px 70px rgba(0,0,0,0.7);
+  width:430px;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(45px);
+  border-radius:40px;
+  padding:18px;
+  box-shadow:0 50px 140px rgba(0,0,0,0.9);
   color:white;
 }
 
@@ -30,52 +30,67 @@ body{
   display:flex;
   justify-content:space-between;
   font-size:13px;
-  margin-bottom:8px;
+  margin-bottom:10px;
+  opacity:0.9;
+}
+
+.mode{
+  cursor:pointer;
+  color:#00d4ff;
 }
 
 .history{
-  height:55px;
+  height:100px;
   font-size:12px;
-  opacity:0.6;
+  opacity:0.75;
   overflow:auto;
-  margin-bottom:6px;
+  margin-bottom:10px;
+  padding:8px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.05);
 }
 
 #display{
   width:100%;
-  height:65px;
-  font-size:28px;
+  height:90px;
+  font-size:40px;
   text-align:right;
   border:none;
   outline:none;
   background:transparent;
   color:white;
-  margin-bottom:12px;
+  margin-bottom:14px;
 }
 
 .buttons{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:10px;
+  gap:12px;
 }
 
 button{
-  padding:15px;
-  font-size:14px;
+  padding:18px;
+  font-size:16px;
   border:none;
-  border-radius:16px;
+  border-radius:26px;
   cursor:pointer;
-  background:rgba(255,255,255,0.1);
+  transition:0.12s;
   color:white;
+  user-select:none;
 }
 
-button:hover{
-  background:#38bdf8;
-  color:black;
+button:active{
+  transform:scale(0.88);
 }
 
-.equal{ background:#22c55e; }
-.clear{ background:#ef4444; }
+/* colors */
+.num{ background:#2b2f4f; }
+.op{ background:#ff6a00; }
+.func{ background:#2aa9ff; }
+.equal{ background:#00ff9d; color:black; }
+.clear{ background:#ff3b30; }
+.hist{ background:#7b2cff; }
+.mem{ background:#ffcc00; color:black; }
 </style>
 </head>
 
@@ -84,8 +99,8 @@ button:hover{
 <div class="calc">
 
 <div class="header">
-  <div>EduGenius Calculator Pro</div>
-  <div>Mode: <span id="mode">DEG</span></div>
+  <div>EduGenius Ultimate</div>
+  <div class="mode" onclick="toggleMode()">MODE: <span id="modeText">DEG</span></div>
 </div>
 
 <div class="history" id="history"></div>
@@ -94,40 +109,51 @@ button:hover{
 
 <div class="buttons">
 
+<!-- CLEAR -->
 <button class="clear" onclick="clearAll()">C</button>
-<button onclick="back()">⌫</button>
-<button onclick="append('/')">/</button>
-<button onclick="append('*')">*</button>
+<button class="hist" onclick="clearHistory()">H</button>
+<button class="mem" onclick="memoryClear()">MC</button>
+<button class="mem" onclick="memoryRecall()">MR</button>
 
-<button onclick="append('7')">7</button>
-<button onclick="append('8')">8</button>
-<button onclick="append('9')">9</button>
-<button onclick="append('-')">-</button>
+<!-- ROW 2 -->
+<button class="num" onclick="append('7')">7</button>
+<button class="num" onclick="append('8')">8</button>
+<button class="num" onclick="append('9')">9</button>
+<button class="mem" onclick="memoryAdd()">M+</button>
 
-<button onclick="append('4')">4</button>
-<button onclick="append('5')">5</button>
-<button onclick="append('6')">6</button>
-<button onclick="append('+')">+</button>
+<!-- ROW 3 -->
+<button class="num" onclick="append('4')">4</button>
+<button class="num" onclick="append('5')">5</button>
+<button class="num" onclick="append('6')">6</button>
+<button class="mem" onclick="memorySub()">M-</button>
 
-<button onclick="append('1')">1</button>
-<button onclick="append('2')">2</button>
-<button onclick="append('3')">3</button>
+<!-- ROW 4 -->
+<button class="num" onclick="append('1')">1</button>
+<button class="num" onclick="append('2')">2</button>
+<button class="num" onclick="append('3')">3</button>
+<button class="op" onclick="append('+')">+</button>
+
+<!-- ROW 5 -->
+<button class="num" onclick="append('0')">0</button>
+<button class="num" onclick="append('.')">.</button>
+<button class="op" onclick="append('-')">-</button>
 <button class="equal" onclick="calculate()">=</button>
 
-<button onclick="append('0')">0</button>
-<button onclick="append('.')">.</button>
-<button onclick="append('(')">(</button>
-<button onclick="append(')')">)</button>
+<!-- SCIENTIFIC -->
+<button class="func" onclick="append('sin(')">sin</button>
+<button class="func" onclick="append('cos(')">cos</button>
+<button class="func" onclick="append('tan(')">tan</button>
+<button class="op" onclick="append('*')">*</button>
 
-<button onclick="append('sin')">sin</button>
-<button onclick="append('cos')">cos</button>
-<button onclick="append('tan')">tan</button>
-<button onclick="append('sqrt')">√</button>
+<button class="func" onclick="append('sqrt(')">√</button>
+<button class="func" onclick="append('log(')">log</button>
+<button class="func" onclick="append('ln(')">ln</button>
+<button class="op" onclick="append('/')">/</button>
 
-<button onclick="append('log')">log</button>
-<button onclick="append('ln')">ln</button>
-<button onclick="append('PI')">π</button>
-<button onclick="append('E')">e</button>
+<button class="num" onclick="append('(')">(</button>
+<button class="num" onclick="append(')')">)</button>
+<button class="num" onclick="append('PI')">π</button>
+<button class="num" onclick="append('E')">e</button>
 
 </div>
 </div>
@@ -136,165 +162,137 @@ button:hover{
 
 let expr = "";
 let mode = "DEG";
+let memory = 0;
 
 const display = document.getElementById("display");
 const historyBox = document.getElementById("history");
+const modeText = document.getElementById("modeText");
 
-// constants
 const PI = Math.PI;
 const E = Math.E;
 
-// helpers
+// MODE
+function toggleMode(){
+  mode = mode === "DEG" ? "RAD" : "DEG";
+  modeText.innerText = mode;
+}
+
+// TRIG
 function toRad(x){
   return mode === "DEG" ? x * Math.PI / 180 : x;
 }
 
-// FUNCTIONS
-const funcs = {
-  sin: x => Math.sin(toRad(x)),
-  cos: x => Math.cos(toRad(x)),
-  tan: x => Math.tan(toRad(x)),
-  sqrt: x => Math.sqrt(x),
-  log: x => Math.log10(x),
-  ln: x => Math.log(x)
-};
+const sin = x => Math.sin(toRad(x));
+const cos = x => Math.cos(toRad(x));
+const tan = x => Math.tan(toRad(x));
 
-// TOKENIZER
-function tokenize(str){
-  return str.match(/PI|E|sin|cos|tan|sqrt|log|ln|\d+(\.\d+)?|[()+\-*/^]/g) || [];
+const sqrt = x => Math.sqrt(x);
+const log = x => Math.log10(x);
+const ln = x => Math.log(x);
+
+// CLEAN INPUT
+function fix(s){
+  return s
+    .replace(/\+\+/g,'+')
+    .replace(/--/g,'-')
+    .replace(/\*\*/g,'^')
+    .replace(/\/\//g,'/');
 }
 
-// precedence
-function prec(op){
-  if(op === "+" || op === "-") return 1;
-  if(op === "*" || op === "/") return 2;
-  if(op === "^") return 3;
-  return 0;
-}
-
-// SHUNTING YARD -> RPN
-function toRPN(tokens){
-  let output = [];
-  let ops = [];
-
-  for(let t of tokens){
-
-    if(!isNaN(t) || t === "PI" || t === "E"){
-      output.push(t);
-    }
-    else if(funcs[t]){
-      ops.push(t);
-    }
-    else if(t === ","){
-      while(ops.length && ops[ops.length-1] !== "("){
-        output.push(ops.pop());
-      }
-    }
-    else if("+-*/^".includes(t)){
-      while(
-        ops.length &&
-        prec(ops[ops.length-1]) >= prec(t)
-      ){
-        output.push(ops.pop());
-      }
-      ops.push(t);
-    }
-    else if(t === "("){
-      ops.push(t);
-    }
-    else if(t === ")"){
-      while(ops.length && ops[ops.length-1] !== "("){
-        output.push(ops.pop());
-      }
-      ops.pop();
-
-      if(funcs[ops[ops.length-1]]){
-        output.push(ops.pop());
-      }
-    }
-  }
-
-  while(ops.length){
-    output.push(ops.pop());
-  }
-
-  return output;
-}
-
-// EVALUATE RPN
-function evalRPN(rpn){
-  let stack = [];
-
-  for(let t of rpn){
-
-    if(!isNaN(t)){
-      stack.push(parseFloat(t));
-    }
-    else if(t === "PI"){
-      stack.push(PI);
-    }
-    else if(t === "E"){
-      stack.push(E);
-    }
-    else if(funcs[t]){
-      let a = stack.pop();
-      stack.push(funcs[t](a));
-    }
-    else{
-      let b = stack.pop();
-      let a = stack.pop();
-
-      switch(t){
-        case "+": stack.push(a+b); break;
-        case "-": stack.push(a-b); break;
-        case "*": stack.push(a*b); break;
-        case "/": stack.push(a/b); break;
-        case "^": stack.push(Math.pow(a,b)); break;
-      }
-    }
-  }
-
-  return stack[0];
-}
-
-// MAIN CALC
-function calculate(){
+// SAFE CALC
+function calc(str){
   try{
-    let tokens = tokenize(expr);
-    let rpn = toRPN(tokens);
-    let res = evalRPN(rpn);
-
-    if(isNaN(res)) throw Error();
-
-    historyBox.innerHTML += expr + " = " + res + "<br>";
-    expr = res.toString();
-    display.value = expr;
+    return Function("sin","cos","tan","sqrt","log","ln","PI","E",
+      "return (" + str + ")"
+    )(sin,cos,tan,sqrt,log,ln,PI,E);
   }catch{
-    display.value = "Error";
+    return null;
   }
 }
 
-// UI
-function append(v){
-  expr += v;
-  display.value = expr;
+// AUTO BRACKETS
+function autoClose(s){
+  let open = (s.match(/\(/g)||[]).length;
+  let close = (s.match(/\)/g)||[]).length;
+  return s + ")".repeat(open-close);
 }
 
+// UPDATE
+function update(){
+  if(expr === ""){
+    display.value = "";
+    return;
+  }
+
+  let res = calc(fix(expr));
+
+  if(res === null || isNaN(res)){
+    display.value = expr;
+  }else{
+    display.value = expr + " = " + res;
+  }
+}
+
+// INPUT
+function append(v){
+  let last = expr.slice(-1);
+  if("+-*/".includes(last) && "+-*/".includes(v)) return;
+
+  expr += v;
+  update();
+}
+
+// CLEAR
 function clearAll(){
   expr = "";
   display.value = "";
 }
 
-function back(){
-  expr = expr.slice(0,-1);
-  display.value = expr;
+function clearHistory(){
+  historyBox.innerHTML = "";
 }
 
-// keyboard
+// CALCULATE
+function calculate(){
+  let finalExpr = autoClose(fix(expr));
+  let res = calc(finalExpr);
+
+  if(res !== null && !isNaN(res)){
+    historyBox.innerHTML += expr + " = " + res + "<br>";
+    historyBox.scrollTop = historyBox.scrollHeight;
+
+    expr = res.toString();
+    display.value = expr;
+  }else{
+    display.value = "Error";
+  }
+}
+
+/* MEMORY SYSTEM */
+function memoryAdd(){
+  let r = calc(expr);
+  if(r !== null) memory += r;
+}
+
+function memorySub(){
+  let r = calc(expr);
+  if(r !== null) memory -= r;
+}
+
+function memoryRecall(){
+  expr += memory.toString();
+  update();
+}
+
+function memoryClear(){
+  memory = 0;
+}
+
+// KEYBOARD
 document.addEventListener("keydown", e=>{
   if("0123456789+-*/().".includes(e.key)) append(e.key);
   else if(e.key === "Enter") calculate();
-  else if(e.key === "Backspace") back();
+  else if(e.key === "Backspace") expr = expr.slice(0,-1), update();
 });
 
 </script>
