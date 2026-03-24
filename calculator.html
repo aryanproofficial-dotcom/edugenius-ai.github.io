@@ -2,224 +2,301 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>EduGenius Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduGenius Calculator Pro</title>
 
 <style>
 body{
   margin:0;
-  font-family: Arial;
-  background:#0f172a;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  font-family:Arial;
+}
+
+.calc{
+  width:390px;
+  background:rgba(255,255,255,0.07);
+  backdrop-filter:blur(20px);
+  border-radius:28px;
+  padding:16px;
+  box-shadow:0 25px 70px rgba(0,0,0,0.7);
   color:white;
 }
 
-.container{
-  max-width:420px;
-  margin:auto;
-  padding:10px;
+.header{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  margin-bottom:8px;
 }
 
-.screen{
-  background:#111827;
-  padding:15px;
-  border-radius:10px;
-  font-size:22px;
-  min-height:60px;
-  word-wrap:break-word;
+.history{
+  height:55px;
+  font-size:12px;
+  opacity:0.6;
+  overflow:auto;
+  margin-bottom:6px;
 }
 
-.result{
-  font-size:18px;
-  color:#22c55e;
-  margin-top:5px;
+#display{
+  width:100%;
+  height:65px;
+  font-size:28px;
+  text-align:right;
+  border:none;
+  outline:none;
+  background:transparent;
+  color:white;
+  margin-bottom:12px;
 }
 
 .buttons{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:8px;
-  margin-top:10px;
+  gap:10px;
 }
 
 button{
   padding:15px;
-  font-size:16px;
+  font-size:14px;
   border:none;
-  border-radius:8px;
-  background:#1f2937;
+  border-radius:16px;
+  cursor:pointer;
+  background:rgba(255,255,255,0.1);
   color:white;
 }
 
-button:active{
-  background:#374151;
+button:hover{
+  background:#38bdf8;
+  color:black;
 }
 
-.science{
-  grid-column: span 4;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
-}
-
-.history{
-  margin-top:10px;
-  background:#111827;
-  padding:10px;
-  border-radius:10px;
-  max-height:150px;
-  overflow:auto;
-}
-
-.history-item{
-  font-size:14px;
-  border-bottom:1px solid #222;
-  padding:5px 0;
-}
-
-.ai-box{
-  margin-top:10px;
-  padding:10px;
-  background:#1e293b;
-  border-radius:10px;
-  font-size:13px;
-}
+.equal{ background:#22c55e; }
+.clear{ background:#ef4444; }
 </style>
 </head>
 
 <body>
-<div class="container">
 
-<div class="screen" id="display">0</div>
-<div class="result" id="result"></div>
+<div class="calc">
 
-<!-- SCIENTIFIC -->
-<div class="science">
-<button onclick="add('sin(')">sin</button>
-<button onclick="add('cos(')">cos</button>
-<button onclick="add('tan(')">tan</button>
-<button onclick="add('log(')">log</button>
-
-<button onclick="add('ln(')">ln</button>
-<button onclick="add('sqrt(')">√</button>
-<button onclick="add('^2')">x²</button>
-<button onclick="clearAll()">C</button>
+<div class="header">
+  <div>EduGenius Calculator Pro</div>
+  <div>Mode: <span id="mode">DEG</span></div>
 </div>
 
-<!-- MAIN KEYS -->
-<div class="buttons">
-
-<button onclick="add('7')">7</button>
-<button onclick="add('8')">8</button>
-<button onclick="add('9')">9</button>
-<button onclick="add('/')">÷</button>
-
-<button onclick="add('4')">4</button>
-<button onclick="add('5')">5</button>
-<button onclick="add('6')">×</button>
-<button onclick="add('*')">*</button>
-
-<button onclick="add('1')">1</button>
-<button onclick="add('2')">2</button>
-<button onclick="add('3')">3</button>
-<button onclick="add('-')">-</button>
-
-<button onclick="add('0')">0</button>
-<button onclick="add('00')">00</button>
-<button onclick="add('000')">000</button>
-<button onclick="add('+')">+</button>
-
-<button onclick="calculate()">=</button>
-<button onclick="back()">⌫</button>
-<button onclick="add('.')">.</button>
-<button onclick="add('(')">(</button>
-<button onclick="add(')')">)</button>
-
-</div>
-
-<!-- HISTORY -->
 <div class="history" id="history"></div>
 
-<!-- AI EXPLANATION -->
-<div class="ai-box" id="aiBox">AI Explanation will appear here...</div>
+<input id="display" readonly>
 
+<div class="buttons">
+
+<button class="clear" onclick="clearAll()">C</button>
+<button onclick="back()">⌫</button>
+<button onclick="append('/')">/</button>
+<button onclick="append('*')">*</button>
+
+<button onclick="append('7')">7</button>
+<button onclick="append('8')">8</button>
+<button onclick="append('9')">9</button>
+<button onclick="append('-')">-</button>
+
+<button onclick="append('4')">4</button>
+<button onclick="append('5')">5</button>
+<button onclick="append('6')">6</button>
+<button onclick="append('+')">+</button>
+
+<button onclick="append('1')">1</button>
+<button onclick="append('2')">2</button>
+<button onclick="append('3')">3</button>
+<button class="equal" onclick="calculate()">=</button>
+
+<button onclick="append('0')">0</button>
+<button onclick="append('.')">.</button>
+<button onclick="append('(')">(</button>
+<button onclick="append(')')">)</button>
+
+<button onclick="append('sin')">sin</button>
+<button onclick="append('cos')">cos</button>
+<button onclick="append('tan')">tan</button>
+<button onclick="append('sqrt')">√</button>
+
+<button onclick="append('log')">log</button>
+<button onclick="append('ln')">ln</button>
+<button onclick="append('PI')">π</button>
+<button onclick="append('E')">e</button>
+
+</div>
 </div>
 
 <script>
-let expr = "";
 
-function add(val){
-  expr += val;
-  document.getElementById("display").innerText = expr;
-  liveResult();
+let expr = "";
+let mode = "DEG";
+
+const display = document.getElementById("display");
+const historyBox = document.getElementById("history");
+
+// constants
+const PI = Math.PI;
+const E = Math.E;
+
+// helpers
+function toRad(x){
+  return mode === "DEG" ? x * Math.PI / 180 : x;
 }
 
-function back(){
-  expr = expr.slice(0,-1);
-  document.getElementById("display").innerText = expr || "0";
-  liveResult();
+// FUNCTIONS
+const funcs = {
+  sin: x => Math.sin(toRad(x)),
+  cos: x => Math.cos(toRad(x)),
+  tan: x => Math.tan(toRad(x)),
+  sqrt: x => Math.sqrt(x),
+  log: x => Math.log10(x),
+  ln: x => Math.log(x)
+};
+
+// TOKENIZER
+function tokenize(str){
+  return str.match(/PI|E|sin|cos|tan|sqrt|log|ln|\d+(\.\d+)?|[()+\-*/^]/g) || [];
+}
+
+// precedence
+function prec(op){
+  if(op === "+" || op === "-") return 1;
+  if(op === "*" || op === "/") return 2;
+  if(op === "^") return 3;
+  return 0;
+}
+
+// SHUNTING YARD -> RPN
+function toRPN(tokens){
+  let output = [];
+  let ops = [];
+
+  for(let t of tokens){
+
+    if(!isNaN(t) || t === "PI" || t === "E"){
+      output.push(t);
+    }
+    else if(funcs[t]){
+      ops.push(t);
+    }
+    else if(t === ","){
+      while(ops.length && ops[ops.length-1] !== "("){
+        output.push(ops.pop());
+      }
+    }
+    else if("+-*/^".includes(t)){
+      while(
+        ops.length &&
+        prec(ops[ops.length-1]) >= prec(t)
+      ){
+        output.push(ops.pop());
+      }
+      ops.push(t);
+    }
+    else if(t === "("){
+      ops.push(t);
+    }
+    else if(t === ")"){
+      while(ops.length && ops[ops.length-1] !== "("){
+        output.push(ops.pop());
+      }
+      ops.pop();
+
+      if(funcs[ops[ops.length-1]]){
+        output.push(ops.pop());
+      }
+    }
+  }
+
+  while(ops.length){
+    output.push(ops.pop());
+  }
+
+  return output;
+}
+
+// EVALUATE RPN
+function evalRPN(rpn){
+  let stack = [];
+
+  for(let t of rpn){
+
+    if(!isNaN(t)){
+      stack.push(parseFloat(t));
+    }
+    else if(t === "PI"){
+      stack.push(PI);
+    }
+    else if(t === "E"){
+      stack.push(E);
+    }
+    else if(funcs[t]){
+      let a = stack.pop();
+      stack.push(funcs[t](a));
+    }
+    else{
+      let b = stack.pop();
+      let a = stack.pop();
+
+      switch(t){
+        case "+": stack.push(a+b); break;
+        case "-": stack.push(a-b); break;
+        case "*": stack.push(a*b); break;
+        case "/": stack.push(a/b); break;
+        case "^": stack.push(Math.pow(a,b)); break;
+      }
+    }
+  }
+
+  return stack[0];
+}
+
+// MAIN CALC
+function calculate(){
+  try{
+    let tokens = tokenize(expr);
+    let rpn = toRPN(tokens);
+    let res = evalRPN(rpn);
+
+    if(isNaN(res)) throw Error();
+
+    historyBox.innerHTML += expr + " = " + res + "<br>";
+    expr = res.toString();
+    display.value = expr;
+  }catch{
+    display.value = "Error";
+  }
+}
+
+// UI
+function append(v){
+  expr += v;
+  display.value = expr;
 }
 
 function clearAll(){
   expr = "";
-  document.getElementById("display").innerText = "0";
-  document.getElementById("result").innerText = "";
+  display.value = "";
 }
 
-function liveResult(){
-  try{
-    let r = safeEval(expr);
-    if(r !== undefined){
-      document.getElementById("result").innerText = "= " + r;
-    }
-  }catch(e){}
+function back(){
+  expr = expr.slice(0,-1);
+  display.value = expr;
 }
 
-/* SAFE PARSER (NO eval) */
-function safeEval(str){
-  str = str.replace(/sin/g,"Math.sin")
-           .replace(/cos/g,"Math.cos")
-           .replace(/tan/g,"Math.tan")
-           .replace(/log/g,"Math.log10")
-           .replace(/ln/g,"Math.log")
-           .replace(/sqrt/g,"Math.sqrt")
-           .replace(/\^2/g,"**2");
+// keyboard
+document.addEventListener("keydown", e=>{
+  if("0123456789+-*/().".includes(e.key)) append(e.key);
+  else if(e.key === "Enter") calculate();
+  else if(e.key === "Backspace") back();
+});
 
-  // Only allow safe chars
-  if(/[^0-9+\-*/(). Mathsincoalgqrt]*$/.test(str)) return;
-
-  return Function('"use strict"; return ('+str+')')();
-}
-
-function calculate(){
-  try{
-    let result = safeEval(expr);
-    document.getElementById("result").innerText = "= " + result;
-
-    addHistory(expr + " = " + result);
-    aiExplain(expr, result);
-
-    expr = result.toString();
-    document.getElementById("display").innerText = expr;
-
-  }catch(e){
-    document.getElementById("result").innerText = "Error";
-  }
-}
-
-/* HISTORY SYSTEM */
-function addHistory(text){
-  let div = document.createElement("div");
-  div.className = "history-item";
-  div.innerText = text;
-  document.getElementById("history").prepend(div);
-}
-
-/* AI EXPLANATION (basic logic) */
-function aiExplain(expression, result){
-  document.getElementById("aiBox").innerText =
-  "AI: The expression '" + expression +
-  "' is solved using BODMAS rules → final answer = " + result;
-}
 </script>
 
 </body>
