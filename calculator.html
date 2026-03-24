@@ -1,289 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EduGenius Pro | Ultimate Upgrade</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.0/math.all.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EduGenius Pro Calculator</title>
 
 <style>
-:root{
-    --bg:#070a12;
-    --panel:rgba(255,255,255,0.06);
-    --accent:#00d4ff;
-    --accent2:#ff4df0;
-    --text:#fff;
-}
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: white;
+    }
 
-body{
-    margin:0;
-    font-family:Segoe UI;
-    background:var(--bg);
-    color:var(--text);
-    display:flex;
-    height:100vh;
-    overflow:hidden;
-}
+    .calculator {
+        width: 340px;
+        background: #111827;
+        border-radius: 20px;
+        padding: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
 
-.app{
-    display:flex;
-    width:100%;
-    max-width:1300px;
-    margin:auto;
-    gap:15px;
-    padding:15px;
-}
+    .screen {
+        background: #1f2937;
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+    }
 
-/* LEFT */
-.calc{
-    flex:1;
-    background:var(--panel);
-    border-radius:25px;
-    padding:20px;
-    display:flex;
-    flex-direction:column;
-    backdrop-filter:blur(15px);
-}
+    #input {
+        width: 100%;
+        font-size: 20px;
+        background: transparent;
+        border: none;
+        color: white;
+        outline: none;
+    }
 
-#display{
-    font-size:30px;
-    background:transparent;
-    border:none;
-    color:var(--accent);
-    text-align:right;
-    outline:none;
-}
+    #result {
+        text-align: right;
+        font-size: 18px;
+        opacity: 0.7;
+        margin-top: 5px;
+    }
 
-#preview{
-    text-align:right;
-    opacity:0.6;
-    margin-bottom:10px;
-}
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
 
-/* GRID */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:8px;
-    flex:1;
-}
+    button {
+        padding: 15px;
+        font-size: 16px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        background: #1f2937;
+        color: white;
+        transition: 0.2s;
+    }
 
-button{
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    color:white;
-    background:rgba(255,255,255,0.1);
-    transition:0.2s;
-}
-button:hover{
-    transform:translateY(-2px);
-    background:rgba(255,255,255,0.2);
-}
+    button:hover {
+        background: #374151;
+    }
 
-.op{color:var(--accent)}
-.eq{background:var(--accent); color:#000; font-weight:bold;}
-.sci{color:var(--accent2)}
+    .equal {
+        background: #22c55e;
+    }
 
-/* RIGHT */
-.right{
-    flex:1.3;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
+    .equal:hover {
+        background: #16a34a;
+    }
 
-.panel{
-    background:var(--panel);
-    border-radius:25px;
-    padding:15px;
-    backdrop-filter:blur(15px);
-}
+    .clear {
+        background: #ef4444;
+    }
 
-canvas{
-    width:100%;
-    height:300px;
-}
+    .clear:hover {
+        background: #dc2626;
+    }
 
-/* HISTORY */
-#history{
-    font-size:13px;
-    max-height:120px;
-    overflow:auto;
-    opacity:0.8;
-}
+    .topbar {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .toggle {
+        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        background: #334155;
+    }
+
+    .history {
+        margin-top: 10px;
+        max-height: 80px;
+        overflow-y: auto;
+        font-size: 12px;
+        opacity: 0.8;
+    }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="calculator">
 
-<!-- CALCULATOR -->
-<div class="calc">
-<h3>EduGenius Pro <span style="color:var(--accent)">UPGRADED</span></h3>
+    <div class="topbar">
+        <button class="toggle" onclick="toggleMode()">Scientific</button>
+        <button class="toggle" onclick="toggleTheme()">Theme</button>
+    </div>
 
-<input id="display" placeholder="Enter expression...">
-<div id="preview"></div>
+    <div class="screen">
+        <input id="input" type="text" oninput="liveResult()" placeholder="0"/>
+        <div id="result">0</div>
+    </div>
 
-<div class="grid">
+    <div class="buttons" id="buttons">
 
-<button onclick="clearAll()" class="op">AC</button>
-<button onclick="del()" class="op">DEL</button>
-<button onclick="addAns()" class="op">ANS</button>
-<button onclick="add('/')">÷</button>
+        <button onclick="press('7')">7</button>
+        <button onclick="press('8')">8</button>
+        <button onclick="press('9')">9</button>
+        <button class="clear" onclick="clearAll()">C</button>
 
-<button onclick="add('7')">7</button>
-<button onclick="add('8')">8</button>
-<button onclick="add('9')">9</button>
-<button onclick="add('*')">×</button>
+        <button onclick="press('4')">4</button>
+        <button onclick="press('5')">5</button>
+        <button onclick="press('6')">6</button>
+        <button onclick="press('/')">÷</button>
 
-<button onclick="add('4')">4</button>
-<button onclick="add('5')">5</button>
-<button onclick="add('6')">6</button>
-<button onclick="add('-')">−</button>
+        <button onclick="press('1')">1</button>
+        <button onclick="press('2')">2</button>
+        <button onclick="press('3')">3</button>
+        <button onclick="press('*')">×</button>
 
-<button onclick="add('1')">1</button>
-<button onclick="add('2')">2</button>
-<button onclick="add('3')">3</button>
-<button onclick="add('+')">+</button>
+        <button onclick="press('0')">0</button>
+        <button onclick="press('.')">.</button>
+        <button class="equal" onclick="calculate()">=</button>
+        <button onclick="press('-')">−</button>
 
-<button onclick="add('0')">0</button>
-<button onclick="add('.')">.</button>
-<button onclick="add('sin(')" class="sci">sin</button>
-<button onclick="calculate()" class="eq">=</button>
+        <button onclick="press('+')">+</button>
+        <button onclick="backspace()">⌫</button>
+        <button onclick="press('(')">(</button>
+        <button onclick="press(')')">)</button>
 
-<button onclick="add('sqrt(')" class="sci">√</button>
-<button onclick="add('x^2')" class="sci">x²</button>
-<button onclick="add('f(x)=')" class="sci">f(x)</button>
-<button onclick="drawGraph()" class="sci">GRAPH</button>
+    </div>
 
-</div>
-</div>
-
-<!-- RIGHT SIDE -->
-<div class="right">
-
-<div class="panel">
-<h4>Graph</h4>
-<canvas id="graph"></canvas>
-</div>
-
-<div class="panel">
-<h4>History</h4>
-<button onclick="clearHistory()" class="op">Clear History</button>
-<div id="history"></div>
-</div>
-
-</div>
+    <div class="history" id="history"></div>
 
 </div>
 
 <script>
+let scientific = false;
+let dark = true;
 
-let expr="";
-let ans=0;
-let history=[];
-let chart;
-
-const display=document.getElementById("display");
-const preview=document.getElementById("preview");
-const hist=document.getElementById("history");
-
-function add(v){
-    expr+=v;
-    display.value=expr;
-    livePreview();
-}
-
-function addAns(){
-    expr+=ans;
-    display.value=expr;
-}
-
-function del(){
-    expr=expr.slice(0,-1);
-    display.value=expr;
-    livePreview();
+function press(val){
+    document.getElementById("input").value += val;
+    liveResult();
 }
 
 function clearAll(){
-    expr="";
-    display.value="";
-    preview.innerText="";
+    document.getElementById("input").value = "";
+    document.getElementById("result").innerText = "0";
 }
 
-function livePreview(){
-    try{
-        if(expr && !expr.includes("f(x)")){
-            let r=math.evaluate(expr);
-            preview.innerText="= "+math.format(r,{precision:8});
-        }
-    }catch(e){}
+function backspace(){
+    let val = document.getElementById("input").value;
+    document.getElementById("input").value = val.slice(0, -1);
+    liveResult();
 }
 
 function calculate(){
+    let input = document.getElementById("input").value;
     try{
-        let result=math.evaluate(expr);
-        ans=result;
+        let res = Function("return " + input)();
+        document.getElementById("result").innerText = res;
 
-        let line=expr+" = "+result;
-        history.push(line);
-        renderHistory();
-
-        preview.innerText=line;
-        expr=result.toString();
-        display.value=expr;
-    }catch(e){
-        display.value="Error";
-        setTimeout(clearAll,1200);
+        document.getElementById("history").innerHTML += 
+        `<div>${input} = ${res}</div>`;
+    } catch {
+        document.getElementById("result").innerText = "Error";
     }
 }
 
-function renderHistory(){
-    hist.innerHTML=history.slice(-10).map(h=>"• "+h).join("<br>");
-}
-
-function clearHistory(){
-    history=[];
-    renderHistory();
-}
-
-function drawGraph(){
+function liveResult(){
+    let input = document.getElementById("input").value;
     try{
-        let f=expr.replace("f(x)=", "");
-
-        const node=math.parse(f);
-        const code=node.compile();
-
-        let xVals=math.range(-10,10,0.5).toArray();
-        let yVals=xVals.map(x=>code.evaluate({x}));
-
-        if(chart) chart.destroy();
-
-        chart=new Chart(document.getElementById("graph"),{
-            type:"line",
-            data:{
-                labels:xVals,
-                datasets:[{
-                    data:yVals,
-                    borderColor:"#00d4ff",
-                    tension:0.3
-                }]
-            },
-            options:{
-                responsive:true,
-                maintainAspectRatio:false
-            }
-        });
-
-    }catch(e){
-        alert("Enter function like x^2 or sin(x)");
+        let res = Function("return " + input)();
+        document.getElementById("result").innerText = res;
+    } catch {
+        document.getElementById("result").innerText = "";
     }
 }
 
+function toggleMode(){
+    scientific = !scientific;
+    alert("Scientific mode: " + (scientific ? "ON (upgrade coming next version)" : "OFF"));
+}
+
+function toggleTheme(){
+    dark = !dark;
+    document.body.style.background = dark ? "#0f172a" : "#e5e7eb";
+    document.body.style.color = dark ? "white" : "black";
+}
 </script>
 
 </body>
