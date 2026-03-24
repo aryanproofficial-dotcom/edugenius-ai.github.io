@@ -3,108 +3,98 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>EduGenius Pro Calculator</title>
+<title>EduGenius Futuristic Calculator</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.0/math.min.js"></script>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #0f172a;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        color: white;
-    }
+body{
+    margin:0;
+    font-family:Arial;
+    background: radial-gradient(circle at top, #0f172a, #000);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
 
-    .calculator {
-        width: 340px;
-        background: #111827;
-        border-radius: 20px;
-        padding: 15px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
+.calculator{
+    width:380px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border-radius:20px;
+    padding:15px;
+    box-shadow:0 0 30px rgba(0,255,255,0.2);
+}
 
-    .screen {
-        background: #1f2937;
-        padding: 15px;
-        border-radius: 12px;
-        margin-bottom: 10px;
-    }
+.screen{
+    background:rgba(0,0,0,0.4);
+    padding:12px;
+    border-radius:12px;
+    margin-bottom:10px;
+}
 
-    #input {
-        width: 100%;
-        font-size: 20px;
-        background: transparent;
-        border: none;
-        color: white;
-        outline: none;
-    }
+#input{
+    width:100%;
+    font-size:20px;
+    background:transparent;
+    border:none;
+    color:white;
+    outline:none;
+}
 
-    #result {
-        text-align: right;
-        font-size: 18px;
-        opacity: 0.7;
-        margin-top: 5px;
-    }
+#result{
+    text-align:right;
+    opacity:0.7;
+    margin-top:5px;
+}
 
-    .buttons {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-    }
+.buttons{
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap:8px;
+}
 
-    button {
-        padding: 15px;
-        font-size: 16px;
-        border: none;
-        border-radius: 12px;
-        cursor: pointer;
-        background: #1f2937;
-        color: white;
-        transition: 0.2s;
-    }
+button{
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:rgba(255,255,255,0.08);
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
+}
 
-    button:hover {
-        background: #374151;
-    }
+button:hover{
+    background:rgba(0,255,255,0.2);
+    transform:scale(1.05);
+}
 
-    .equal {
-        background: #22c55e;
-    }
+.equal{
+    background:#00d4ff;
+    color:black;
+    font-weight:bold;
+}
 
-    .equal:hover {
-        background: #16a34a;
-    }
+.clear{
+    background:#ff4d4d;
+}
 
-    .clear {
-        background: #ef4444;
-    }
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+    font-size:12px;
+}
 
-    .clear:hover {
-        background: #dc2626;
-    }
-
-    .topbar {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-    }
-
-    .toggle {
-        font-size: 12px;
-        padding: 6px 10px;
-        border-radius: 8px;
-        background: #334155;
-    }
-
-    .history {
-        margin-top: 10px;
-        max-height: 80px;
-        overflow-y: auto;
-        font-size: 12px;
-        opacity: 0.8;
-    }
+.history{
+    margin-top:10px;
+    max-height:80px;
+    overflow:auto;
+    font-size:12px;
+    opacity:0.8;
+}
 </style>
 </head>
 
@@ -112,102 +102,124 @@
 
 <div class="calculator">
 
-    <div class="topbar">
-        <button class="toggle" onclick="toggleMode()">Scientific</button>
-        <button class="toggle" onclick="toggleTheme()">Theme</button>
-    </div>
+<div class="topbar">
+    <button onclick="toggleAngle()">Angle: <span id="mode">DEG</span></button>
+    <button onclick="clearAll()">Clear</button>
+</div>
 
-    <div class="screen">
-        <input id="input" type="text" oninput="liveResult()" placeholder="0"/>
-        <div id="result">0</div>
-    </div>
+<div class="screen">
+    <input id="input" oninput="live()" placeholder="0"/>
+    <div id="result">0</div>
+</div>
 
-    <div class="buttons" id="buttons">
+<div class="buttons">
 
-        <button onclick="press('7')">7</button>
-        <button onclick="press('8')">8</button>
-        <button onclick="press('9')">9</button>
-        <button class="clear" onclick="clearAll()">C</button>
+<button onclick="press('sin(')">sin</button>
+<button onclick="press('cos(')">cos</button>
+<button onclick="press('tan(')">tan</button>
+<button onclick="press('log(')">log</button>
+<button onclick="press('ln(')">ln</button>
 
-        <button onclick="press('4')">4</button>
-        <button onclick="press('5')">5</button>
-        <button onclick="press('6')">6</button>
-        <button onclick="press('/')">÷</button>
+<button onclick="press('7')">7</button>
+<button onclick="press('8')">8</button>
+<button onclick="press('9')">9</button>
+<button onclick="press('/')">÷</button>
+<button onclick="press('sqrt(')">√</button>
 
-        <button onclick="press('1')">1</button>
-        <button onclick="press('2')">2</button>
-        <button onclick="press('3')">3</button>
-        <button onclick="press('*')">×</button>
+<button onclick="press('4')">4</button>
+<button onclick="press('5')">5</button>
+<button onclick="press('6')">6</button>
+<button onclick="press('*')">×</button>
+<button onclick="press('^')">^</button>
 
-        <button onclick="press('0')">0</button>
-        <button onclick="press('.')">.</button>
-        <button class="equal" onclick="calculate()">=</button>
-        <button onclick="press('-')">−</button>
+<button onclick="press('1')">1</button>
+<button onclick="press('2')">2</button>
+<button onclick="press('3')">3</button>
+<button onclick="press('-')">−</button>
+<button onclick="press('pi')">π</button>
 
-        <button onclick="press('+')">+</button>
-        <button onclick="backspace()">⌫</button>
-        <button onclick="press('(')">(</button>
-        <button onclick="press(')')">)</button>
+<button onclick="press('0')">0</button>
+<button onclick="press('.')">.</button>
+<button onclick="press('(')">(</button>
+<button onclick="press(')')">)</button>
+<button onclick="press('+')">+</button>
 
-    </div>
+<button onclick="press('e')">e</button>
+<button onclick="back()">⌫</button>
+<button onclick="calculate()" class="equal">=</button>
+<button onclick="clearAll()" class="clear">C</button>
 
-    <div class="history" id="history"></div>
+</div>
+
+<div class="history" id="history"></div>
 
 </div>
 
 <script>
-let scientific = false;
-let dark = true;
+
+let angleMode = "deg";
 
 function press(val){
     document.getElementById("input").value += val;
-    liveResult();
+    live();
+}
+
+function back(){
+    let v = document.getElementById("input").value;
+    document.getElementById("input").value = v.slice(0,-1);
+    live();
 }
 
 function clearAll(){
-    document.getElementById("input").value = "";
-    document.getElementById("result").innerText = "0";
+    document.getElementById("input").value="";
+    document.getElementById("result").innerText="0";
 }
 
-function backspace(){
-    let val = document.getElementById("input").value;
-    document.getElementById("input").value = val.slice(0, -1);
-    liveResult();
+function toggleAngle(){
+    angleMode = angleMode === "deg" ? "rad" : "deg";
+    document.getElementById("mode").innerText = angleMode.toUpperCase();
+}
+
+function parseExpr(expr){
+    if(angleMode === "deg"){
+        return expr
+        .replace(/sin\(/g,'sin((pi/180)*')
+        .replace(/cos\(/g,'cos((pi/180)*')
+        .replace(/tan\(/g,'tan((pi/180)*');
+    }
+    return expr;
+}
+
+function live(){
+    let input = document.getElementById("input").value;
+    try{
+        let res = math.evaluate(parseExpr(input));
+        document.getElementById("result").innerText = res;
+    }catch{
+        document.getElementById("result").innerText = "";
+    }
 }
 
 function calculate(){
     let input = document.getElementById("input").value;
     try{
-        let res = Function("return " + input)();
+        let res = math.evaluate(parseExpr(input));
         document.getElementById("result").innerText = res;
 
         document.getElementById("history").innerHTML += 
         `<div>${input} = ${res}</div>`;
-    } catch {
+    }catch{
         document.getElementById("result").innerText = "Error";
     }
 }
 
-function liveResult(){
-    let input = document.getElementById("input").value;
-    try{
-        let res = Function("return " + input)();
-        document.getElementById("result").innerText = res;
-    } catch {
-        document.getElementById("result").innerText = "";
-    }
-}
+// keyboard support
+document.addEventListener("keydown", function(e){
+    if(e.key==="Enter") calculate();
+    else if(e.key==="Backspace") back();
+    else if("0123456789+-*/().".includes(e.key)) press(e.key);
+});
 
-function toggleMode(){
-    scientific = !scientific;
-    alert("Scientific mode: " + (scientific ? "ON (upgrade coming next version)" : "OFF"));
-}
-
-function toggleTheme(){
-    dark = !dark;
-    document.body.style.background = dark ? "#0f172a" : "#e5e7eb";
-    document.body.style.color = dark ? "white" : "black";
-}
 </script>
 
 </body>
