@@ -1,140 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduGenius Pro | The Ultimate Educator</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.0/math.all.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        :root { --bg: #0b0e14; --panel: rgba(255,255,255,0.05); --accent: #00d4ff; --text: #ffffff; }
-        body { margin: 0; background: var(--bg); font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; color: var(--text); overflow: hidden; }
-        
-        /* Layout */
-        .app-container { display: flex; width: 100%; max-width: 1200px; margin: auto; height: 90vh; gap: 20px; padding: 20px; }
-        .calc-side { flex: 1; background: var(--panel); backdrop-filter: blur(20px); border-radius: 30px; padding: 25px; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.1); }
-        .graph-side { flex: 1.5; background: var(--panel); border-radius: 30px; padding: 20px; display: flex; flex-direction: column; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduGenius Pro | Ultimate Upgrade</title>
 
-        /* Display */
-        #display { width: 100%; background: transparent; border: none; color: var(--accent); font-size: 32px; text-align: right; outline: none; margin-bottom: 5px; }
-        #preview { height: 25px; text-align: right; color: rgba(255,255,255,0.5); font-size: 18px; margin-bottom: 20px; }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.0/math.all.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        /* Buttons */
-        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; flex-grow: 1; }
-        button { border: none; border-radius: 15px; font-size: 18px; cursor: pointer; transition: 0.2s; color: white; background: rgba(255,255,255,0.1); }
-        button:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
-        .op { background: #3d4451; color: var(--accent); }
-        .eq { background: var(--accent); color: #000; font-weight: bold; }
-        .sci { background: rgba(0, 212, 255, 0.1); font-size: 14px; }
-        
-        canvas { background: rgba(255,255,255,0.02); border-radius: 20px; }
-    </style>
+<style>
+:root{
+    --bg:#070a12;
+    --panel:rgba(255,255,255,0.06);
+    --accent:#00d4ff;
+    --accent2:#ff4df0;
+    --text:#fff;
+}
+
+body{
+    margin:0;
+    font-family:Segoe UI;
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    height:100vh;
+    overflow:hidden;
+}
+
+.app{
+    display:flex;
+    width:100%;
+    max-width:1300px;
+    margin:auto;
+    gap:15px;
+    padding:15px;
+}
+
+/* LEFT */
+.calc{
+    flex:1;
+    background:var(--panel);
+    border-radius:25px;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    backdrop-filter:blur(15px);
+}
+
+#display{
+    font-size:30px;
+    background:transparent;
+    border:none;
+    color:var(--accent);
+    text-align:right;
+    outline:none;
+}
+
+#preview{
+    text-align:right;
+    opacity:0.6;
+    margin-bottom:10px;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+    flex:1;
+}
+
+button{
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    color:white;
+    background:rgba(255,255,255,0.1);
+    transition:0.2s;
+}
+button:hover{
+    transform:translateY(-2px);
+    background:rgba(255,255,255,0.2);
+}
+
+.op{color:var(--accent)}
+.eq{background:var(--accent); color:#000; font-weight:bold;}
+.sci{color:var(--accent2)}
+
+/* RIGHT */
+.right{
+    flex:1.3;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.panel{
+    background:var(--panel);
+    border-radius:25px;
+    padding:15px;
+    backdrop-filter:blur(15px);
+}
+
+canvas{
+    width:100%;
+    height:300px;
+}
+
+/* HISTORY */
+#history{
+    font-size:13px;
+    max-height:120px;
+    overflow:auto;
+    opacity:0.8;
+}
+</style>
 </head>
+
 <body>
 
-<div class="app-container">
-    <div class="calc-side">
-        <div style="font-weight: bold; margin-bottom: 20px;">EduGenius Pro <span style="color:var(--accent)">Smarter Math</span></div>
-        <input id="display" placeholder="Enter expression..." autofocus>
-        <div id="preview"></div>
+<div class="app">
 
-        <div class="grid">
-            <button class="op" onclick="clearAll()">AC</button>
-            <button class="op" onclick="del()">DEL</button>
-            <button class="op" onclick="add(' to ')">UNIT</button>
-            <button class="op" onclick="add('/')">÷</button>
+<!-- CALCULATOR -->
+<div class="calc">
+<h3>EduGenius Pro <span style="color:var(--accent)">UPGRADED</span></h3>
 
-            <button onclick="add('7')">7</button><button onclick="add('8')">8</button><button onclick="add('9')">9</button>
-            <button class="op" onclick="add('*')">×</button>
+<input id="display" placeholder="Enter expression...">
+<div id="preview"></div>
 
-            <button onclick="add('4')">4</button><button onclick="add('5')">5</button><button onclick="add('6')">6</button>
-            <button class="op" onclick="add('-')">−</button>
+<div class="grid">
 
-            <button onclick="add('1')">1</button><button onclick="add('2')">2</button><button onclick="add('3')">3</button>
-            <button class="op" onclick="add('+')">+</button>
+<button onclick="clearAll()" class="op">AC</button>
+<button onclick="del()" class="op">DEL</button>
+<button onclick="addAns()" class="op">ANS</button>
+<button onclick="add('/')">÷</button>
 
-            <button onclick="add('0')">0</button><button onclick="add('.')">.</button>
-            <button class="sci" onclick="add('f(x)=')">f(x)</button>
-            <button class="eq" onclick="calculate()">=</button>
+<button onclick="add('7')">7</button>
+<button onclick="add('8')">8</button>
+<button onclick="add('9')">9</button>
+<button onclick="add('*')">×</button>
 
-            <button class="sci" onclick="add('sin(')">sin</button>
-            <button class="sci" onclick="add('sqrt(')">√</button>
-            <button class="sci" onclick="add('det(')">DET</button>
-            <button class="sci" onclick="drawGraph()">PLOT</button>
-        </div>
-    </div>
+<button onclick="add('4')">4</button>
+<button onclick="add('5')">5</button>
+<button onclick="add('6')">6</button>
+<button onclick="add('-')">−</button>
 
-    <div class="graph-side">
-        <div style="margin-bottom:10px;">Function Visualizer</div>
-        <canvas id="graphCanvas"></canvas>
-    </div>
+<button onclick="add('1')">1</button>
+<button onclick="add('2')">2</button>
+<button onclick="add('3')">3</button>
+<button onclick="add('+')">+</button>
+
+<button onclick="add('0')">0</button>
+<button onclick="add('.')">.</button>
+<button onclick="add('sin(')" class="sci">sin</button>
+<button onclick="calculate()" class="eq">=</button>
+
+<button onclick="add('sqrt(')" class="sci">√</button>
+<button onclick="add('x^2')" class="sci">x²</button>
+<button onclick="add('f(x)=')" class="sci">f(x)</button>
+<button onclick="drawGraph()" class="sci">GRAPH</button>
+
+</div>
+</div>
+
+<!-- RIGHT SIDE -->
+<div class="right">
+
+<div class="panel">
+<h4>Graph</h4>
+<canvas id="graph"></canvas>
+</div>
+
+<div class="panel">
+<h4>History</h4>
+<button onclick="clearHistory()" class="op">Clear History</button>
+<div id="history"></div>
+</div>
+
+</div>
+
 </div>
 
 <script>
-    let expr = "";
-    const display = document.getElementById('display');
-    const preview = document.getElementById('preview');
-    const ctx = document.getElementById('graphCanvas').getContext('2d');
-    let chart;
 
-    function add(val) {
-        expr += val;
-        display.value = expr;
-        try {
-            // Live Preview Logic
-            if(expr.length > 0 && !expr.includes('f(x)')) {
-                const res = math.evaluate(expr);
-                preview.innerText = "= " + math.format(res, { precision: 10 });
-            }
-        } catch(e) {}
-    }
+let expr="";
+let ans=0;
+let history=[];
+let chart;
 
-    function clearAll() { expr = ""; display.value = ""; preview.innerText = ""; }
-    function del() { expr = expr.slice(0, -1); display.value = expr; }
+const display=document.getElementById("display");
+const preview=document.getElementById("preview");
+const hist=document.getElementById("history");
 
-    function calculate() {
-        try {
-            const result = math.evaluate(expr);
-            // Format for textbook display
-            const formatted = math.format(result, { precision: 14 });
-            preview.innerText = expr + " =";
-            expr = formatted.toString();
-            display.value = expr;
-        } catch (err) {
-            display.value = "Error";
-            setTimeout(clearAll, 1500);
+function add(v){
+    expr+=v;
+    display.value=expr;
+    livePreview();
+}
+
+function addAns(){
+    expr+=ans;
+    display.value=expr;
+}
+
+function del(){
+    expr=expr.slice(0,-1);
+    display.value=expr;
+    livePreview();
+}
+
+function clearAll(){
+    expr="";
+    display.value="";
+    preview.innerText="";
+}
+
+function livePreview(){
+    try{
+        if(expr && !expr.includes("f(x)")){
+            let r=math.evaluate(expr);
+            preview.innerText="= "+math.format(r,{precision:8});
         }
-    }
+    }catch(e){}
+}
 
-    // Best-in-world Feature: Live Graphing
-    function drawGraph() {
-        try {
-            let funcStr = expr;
-            if(expr.startsWith('f(x)=')) funcStr = expr.split('=')[1];
-            
-            const node = math.parse(funcStr);
-            const compiled = node.compile();
-            
-            const xValues = math.range(-10, 10, 0.5).toArray();
-            const yValues = xValues.map(x => compiled.evaluate({x: x}));
+function calculate(){
+    try{
+        let result=math.evaluate(expr);
+        ans=result;
 
-            if(chart) chart.destroy();
-            chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: xValues,
-                    datasets: [{
-                        label: 'f(x)',
-                        data: yValues,
-                        borderColor: '#00d4ff',
-                        tension: 0.4,
-                        fill: false
-                    }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, scales: { x: { grid: { color: '#333' } }, y: { grid: { color: '#333' } } } }
-            });
-        } catch(e) { alert("Type a function with 'x' first! (e.g. x^2)"); }
+        let line=expr+" = "+result;
+        history.push(line);
+        renderHistory();
+
+        preview.innerText=line;
+        expr=result.toString();
+        display.value=expr;
+    }catch(e){
+        display.value="Error";
+        setTimeout(clearAll,1200);
     }
+}
+
+function renderHistory(){
+    hist.innerHTML=history.slice(-10).map(h=>"• "+h).join("<br>");
+}
+
+function clearHistory(){
+    history=[];
+    renderHistory();
+}
+
+function drawGraph(){
+    try{
+        let f=expr.replace("f(x)=", "");
+
+        const node=math.parse(f);
+        const code=node.compile();
+
+        let xVals=math.range(-10,10,0.5).toArray();
+        let yVals=xVals.map(x=>code.evaluate({x}));
+
+        if(chart) chart.destroy();
+
+        chart=new Chart(document.getElementById("graph"),{
+            type:"line",
+            data:{
+                labels:xVals,
+                datasets:[{
+                    data:yVals,
+                    borderColor:"#00d4ff",
+                    tension:0.3
+                }]
+            },
+            options:{
+                responsive:true,
+                maintainAspectRatio:false
+            }
+        });
+
+    }catch(e){
+        alert("Enter function like x^2 or sin(x)");
+    }
+}
+
 </script>
+
 </body>
 </html>
