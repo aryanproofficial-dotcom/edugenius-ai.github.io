@@ -162,15 +162,17 @@ button:hover{
 
 <script>
 
+// ================= SETTINGS =================
 let angleMode = "deg";
 
-// custom math functions
+// ================= CUSTOM FUNCTIONS =================
 math.import({
-    ln: x => math.log(x),
-    log10: x => math.log10(x)
-});
+    ln: x => math.log(x),         // natural log
+    log: x => math.log10(x),      // base 10 log
+    fact: x => math.factorial(x)  // factorial
+}, { override: true });
 
-// input
+// ================= INPUT =================
 function press(v){
     input.value += v;
     live();
@@ -186,23 +188,35 @@ function clearAll(){
     result.innerText="0";
 }
 
-// angle toggle
+// ================= ANGLE MODE =================
 function toggleAngle(){
     angleMode = angleMode === "deg" ? "rad" : "deg";
     document.getElementById("mode").innerText = angleMode.toUpperCase();
 }
 
-// smart parser (STRONG VERSION)
+// ================= SMART PARSER =================
 function parseExpr(expr){
 
-    // implicit multiplication fixes
+    expr = expr.replace(/\s+/g,'');
+
+    // implicit multiplication
     expr = expr
     .replace(/(\d)([a-zA-Z])/g,'$1*$2')
     .replace(/(\d)\(/g,'$1*(')
     .replace(/\)(\d)/g,')*$1')
-    .replace(/\)([a-zA-Z])/g,')*$1');
+    .replace(/\)([a-zA-Z])/g,')*$1')
+    .replace(/pi(\d)/g,'pi*$1');
 
-    // DEG conversion
+    // factorial support
+    expr = expr.replace(/(\d+)!/g,'fact($1)');
+
+    // auto function brackets
+    expr = expr
+    .replace(/sin(\d+)/g,'sin($1)')
+    .replace(/cos(\d+)/g,'cos($1)')
+    .replace(/tan(\d+)/g,'tan($1)');
+
+    // DEG mode
     if(angleMode==="deg"){
         expr = expr
         .replace(/sin\(/g,'sin((pi/180)*')
@@ -213,7 +227,7 @@ function parseExpr(expr){
     return expr;
 }
 
-// clean result
+// ================= CLEAN RESULT =================
 function clean(r){
     if(typeof r==="number"){
         if(!isFinite(r)) return "Math Error";
@@ -222,7 +236,7 @@ function clean(r){
     return r;
 }
 
-// live
+// ================= LIVE =================
 function live(){
     try{
         let exp = parseExpr(input.value || "0");
@@ -233,7 +247,7 @@ function live(){
     }
 }
 
-// calculate
+// ================= CALCULATE =================
 function calculate(){
     try{
         let exp = input.value;
@@ -247,7 +261,7 @@ function calculate(){
     }
 }
 
-// keyboard
+// ================= KEYBOARD =================
 document.addEventListener("keydown", e=>{
     if(e.key==="Enter") calculate();
     else if(e.key==="Backspace") back();
@@ -257,4 +271,4 @@ document.addEventListener("keydown", e=>{
 </script>
 
 </body>
-    </html>
+</html>
