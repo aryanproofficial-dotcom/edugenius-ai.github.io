@@ -1,99 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>EduGenius Futuristic Calculator</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduGenius Pro Calculator</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.0/math.min.js"></script>
 
 <style>
 body{
     margin:0;
-    font-family:Arial;
-    background: radial-gradient(circle at top, #0f172a, #000);
-    color:white;
+    font-family: system-ui;
+    background:#0b0f17;
     display:flex;
     justify-content:center;
     align-items:center;
     height:100vh;
+    color:#e5e7eb;
 }
 
 .calculator{
-    width:380px;
-    background:rgba(255,255,255,0.05);
-    backdrop-filter: blur(12px);
-    border-radius:20px;
-    padding:15px;
-    box-shadow:0 0 30px rgba(0,255,255,0.2);
-}
-
-.screen{
-    background:rgba(0,0,0,0.4);
-    padding:12px;
-    border-radius:12px;
-    margin-bottom:10px;
-}
-
-#input{
-    width:100%;
-    font-size:20px;
-    background:transparent;
-    border:none;
-    color:white;
-    outline:none;
-}
-
-#result{
-    text-align:right;
-    opacity:0.7;
-    margin-top:5px;
-}
-
-.buttons{
-    display:grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap:8px;
-}
-
-button{
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:rgba(255,255,255,0.08);
-    color:white;
-    cursor:pointer;
-    transition:0.2s;
-}
-
-button:hover{
-    background:rgba(0,255,255,0.2);
-    transform:scale(1.05);
-}
-
-.equal{
-    background:#00d4ff;
-    color:black;
-    font-weight:bold;
-}
-
-.clear{
-    background:#ff4d4d;
+    width:360px;
+    background:#111827;
+    border-radius:16px;
+    padding:16px;
+    border:1px solid #1f2937;
 }
 
 .topbar{
     display:flex;
     justify-content:space-between;
-    margin-bottom:10px;
     font-size:12px;
+    margin-bottom:10px;
+    align-items:center;
+}
+
+.mode{
+    opacity:0.7;
+}
+
+button{
+    background:#0f172a;
+    border:1px solid #1f2937;
+    color:#e5e7eb;
+    padding:12px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+button:hover{
+    border-color:#374151;
+}
+
+.screen{
+    background:#0b1220;
+    padding:12px;
+    border-radius:12px;
+    margin-bottom:12px;
+}
+
+#input{
+    width:100%;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:white;
+    font-size:20px;
+}
+
+#result{
+    text-align:right;
+    margin-top:6px;
+    font-size:14px;
+    opacity:0.7;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+}
+
+.equal{
+    background:#1f2937;
+}
+
+.clear{
+    background:#7f1d1d;
 }
 
 .history{
     margin-top:10px;
+    font-size:12px;
     max-height:80px;
     overflow:auto;
-    font-size:12px;
-    opacity:0.8;
+    opacity:0.7;
 }
 </style>
 </head>
@@ -103,16 +104,20 @@ button:hover{
 <div class="calculator">
 
 <div class="topbar">
-    <button onclick="toggleAngle()">Angle: <span id="mode">DEG</span></button>
-    <button onclick="clearAll()">Clear</button>
+    <div>EduGenius Pro</div>
+    <div class="mode">Mode: <span id="mode">DEG</span></div>
+    <div>
+        <button onclick="toggleAngle()">↻</button>
+        <button onclick="clearAll()">C</button>
+    </div>
 </div>
 
 <div class="screen">
-    <input id="input" oninput="live()" placeholder="0"/>
+    <input id="input" oninput="live()" placeholder="Enter expression">
     <div id="result">0</div>
 </div>
 
-<div class="buttons">
+<div class="grid">
 
 <button onclick="press('sin(')">sin</button>
 <button onclick="press('cos(')">cos</button>
@@ -147,7 +152,7 @@ button:hover{
 <button onclick="press('e')">e</button>
 <button onclick="back()">⌫</button>
 <button onclick="calculate()" class="equal">=</button>
-<button onclick="clearAll()" class="clear">C</button>
+<button onclick="clearAll()" class="clear">AC</button>
 
 </div>
 
@@ -159,62 +164,91 @@ button:hover{
 
 let angleMode = "deg";
 
-function press(val){
-    document.getElementById("input").value += val;
+// custom math functions
+math.import({
+    ln: x => math.log(x),
+    log10: x => math.log10(x)
+});
+
+// input
+function press(v){
+    input.value += v;
     live();
 }
 
 function back(){
-    let v = document.getElementById("input").value;
-    document.getElementById("input").value = v.slice(0,-1);
+    input.value = input.value.slice(0,-1);
     live();
 }
 
 function clearAll(){
-    document.getElementById("input").value="";
-    document.getElementById("result").innerText="0";
+    input.value="";
+    result.innerText="0";
 }
 
+// angle toggle
 function toggleAngle(){
     angleMode = angleMode === "deg" ? "rad" : "deg";
     document.getElementById("mode").innerText = angleMode.toUpperCase();
 }
 
+// smart parser (STRONG VERSION)
 function parseExpr(expr){
-    if(angleMode === "deg"){
-        return expr
+
+    // implicit multiplication fixes
+    expr = expr
+    .replace(/(\d)([a-zA-Z])/g,'$1*$2')
+    .replace(/(\d)\(/g,'$1*(')
+    .replace(/\)(\d)/g,')*$1')
+    .replace(/\)([a-zA-Z])/g,')*$1');
+
+    // DEG conversion
+    if(angleMode==="deg"){
+        expr = expr
         .replace(/sin\(/g,'sin((pi/180)*')
         .replace(/cos\(/g,'cos((pi/180)*')
         .replace(/tan\(/g,'tan((pi/180)*');
     }
+
     return expr;
 }
 
+// clean result
+function clean(r){
+    if(typeof r==="number"){
+        if(!isFinite(r)) return "Math Error";
+        return parseFloat(r.toFixed(10));
+    }
+    return r;
+}
+
+// live
 function live(){
-    let input = document.getElementById("input").value;
     try{
-        let res = math.evaluate(parseExpr(input));
-        document.getElementById("result").innerText = res;
+        let exp = parseExpr(input.value || "0");
+        let r = math.evaluate(exp);
+        result.innerText = clean(r);
     }catch{
-        document.getElementById("result").innerText = "";
+        result.innerText="";
     }
 }
 
+// calculate
 function calculate(){
-    let input = document.getElementById("input").value;
     try{
-        let res = math.evaluate(parseExpr(input));
-        document.getElementById("result").innerText = res;
+        let exp = input.value;
+        let parsed = parseExpr(exp);
+        let r = clean(math.evaluate(parsed));
 
-        document.getElementById("history").innerHTML += 
-        `<div>${input} = ${res}</div>`;
+        result.innerText = r;
+        history.innerHTML += `<div>${exp} = ${r}</div>`;
     }catch{
-        document.getElementById("result").innerText = "Error";
+        result.innerText="Error";
     }
 }
 
-// keyboard support
-document.addEventListener("keydown", function(e){
+// keyboard
+document.addEventListener("keydown", e=>{
     if(e.key==="Enter") calculate();
     else if(e.key==="Backspace") back();
     else if("0123456789+-*/().".includes(e.key)) press(e.key);
@@ -223,4 +257,4 @@ document.addEventListener("keydown", function(e){
 </script>
 
 </body>
-</html>
+    </html>
