@@ -281,12 +281,89 @@ section {
 
 /* MOBILE */
 @media (max-width: 768px) {
-  nav { padding: 12px 15px; }
-  .hero h1 { font-size: 2rem; }
-  .feature-box, .testimonial { width: 90%; }
+
+  nav {
+    padding: 12px 15px;
+  }
+
+  nav h2 {
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  .nav-left img {
+    width: 30px;
+    margin-right: 8px;
+  }
+
+  nav a {
+    margin-left: 10px;
+    font-size: 0.9rem;
+  }
+
+  .hero {
+    padding: 120px 20px 60px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    line-height: 1.2;
+  }
+
+  .hero p {
+    font-size: 1rem;
+    margin: 12px 0 25px;
+  }
+
+  .btn {
+    padding: 12px 22px;
+    font-size: 0.95rem;
+  }
+
+  .feature-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-box {
+    width: 90%;
+    max-width: 340px;
+  }
+
+  .stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .stat-box {
+    margin: 10px 0;
+  }
+
+  .testimonial {
+    width: 90%;
+    max-width: 340px;
+  }
+
+  .cta-box {
+    width: 95%;
+    padding: 35px 20px;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-col {
+    margin: 15px 0;
+  }
+
   .footer-bottom {
     flex-direction: column;
     text-align: center;
+    gap: 8px;
   }
 }
 </style>
