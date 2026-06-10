@@ -329,6 +329,7 @@ section {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+    margin-top: 30px;
   }
 
   .feature-box {
@@ -359,12 +360,18 @@ section {
     font-size: 2rem;
   }
 
-  .testimonial {
-    width: 45%;
-    min-width: 140px;
-    margin: 8px;
-    padding: 15px;
-  }
+  .testimonial-wrapper{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
+
+.testimonial{
+  width:48%;
+  min-width:0;
+  margin:0;
+  padding:18px 12px;
+}
 
   .testimonial p {
     font-size: 0.8rem;
@@ -447,9 +454,21 @@ section {
 
 <!-- TESTIMONIAL -->
 <section>
-  <h2>What Students Say</h2>
-  <div class="testimonial"><p>"Amazing for studies!"</p><h4>- Student</h4></div>
-  <div class="testimonial"><p>"Best AI learning tool"</p><h4>- Teacher</h4></div>
+  <h2>What They Say</h2>
+
+  <div class="testimonial-wrapper">
+
+    <div class="testimonial">
+      <p>"Amazing for studies!"</p>
+      <h4>- Student</h4>
+    </div>
+
+    <div class="testimonial">
+      <p>"Best AI learning tool"</p>
+      <h4>- Teacher</h4>
+    </div>
+
+  </div>
 </section>
 
 <!-- CTA -->
