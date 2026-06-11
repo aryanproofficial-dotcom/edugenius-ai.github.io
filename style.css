@@ -195,9 +195,10 @@ footer {
 
 .profile-container input,
 .profile-container select {
-  width: 100%;
+  width: calc(100% - 24px);
+  display:block;
+  margin:5px auto 0 auto;
   padding: 10px;
-  margin-top: 5px;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
@@ -312,6 +313,10 @@ footer {
   transition:.3s;
 }
 
+.grid .card{
+  cursor:pointer;
+}
+
 .grid .card:hover{
   transform:translateY(-5px);
 }
@@ -353,6 +358,12 @@ footer {
 .actions{
   display:flex;
   gap:10px;
+  flex-wrap:wrap;
+}
+
+.actions div{
+  flex:1;
+  min-width:100px;
 }
 
 .actions div{
