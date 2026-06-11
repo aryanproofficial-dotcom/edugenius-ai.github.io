@@ -499,9 +499,3 @@ footer {
   z-index: 9999;              /* ensure it's above everything */
 }
 
-.popup {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
-  }
