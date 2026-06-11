@@ -116,7 +116,7 @@ footer {
 /* ===== SIGNUP CARD ===== */
 .card {
   background: #fff;
-  padding: 25px;
+  padding: 30px;
   border-radius: 16px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.1);
   text-align: center;
@@ -134,16 +134,19 @@ footer {
 }
 
 .card input {
-  width: 100%;
+  width: calc(100% - 24px);
   padding: 12px;
-  margin-bottom: 14px;
+  margin: 0 auto 14px auto;
+  display: block;
   border-radius: 10px;
   border: 1px solid #ddd;
 }
 
 .card button {
-  width: 100%;
+  width: calc(100% - 24px);
   padding: 12px;
+  margin: 0 auto;
+  display: block;
   border-radius: 12px;
   background: #6a1b9a;
   color: white;
