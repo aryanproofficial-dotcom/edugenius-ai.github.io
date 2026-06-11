@@ -235,8 +235,10 @@ footer {
   background:rgba(255,255,255,0.05);
   backdrop-filter:blur(15px);
   border-bottom:1px solid rgba(0,242,255,0.2);
-  position:sticky;
+  position:fixed;
   top:0;
+  left:0;
+  width:100%;
   z-index:100;
 }
 
@@ -248,6 +250,14 @@ footer {
   font-size:1.2rem;
   font-weight:700;
   color:#00f2ff;
+  display:flex;
+  align-items:center;
+}
+
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
 .header-right{
@@ -268,7 +278,7 @@ footer {
 /* WELCOME */
 
 .welcome{
-  padding:25px 20px 10px;
+  padding:90px 20px 10px;
 }
 
 .welcome h2{
