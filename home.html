@@ -10,12 +10,13 @@
 <body class="home-body">
 
   <!-- Pop-up -->
-    <div class="popup">
-      <h2>Welcome to EduGenius AI!</h2>
-      <p>Smart Learning, Smarter Future</p>
-      <button onclick="closePopup()">Start</button>
-    </div>
+    <div class="popup-overlay" id="popup">
+  <div class="popup">
+    <h2>Welcome to EduGenius AI!</h2>
+    <p>Smart Learning, Smarter Future</p>
+    <button onclick="closePopup()">Start</button>
   </div>
+    </div>
 
   <!-- HEADER -->
   <div class="header">
@@ -126,6 +127,14 @@
 
             const data = doc.data();
 
+            if (sessionStorage.getItem("showWelcome") === "true") {
+
+  showPopup();
+
+  sessionStorage.removeItem("showWelcome");
+
+            }
+            
             document.getElementById('welcomeUser')
               .innerText = `Welcome back, ${data.name} 👋`;
 
@@ -163,8 +172,7 @@
               <p>Questions: ${questions}</p>
               <p>Accuracy: ${accuracy}%</p>
             `;
-
-            showPopup();
+            
           });
 
       } else {
@@ -177,7 +185,7 @@
       const popup = document.getElementById('popup');
       popup.style.display = 'flex';
 
-      // Auto close after 3 seconds
+      // Auto close after 5 seconds
       setTimeout(() => {
         popup.style.display = 'none';
       }, 3000);
